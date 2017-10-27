@@ -1,0 +1,23 @@
+package com.zuma.enums;
+
+import lombok.Getter;
+
+/**
+ * author:ZhengXing
+ * datetime:2017/10/17 0017 09:59
+ * 用户-平台关系表状态枚举
+ */
+@Getter
+public enum UserPlatformRelationStatusEnum  implements CodeEnum<Integer>{
+
+    VALID(1,"有效"),
+    INVALID(0,"无效");
+
+    private Integer code;
+    private String message;
+
+    UserPlatformRelationStatusEnum(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+}

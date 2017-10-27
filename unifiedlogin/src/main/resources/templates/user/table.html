@@ -1,0 +1,110 @@
+<div class="am-u-sm-12">
+    <form class="am-form">
+        <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+            <tr>
+                <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                <th class="table-id">ID</th>
+                <th class="table-title">用户名</th>
+                <th class="table-type">密码</th>
+                <th class="table-date am-hide-sm-only">是否启用</th>
+                <th class="table-set">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#list page.list as user>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>${user.id?c}</td>
+                    <td><a href="#">${user.username}</a></td>
+                    <td>${user.password}</td>
+                    <td class="am-hide-sm-only">
+                        <#if user.status == 1>
+                            <span class="am-icon-check"></span>
+                            <#else/>
+                            <span class="am-icon-remove"></span>
+                        </#if>
+                    </td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button onclick="userList.openRootPlatformListModal(${user.id?c});" type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                    <span class="am-icon-server"></span>
+                                    平台详情
+                                </button>
+                                <button onclick="userList.openAddRootModal(${user.id?c});" type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                    <span class="am-icon-server"></span>
+                                    新增授权
+                                </button>
+                                <button onclick="userList.openModifyPwdModal(${user.id?c});" type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                    <span class="am-icon-pencil-square-o"></span>
+                                    修改密码
+                                </button>
+
+                                <#if user.status == 1>
+                                    <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                            onclick="userList.modifyStatus(${user.id?c},0);">
+                                        <span class="am-icon-pencil-square-o"></span>
+                                        停用账号
+                                    </button>
+                                    <#else/>
+                                    <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                            onclick="userList.modifyStatus(${user.id?c},1);">
+                                        <span class="am-icon-pencil-square-o"></span>
+                                        启用账号
+                                    </button>
+                                </#if>
+
+                                <button type="button" class="am-btn am-btn-default am-btn-xs am-hide-sm-only"
+                                        onclick="userList.addAllRoot(${user.id?c});">
+                                    <span class="am-icon-home">授权所有</span></button>
+                                <button type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"
+                                        onclick="userList.cancelAllRoot(${user.id?c});">
+                                    <span class="am-icon-trash-o"></span>取消所有
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </#list>
+
+
+            </tbody>
+        </table>
+        <!--分页-->
+        <div class="am-cf">
+
+            <div class="am-fr">
+                <ul class="am-pagination tpl-pagination">
+                    <#if page.pageNo == 1>
+                        <li class="am-disabled">
+                            <#else/>
+                        <li>
+                    </#if>
+                    <a href="javascript:userList.page(1)">«</a></li>
+                    <#list 1..page.totalPage as listPage>
+                        <#if page.pageNo == listPage>
+                            <li class="am-active am-disabled">
+                                <#else/>
+                            <li>
+                        </#if>
+                        <a href="javascript:userList.page(${listPage})">${listPage}</a></li>
+                    </#list>
+                    <#if page.pageNo == page.totalPage>
+                        <li class="am-disabled">
+                            <#else/>
+                        <li>
+                    </#if>
+                    <a href="javascript:userList.page(${page.totalPage})">»</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+    </form>
+</div>

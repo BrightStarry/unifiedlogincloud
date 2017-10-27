@@ -1,0 +1,16 @@
+server:
+  port: 1113
+eureka:
+  instance:
+    hostname: server3
+  client:
+    service-url:
+      defaultZone: http://server1:1111/eureka,http://server2:1112/eureka
+  server:
+    enable-self-preservation: false
+management:
+  security:
+    enabled: false
+spring:
+  application:
+    name: service-center

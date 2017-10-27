@@ -1,0 +1,6 @@
+server:
+  port: 2222
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:1111/eureka/,http://server2:1112/eureka/,http://server3:1113/eureka/

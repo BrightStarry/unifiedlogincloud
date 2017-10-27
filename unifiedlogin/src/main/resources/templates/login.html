@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>统一登录系统-登录</title>
+    <meta name="description" content="统一登录系统-登录">
+    <#include "common/header.html"/>
+</head>
+
+<body data-type="login">
+
+<div class="am-g myapp-login">
+    <div class="myapp-login-logo-block  tpl-login-max">
+        <div class="myapp-login-logo-text">
+            <div class="myapp-login-logo-text">
+                统一登录系统<span> 登录</span> <i class="am-icon-skyatlas"></i>
+
+            </div>
+        </div>
+
+        <!--<div class="login-font">-->
+            <!--<i>Log In </i> or <span> Sign Up</span>-->
+        <!--</div>-->
+        <div class="am-u-sm-10 login-am-center">
+            <form class="am-form" id="">
+                <fieldset>
+                    <div class="am-form-group">
+                        <input type="text" class="" id="username" placeholder="账号">
+                    </div>
+                    <div class="am-form-group">
+                        <input type="password" class="" id="password" placeholder="密码">
+                    </div>
+
+                    <p>
+                        <button id="loginButton" type="button" class="am-btn am-btn-default">登录</button>
+                    </p>
+
+                </fieldset>
+            </form>
+        </div>
+            <div id="warnDiv" class="am-alert " data-am-alert hidden>
+                <p id="warnMessage"></p>
+            </div>
+    </div>
+</div>
+<#include "common/js.html"/>
+<script src="/js/custom/login.js"></script>
+<script type="text/javascript">
+    $(function () {
+        login.init();
+    })
+</script>
+</body>
+</html>

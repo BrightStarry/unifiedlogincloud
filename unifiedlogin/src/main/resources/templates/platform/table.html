@@ -1,0 +1,96 @@
+<div class="am-u-sm-12">
+    <form class="am-form">
+        <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+            <tr>
+                <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                <th class="table-id">ID</th>
+                <th class="table-title">平台名</th>
+                <th class="table-type">令牌</th>
+                <th class="table-date am-hide-sm-only">是否启用</th>
+                <th class="table-set">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#list page.list as platform>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>${platform.id?c}</td>
+                    <td><a href="#">${platform.name}</a></td>
+                    <td>${platform.token!}</td>
+                    <td class="am-hide-sm-only">
+                        <#if platform.status == 1>
+                            <span class="am-icon-check"></span>
+                            <#else/>
+                            <span class="am-icon-remove"></span>
+                        </#if>
+                    </td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button onclick="platformList.openRootUserListModal(${platform.id?c})" type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                    <span class="am-icon-server"></span>
+                                    用户详情
+                                </button>
+                                <button onclick="platformList.openModifyNameModal(${platform.id?c})" type="button"
+                                        class="am-btn am-btn-default am-btn-xs am-text-secondary">
+                                    <span class="am-icon-pencil-square-o"></span>
+                                    修改名字
+                                </button>
+                                <#if platform.status == 1>
+                                    <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                            onclick="platformList.modifyStatus(${platform.id?c},0);">
+                                        <span class="am-icon-pencil-square-o"></span>
+                                        停用平台
+                                    </button>
+                                    <#else/>
+                                    <button type="button" class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                            onclick="platformList.modifyStatus(${platform.id?c},1);">
+                                        <span class="am-icon-pencil-square-o"></span>
+                                        启用平台
+                                    </button>
+                                </#if>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            </#list>
+
+
+            </tbody>
+        </table>
+        <!--分页-->
+        <div class="am-cf">
+
+            <div class="am-fr">
+                <ul class="am-pagination tpl-pagination">
+                    <#if page.pageNo == 1>
+                        <li class="am-disabled">
+                            <#else/>
+                        <li>
+                    </#if>
+                    <a href="javascript:platformList.page(1)">«</a></li>
+                    <#list 1..page.totalPage as listPage>
+                        <#if page.pageNo == listPage>
+                            <li class="am-active am-disabled">
+                                <#else/>
+                            <li>
+                        </#if>
+                        <a href="javascript:platformList.page(${listPage})">${listPage}</a></li>
+                    </#list>
+                    <#if page.pageNo == page.totalPage>
+                        <li class="am-disabled">
+                            <#else/>
+                        <li>
+                    </#if>
+                    <a href="javascript:platformList.page(${page.totalPage})">»</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+    </form>
+</div>
