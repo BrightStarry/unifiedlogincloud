@@ -1,0 +1,28 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: log-producer
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 106.14.7.29:9092
+          auto-add-partitions: true
+          auto-create-topics: true
+          min-partition-count: 1
+          zk-nodes: 106.14.7.29:2181
+      instance-count: 1
+      instance-index: 0
+      bindings:
+        testa:
+          destination: zuma
+          group: groupa
+          consumer:
+            concurrency: 1
+            partitioned: false
+        sourcea:
+          destination: zuma
+          producer:
+            partitionCount: 1
+

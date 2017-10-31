@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/consumer/consumer.iml" filepath="$PROJECT_DIR$/consumer/consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/log-producer/log-producer.iml" filepath="$PROJECT_DIR$/log-producer/log-producer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/log-storage/log-storage.iml" filepath="$PROJECT_DIR$/log-storage/log-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/logstoragenetty/logstoragenetty.iml" filepath="$PROJECT_DIR$/logstoragenetty/logstoragenetty.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-center/service-center.iml" filepath="$PROJECT_DIR$/service-center/service-center.iml" />
-      <module fileurl="file://$PROJECT_DIR$/unifiedlogin/unifiedlogin.iml" filepath="$PROJECT_DIR$/unifiedlogin/unifiedlogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unified-login/unified-login.iml" filepath="$PROJECT_DIR$/unified-login/unified-login.iml" />
     </modules>
   </component>
 </project>

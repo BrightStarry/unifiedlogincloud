@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Kotlin2JsCompilerArguments">
-    <option name="sourceMapPrefix" value="" />
-    <option name="sourceMapEmbedSources" value="inlining" />
-  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/service-center/pom.xml" />
         <option value="$PROJECT_DIR$/unifylogin/pom.xml" />
         <option value="$PROJECT_DIR$/unifiedlogin/pom.xml" />
-        <option value="$PROJECT_DIR$/consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/logstorage/pom.xml" />
+        <option value="$PROJECT_DIR$/logproducere/pom.xml" />
+        <option value="$PROJECT_DIR$/log-producer/pom.xml" />
+        <option value="$PROJECT_DIR$/log-storage/pom.xml" />
+        <option value="$PROJECT_DIR$/logstoragenetty/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ZooKeeperConfig">
+    <option name="host" value="106.14.7.29" />
+    <option name="port" value="2181" />
+    <option name="charset" value="UTF-8" />
+    <option name="whitePaths" value="" />
+    <option name="enabled" value="true" />
+    <option name="tooltip" value="true" />
   </component>
 </project>
