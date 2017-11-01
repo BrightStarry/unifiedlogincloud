@@ -38,6 +38,6 @@ public class Log2FileUtil {
                 .build();
         write(logMessage);
 
-        
+
     }
 }
