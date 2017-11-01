@@ -8,9 +8,10 @@
         <option value="$PROJECT_DIR$/unifiedlogin/pom.xml" />
         <option value="$PROJECT_DIR$/logstorage/pom.xml" />
         <option value="$PROJECT_DIR$/logproducere/pom.xml" />
-        <option value="$PROJECT_DIR$/log-producer/pom.xml" />
-        <option value="$PROJECT_DIR$/log-storage/pom.xml" />
+        <option value="$PROJECT_DIR$/log-client/pom.xml" />
         <option value="$PROJECT_DIR$/logstoragenetty/pom.xml" />
+        <option value="$PROJECT_DIR$/log-common/pom.xml" />
+        <option value="$PROJECT_DIR$/log-storage/pom.xml" />
       </list>
     </option>
   </component>

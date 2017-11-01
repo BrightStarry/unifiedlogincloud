@@ -1,28 +1,14 @@
+#自定义配置
+logServerConfig:
+  port: 8080
+  soBacklog: 128
+  soSndbuf: 32768
+  soRcvbuf: 32768
+  retryNum: 5
+  stopTime: 5000
+  readIdleTimeout: 20
 server:
-  port: 8889
-spring:
-  application:
-    name: log-consumer
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: zhengxing:9092
-          auto-add-partitions: true
-          auto-create-topics: true
-          min-partition-count: 1
-          zk-nodes: zhengxing:2181
-      instance-count: 1
-      instance-index: 0
-      bindings:
-        testa:
-          destination: zuma
-          group: groupa
-          consumer:
-            concurrency: 1
-            partitioned: false
-        sourcea:
-          destination: zuma
-          producer:
-            partitionCount: 1
+  port: 80
+
+
 

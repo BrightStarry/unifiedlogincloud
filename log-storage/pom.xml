@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zuma</groupId>
-	<artifactId>logstorage</artifactId>
+	<artifactId>log-storage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>LogStorage</name>
-	<description>日志存储系统</description>
+	<name>LogStorageNetty</name>
+	<description>日志存储系统-基于Netty</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -18,17 +18,22 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
-		<spring-cloud.version>Dalston.SR4</spring-cloud.version>
+		<netty.version>5.0.0.Alpha2</netty.version>
+		<gson.version>2.8.2</gson.version>
+		<spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
+		<commons-io.version>2.6</commons-io.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
 		<dependency>
@@ -37,12 +42,18 @@
 			<scope>test</scope>
 		</dependency>
 
+
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<groupId>com.zuma</groupId>
+			<artifactId>log-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
 
 	</dependencies>
 
