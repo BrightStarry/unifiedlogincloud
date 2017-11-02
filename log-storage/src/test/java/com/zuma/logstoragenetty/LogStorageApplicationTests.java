@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
@@ -26,25 +28,23 @@ public class LogStorageApplicationTests {
 		Kryo kryo = new Kryo();
 
 		LogMessage logMessage = LogMessage.builder()
-				.content("aaa")
+				.channel(9999)
+				.content("aaaa")
+				.date(new Date())
+				.moduleName("bbbb")
 				.build();
-
-
 		System.out.println(logMessage);
 
 		@Cleanup
-		ByteOutputStream byteOutputStream = new ByteOutputStream();
-		@Cleanup
-		Output output = new Output(byteOutputStream);
+		Output output = new Output(9999,99999);
 		kryo.writeObject(output, logMessage);
 		output.close();
-		byte[] buf = byteOutputStream.getBytes();
+		byte[] buf = output.toBytes();
 		System.out.println(buf.length);
 
-
-		ByteInputStream byteInputStream = new ByteInputStream(buf,buf.length);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
 		@Cleanup
-		Input input = new Input(byteInputStream);
+		Input input = new Input(inputStream);
 		LogMessage result = kryo.readObject(input, LogMessage.class);
 		System.out.println(result);
 	}
