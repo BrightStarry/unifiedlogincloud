@@ -23,7 +23,7 @@ public class LogMessage implements Serializable{
     //模块name
     private String moduleName ;
     //日志时间
-    private Date time;
+    private Date date;
     //日志内容
     private String content;
 

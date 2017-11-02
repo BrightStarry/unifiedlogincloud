@@ -1,6 +1,7 @@
 package com.zuma.handler;
 
 import com.zuma.dto.LogMessage;
+import com.zuma.executor.LogWriteExecutor;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
@@ -14,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ServerHandler extends ChannelHandlerAdapter{
+    private LogWriteExecutor logWriteExecutor = LogWriteExecutor.getInstance();
+
+
+
     /**
      * 读取到消息方法
      * @param ctx
@@ -22,7 +27,8 @@ public class ServerHandler extends ChannelHandlerAdapter{
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("server接收到{}消息:{}", ctx.channel().id() ,(LogMessage)msg);
+//        log.info("server接收到{}的消息:{}", ctx.channel().id() ,(LogMessage)msg);//TODO
+        logWriteExecutor.addLogToQueue((LogMessage)msg);
         //返回消息
         ctx.writeAndFlush(Unpooled.copiedBuffer("success".getBytes()));
     }

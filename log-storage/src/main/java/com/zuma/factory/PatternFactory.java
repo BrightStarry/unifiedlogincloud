@@ -22,6 +22,8 @@ public class PatternFactory {
     }
 
 
+
+    //单例模式
     private PatternFactory(){}
     //静态内部类
     private static class PatternFactoryBuilder{

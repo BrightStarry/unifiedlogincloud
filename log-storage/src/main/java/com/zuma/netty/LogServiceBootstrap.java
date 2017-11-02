@@ -16,6 +16,7 @@ import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executors;
@@ -38,7 +39,7 @@ public class LogServiceBootstrap {
      * @throws InterruptedException
      */
     public static void start() {
-        Executors.newSingleThreadExecutor().submit(new Runnable() {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -125,7 +126,7 @@ public class LogServiceBootstrap {
     private static void retryStart(){
         //重试机制,如果重试次数超过限制。暂停x秒后再重试
         try {
-            if(++LogServiceBootstrap.RETRY_NUM > LogServiceBootstrap.RETRY_NUM){
+            if(++LogServiceBootstrap.RETRY_NUM > LogServerConfig.RETRY_NUM){
                 LogServiceBootstrap.RETRY_NUM = 0;
                 Thread.sleep(LogServerConfig.STOP_TIME);
             }

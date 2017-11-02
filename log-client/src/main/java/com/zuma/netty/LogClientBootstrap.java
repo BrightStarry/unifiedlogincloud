@@ -39,13 +39,9 @@ public class LogClientBootstrap {
      * 异步启动
      */
     public static void start() {
-        Executors.newSingleThreadExecutor().submit(new Runnable() {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
             public void run() {
-                try {
                     LogClientBootstrap.start1();
-                } catch (InterruptedException e) {
-                    log.error("服务端线程启动失败。error={}",e.getMessage());
-                }
             }
         });
     }
@@ -54,7 +50,7 @@ public class LogClientBootstrap {
      * 启动
      * @throws Exception
      */
-    private static void start1() throws InterruptedException {
+    private static void start1() {
         try {
             //创建线程组
             workLoopGroup = new NioEventLoopGroup();
@@ -150,7 +146,7 @@ public class LogClientBootstrap {
         for (int i = 0; i < 10; i++) {
             LogSender.send(LogMessage.builder()
                     .content(i + "  17:19:39.663 [main] DEBUG io.netty.buffer.PooledByteBufAllocator - -Dio.netty.allocator.pageSize: 8192")
-                    .time(new Date())
+                    .date(new Date())
                     .build());
             Thread.sleep(5000);
         }

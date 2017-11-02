@@ -5,6 +5,7 @@ import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -13,13 +14,19 @@ import java.io.IOException;
  * 日志消息 转 文件 工具类
  */
 @Slf4j
-public class Log2FileUtil {
+public class LogWriteUtil {
 
-    public  static final String LINE_BREAK = System.getProperty("line.separator");
+    private  static final String LINE_BREAK = System.getProperty("line.separator");
 
     public static void write(LogMessage logMessage) {
         try {
-            FileUtils.writeStringToFile(LogPathUtil.generate(logMessage),
+            //生成File
+            File file = LogPathUtil.generate(logMessage);
+            //如果生成失败,直接退出
+            if (file == null)
+                return;
+            //生成成功，则进行io
+            FileUtils.writeStringToFile(file,
                     logMessage.getContent() + LINE_BREAK,
                     CharsetUtil.UTF_8,
                     true);

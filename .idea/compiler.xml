@@ -28,7 +28,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="consumer" target="1.8" />
-      <module name="log-client" target="1.8.0_152-release" />
+      <module name="log-client" target="1.7" />
       <module name="log-common" target="1.7" />
       <module name="log-parent" target="1.5" />
       <module name="log-producer" target="1.7" />

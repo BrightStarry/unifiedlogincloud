@@ -1,4 +1,3 @@
-#自定义配置
 logServerConfig:
   port: 8080
   soBacklog: 128
@@ -7,6 +6,8 @@ logServerConfig:
   retryNum: 5
   stopTime: 5000
   readIdleTimeout: 20
+  threadNum: 10
+  maxThreadNum: 20
 server:
   port: 80
 
