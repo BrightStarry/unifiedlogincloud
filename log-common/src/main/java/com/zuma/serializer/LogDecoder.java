@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * author:Administrator
  * datetime:2017/10/31 0031 10:41
- * 日志消息解码器
+ * 日志消息解码器   byte[] --> LogMessage
  */
 public class LogDecoder extends MessageToMessageDecoder<ByteBuf>{
 

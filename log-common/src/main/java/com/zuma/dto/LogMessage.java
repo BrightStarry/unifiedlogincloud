@@ -1,7 +1,9 @@
 package com.zuma.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +17,9 @@ import java.util.Date;
  */
 @Data
 @Builder
-public class LogMessage implements Serializable{
+@NoArgsConstructor
+@AllArgsConstructor
+public class LogMessage{
     //服务id
     private Integer serviceId;
     //通道
@@ -26,5 +30,6 @@ public class LogMessage implements Serializable{
     private Date date;
     //日志内容
     private String content;
+
 
 }

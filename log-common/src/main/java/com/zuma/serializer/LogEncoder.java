@@ -10,7 +10,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * author:Administrator
  * datetime:2017/10/31 0031 11:21
- * 日志消息编码器
+ * 日志消息编码器  LogMessage --> byte[]
  */
 public class LogEncoder extends MessageToByteEncoder<LogMessage>{
 
