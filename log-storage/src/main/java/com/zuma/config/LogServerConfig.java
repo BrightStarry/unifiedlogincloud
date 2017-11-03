@@ -24,39 +24,5 @@ public class LogServerConfig {
     public static Integer THREAD_NUM = 10;//服务端线程数
     public static Integer MAX_THREAD_NUM = 20;//服务端最大线程数（线程池全满后，在拒绝策略中扩充）
 
-    public static void setPORT(Integer PORT) {
-        LogServerConfig.PORT = PORT;
-    }
-
-    public static void setSoBacklog(Integer soBacklog) {
-        SO_BACKLOG = soBacklog;
-    }
-
-    public static void setSoSndbuf(Integer soSndbuf) {
-        SO_SNDBUF = soSndbuf;
-    }
-
-    public static void setSoRcvbbuf(Integer soRcvbbuf) {
-        SO_RCVBBUF = soRcvbbuf;
-    }
-
-    public static void setRetryNum(Integer retryNum) {
-        RETRY_NUM = retryNum;
-    }
-
-    public static void setStopTime(Integer stopTime) {
-        STOP_TIME = stopTime;
-    }
-
-    public static void setReadIdleTimeout(Integer readIdleTimeout) {
-        READ_IDLE_TIMEOUT = readIdleTimeout;
-    }
-
-    public static void setThreadNum(Integer threadNum) {
-        THREAD_NUM = threadNum;
-    }
-
-    public static void setMaxThreadNum(Integer maxThreadNum) {
-        MAX_THREAD_NUM = maxThreadNum;
-    }
+    
 }
