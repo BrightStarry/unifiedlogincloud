@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c43a444c-2cdc-40ca-bf71-f8fecc3be4dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-common/target/classes/com/zuma/util/KryoUtil.class" afterPath="$PROJECT_DIR$/log-common/target/classes/com/zuma/util/KryoUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java" afterPath="$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="LogWriteExecutor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+            <state relative-caret-position="481">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <marker date="1509609274530" expanded="true" signature="1041:1086" ph=" }" />
               </folding>
@@ -58,9 +54,28 @@
       <file leaf-file-name="LogServerConfig.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="310">
+              <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+              <folding>
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#983#984#0" expanded="true" />
+                <element signature="e#1041#1042#0" expanded="true" />
+                <element signature="e#1079#1080#0" expanded="true" />
+                <element signature="e#1135#1136#0" expanded="true" />
+                <element signature="e#1171#1172#0" expanded="true" />
+                <element signature="e#1229#1230#0" expanded="true" />
+                <element signature="e#1267#1268#0" expanded="true" />
+                <element signature="e#1323#1324#0" expanded="true" />
+                <element signature="e#1359#1360#0" expanded="true" />
+                <element signature="e#1415#1416#0" expanded="true" />
+                <element signature="e#1451#1452#0" expanded="true" />
+                <element signature="e#1521#1522#0" expanded="true" />
+                <element signature="e#1572#1573#0" expanded="true" />
+                <element signature="e#1630#1631#0" expanded="true" />
+                <element signature="e#1668#1669#0" expanded="true" />
+                <element signature="e#1732#1733#0" expanded="true" />
+                <element signature="e#1777#1778#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -872,7 +887,7 @@
       <workItem from="1509584382218" duration="14201000" />
       <workItem from="1509604482863" duration="1063000" />
       <workItem from="1509605579047" duration="11310000" />
-      <workItem from="1509669941774" duration="1759000" />
+      <workItem from="1509669941774" duration="1864000" />
     </task>
     <servers />
   </component>
@@ -909,7 +924,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124389000" />
+    <option name="totallyTimeSpent" value="124494000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1373,8 +1388,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="481">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
             <marker date="1509609274530" expanded="true" signature="1041:1086" ph=" }" />
           </folding>
@@ -1383,9 +1398,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="310">
+          <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+          <folding>
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
+            <element signature="e#1041#1042#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+            <element signature="e#1135#1136#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1229#1230#0" expanded="true" />
+            <element signature="e#1267#1268#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1359#1360#0" expanded="true" />
+            <element signature="e#1415#1416#0" expanded="true" />
+            <element signature="e#1451#1452#0" expanded="true" />
+            <element signature="e#1521#1522#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#1630#1631#0" expanded="true" />
+            <element signature="e#1668#1669#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
+            <element signature="e#1777#1778#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
