@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c43a444c-2cdc-40ca-bf71-f8fecc3be4dc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-common/target/classes/com/zuma/util/KryoUtil.class" afterPath="$PROJECT_DIR$/log-common/target/classes/com/zuma/util/KryoUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java" afterPath="$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,7 +42,30 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="LogWriteExecutor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="508">
+              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+              <folding>
+                <marker date="1509609274530" expanded="true" signature="1041:1086" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogServerConfig.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -107,7 +132,6 @@
         <option value="$PROJECT_DIR$/log-storage/pom.xml" />
         <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/netty/LogServiceBootstrap.java" />
         <option value="$PROJECT_DIR$/log-storage/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" />
         <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/listener/Starter.java" />
         <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/handler/ServerHandler.java" />
         <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java" />
@@ -126,6 +150,7 @@
         <option value="D:/log/服务B/B/2017/11/09/09.log" />
         <option value="$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java" />
         <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" />
+        <option value="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" />
       </list>
     </option>
   </component>
@@ -233,7 +258,97 @@
             </path>
             <path>
               <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-common" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="zuma" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
               <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="zuma" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="zuma" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="unifiedlogincloud" type="b2602c69:ProjectViewProjectNode" />
+              <item name="log-storage" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="zuma" type="462c0819:PsiDirectoryNode" />
+              <item name="executor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -757,7 +872,7 @@
       <workItem from="1509584382218" duration="14201000" />
       <workItem from="1509604482863" duration="1063000" />
       <workItem from="1509605579047" duration="11310000" />
-      <workItem from="1509669941774" duration="1545000" />
+      <workItem from="1509669941774" duration="1759000" />
     </task>
     <servers />
   </component>
@@ -794,7 +909,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124175000" />
+    <option name="totallyTimeSpent" value="124389000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -807,9 +922,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1064" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52158695" sideWeight="0.32238966" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5211913" sideWeight="0.32238966" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34763947" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -825,11 +941,11 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886723" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.534937" sideWeight="0.67761034" order="9" side_tool="false" content_ui="combo" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886723" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32875144" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5315006" sideWeight="0.49515608" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32760596" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32788798" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28755364" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28755364" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="ZooKeeper" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -994,6 +1110,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <marker date="1509607101378" expanded="true" signature="507:541" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1001,18 +1120,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="30" column="56" lean-forward="true" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="76" column="31" lean-forward="false" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="31" />
-          <folding>
-            <element signature="e#1133#1134#0" expanded="true" />
-            <element signature="e#1160#1161#0" expanded="true" />
-            <marker date="1509609274530" expanded="true" signature="1041:1086" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1086,13 +1194,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/dto/LogMessage.java" />
     <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogMessage.java" />
-    <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="24" column="40" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/dto/LogMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -1212,16 +1313,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="43" column="48" lean-forward="false" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log-client/src/test/java/com/zuma/sender/LogSenderTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
@@ -1254,6 +1345,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/util/KryoUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="43" column="44" lean-forward="true" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/serializer/LogDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/serializer/LogEncoder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1262,10 +1371,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log-common/src/main/java/com/zuma/serializer/LogDecoder.java">
+    <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/executor/LogWriteExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="29" column="33" lean-forward="false" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        <state relative-caret-position="508">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding>
+            <marker date="1509609274530" expanded="true" signature="1041:1086" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding />
         </state>
       </provider>
