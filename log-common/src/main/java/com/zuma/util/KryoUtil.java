@@ -41,7 +41,7 @@ public class KryoUtil {
         @Cleanup
         ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
         @Cleanup
-        Input input = new Input(inputStream,99999999);
+        Input input = new Input(inputStream,4096);
         return kryo.readObject(input, cla);
     }
 

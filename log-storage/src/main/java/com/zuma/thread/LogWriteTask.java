@@ -33,7 +33,6 @@ public class LogWriteTask implements Runnable {
                 //如果线程池停止，退出
                 if(LogWriteExecutor.isStop())
                     return;
-                log.info("线程正在运行.......");
                 //阻塞从队列获取log
                 LogMessage logMessage = logQueue.take();
                 //写入操作
