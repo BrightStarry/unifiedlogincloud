@@ -7,17 +7,26 @@ import io.netty.channel.*;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * author:Administrator
  * datetime:2017/10/31 0031 13:23
  * 服务端处理类
  */
+
+@Component
 @Slf4j
 public class ServerHandler extends ChannelHandlerAdapter{
-    private LogWriteExecutor logWriteExecutor = LogWriteExecutor.getInstance();
 
 
+    private static LogWriteExecutor logWriteExecutor;
+
+    @Autowired
+    public void setLogWriteExecutor(LogWriteExecutor logWriteExecutor) {
+        this.logWriteExecutor = logWriteExecutor;
+    }
 
     /**
      * 读取到消息方法
@@ -27,7 +36,7 @@ public class ServerHandler extends ChannelHandlerAdapter{
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        log.info("server接收到{}的消息:{}", ctx.channel().id() ,(LogMessage)msg);//TODO
+//        log.info("server接收到{}的消息:{}", ctx.channel().id() ,(LogMessage)msg);
         logWriteExecutor.addLogToQueue((LogMessage)msg);
         //返回消息
         ctx.writeAndFlush(Unpooled.copiedBuffer("success".getBytes()));

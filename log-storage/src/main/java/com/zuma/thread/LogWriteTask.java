@@ -4,6 +4,7 @@ import com.zuma.dto.LogMessage;
 import com.zuma.executor.LogWriteExecutor;
 import com.zuma.util.LogWriteUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -16,15 +17,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class LogWriteTask implements Runnable {
     private String threadName;
     private LinkedBlockingQueue<LogMessage> logQueue;
+    private LogWriteUtil logWriteUtil;
 
-    public LogWriteTask(String threadName,LinkedBlockingQueue<LogMessage> logQueue){
-        this.threadName = threadName;
+    public LogWriteTask(LinkedBlockingQueue<LogMessage> logQueue, LogWriteUtil logWriteUtil) {
         this.logQueue = logQueue;
+        this.logWriteUtil = logWriteUtil;
     }
 
-    public LogWriteTask(LinkedBlockingQueue<LogMessage> logQueue) {
-        this.logQueue = logQueue;
-    }
 
     @Override
     public void run() {

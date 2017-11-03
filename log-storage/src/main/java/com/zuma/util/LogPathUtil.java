@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.util.regex.Matcher;
  * datetime:2017/11/1 0001 14:18
  * 日志存储路径生成
  */
+@Component
 @Slf4j
 public class LogPathUtil {
     //提取时间正则, 年月日时
@@ -28,7 +31,7 @@ public class LogPathUtil {
     private static final String DATE_FORMAT = "yyyy-MM-dd HH";
 
     //基础路径前缀,根据win和linux区分
-    private static final String BASE_PATH_PRE = System.getProperty("os.name").contains("Windows") ? "D:" + File.separator : File.separator;
+    private static final String BASE_PATH_PRE = System.getProperty("os.name").contains("Windows") ? "E:" + File.separator : File.separator;
 
     //文件后缀
     private static final String FILE_SUF = ".log";
@@ -37,14 +40,20 @@ public class LogPathUtil {
     private static final String BASE_PATH = BASE_PATH_PRE + "log" +  File.separator;
 
     //正则工厂
-    private static final PatternFactory patternFactory = PatternFactory.getInstance();
+
+    private static   PatternFactory patternFactory;
+
+    @Autowired
+    public  void setPatternFactory(PatternFactory patternFactory) {
+        LogPathUtil.patternFactory = patternFactory;
+    }
 
     /**
      * 生成存储路径
      * @param logMessage
      * @return
      */
-    public static File generate(LogMessage logMessage) {
+    public static   File generate(LogMessage logMessage) {
 
         //提取时间路径
         StringBuilder datePath = extractDatePath(logMessage);
@@ -82,7 +91,6 @@ public class LogPathUtil {
             if(matcher.find())
                 //年月日时 字符
                 date = matcher.group();
-
         }
 
         //如果日期截取失败

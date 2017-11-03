@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c43a444c-2cdc-40ca-bf71-f8fecc3be4dc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_1_5_8_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-client/target/test-classes/com/zuma/sender/LogSenderTest.class" afterPath="$PROJECT_DIR$/log-client/target/test-classes/com/zuma/sender/LogSenderTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-client/src/test/java/com/zuma/sender/LogSenderTest.java" afterPath="$PROJECT_DIR$/log-client/src/test/java/com/zuma/sender/LogSenderTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/pom.xml" afterPath="$PROJECT_DIR$/log-storage/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/LogStorageApplication.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/LogStorageApplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/config/LogServerConfig.java" />
@@ -13,7 +10,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/factory/PatternFactory.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/factory/PatternFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/handler/ServerHandler.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/handler/ServerHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/listener/Starter.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/listener/Starter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/netty/LogServiceBootstrap.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/netty/LogServiceBootstrap.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/thread/LogWriteTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/util/LogPathUtil.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/util/LogPathUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/util/LogWriteUtil.java" afterPath="$PROJECT_DIR$/log-storage/src/main/java/com/zuma/util/LogWriteUtil.java" />
@@ -203,7 +199,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-7" />
     <option name="width" value="1932" />
     <option name="height" value="1046" />
@@ -992,8 +988,16 @@
       <workItem from="1509674969522" duration="993000" />
       <workItem from="1509675997999" duration="554000" />
       <workItem from="1509677295389" duration="274000" />
-      <workItem from="1509677625478" duration="495000" />
+      <workItem from="1509677625478" duration="582000" />
     </task>
+    <task id="LOCAL-00001" summary="将bean交由spring注入">
+      <created>1509678187791</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1509678187791</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1029,7 +1033,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129335000" />
+    <option name="totallyTimeSpent" value="129422000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1041,7 +1045,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1064" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1064" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1084,6 +1088,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="将bean交由spring注入" />
+    <option name="LAST_COMMIT_MESSAGE" value="将bean交由spring注入" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
