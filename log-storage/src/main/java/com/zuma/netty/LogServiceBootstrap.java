@@ -32,18 +32,21 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class LogServiceBootstrap {
 
+    @Autowired
+    private LogServerConfig logServerConfig;
+
     private static Integer RETRY_NUM = 0;
 
     /**
      * 服务启动-异步启动
      * @throws InterruptedException
      */
-    public static void start() {
+    public  void start() {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    LogServiceBootstrap.start1();
+                    start1();
                 } catch (InterruptedException e) {
                     log.error("服务端线程启动失败。error={}",e.getMessage());
                 }
@@ -51,7 +54,7 @@ public class LogServiceBootstrap {
         });
     }
     //服务启动
-    private static void start1() throws InterruptedException {
+    private  void start1() throws InterruptedException {
         try {
             //1. 接收client连接的线程组
             EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -71,7 +74,7 @@ public class LogServiceBootstrap {
                                     /**
                                      * 空闲状检测：超过xs未触发触发读取事件，则触发userEventTriggered()事件
                                      */
-                                    .addLast("idleState handler",new IdleStateHandler(LogServerConfig.READ_IDLE_TIMEOUT,0,0, TimeUnit.SECONDS))
+                                    .addLast("idleState handler",new IdleStateHandler(logServerConfig.getReadIdleTimeout(),0,0, TimeUnit.SECONDS))
                                     /**
                                      * 长度解码器，防止粘包拆包
                                      */
@@ -97,21 +100,20 @@ public class LogServiceBootstrap {
                         }
                     })
                     //TCP连接参数,第一、二次握手队列大小
-                    .option(ChannelOption.SO_BACKLOG, LogServerConfig.SO_BACKLOG)
+                    .option(ChannelOption.SO_BACKLOG, logServerConfig.getSoBacklog())
                     //保持连接
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
                     //发送缓冲区大小
-                    .option(ChannelOption.SO_SNDBUF, LogServerConfig.SO_SNDBUF)
+                    .option(ChannelOption.SO_SNDBUF, logServerConfig.getSoSndbuf())
                     //接收缓冲区大小
-                    .option(ChannelOption.SO_RCVBUF, LogServerConfig.SO_RCVBBUF);
+                    .option(ChannelOption.SO_RCVBUF, logServerConfig.getSoRcvbbuf());
             //绑定端口，进行监听
-            ChannelFuture channelFuture = serverBootstrap.bind(LogServerConfig.PORT).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(logServerConfig.getPort()).sync();
             log.info("服务端启动成功.");
             //关闭前阻塞
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e ){
-            e.printStackTrace();
-            log.error("服务端启动失败。error={}",e.getMessage());
+            log.error("服务端启动失败。error={}",e.getMessage(),e);
         }finally {
             //重试机制
             retryStart();
@@ -123,15 +125,15 @@ public class LogServiceBootstrap {
     /**
      * 重试机制
      */
-    private static void retryStart(){
+    private  void retryStart(){
         //重试机制,如果重试次数超过限制。暂停x秒后再重试
         try {
-            if(++LogServiceBootstrap.RETRY_NUM > LogServerConfig.RETRY_NUM){
+            if(++LogServiceBootstrap.RETRY_NUM > logServerConfig.getRetryNum()){
                 LogServiceBootstrap.RETRY_NUM = 0;
-                Thread.sleep(LogServerConfig.STOP_TIME);
+                Thread.sleep(logServerConfig.getStopTime());
             }
         } catch (InterruptedException e) {
-            log.error("尝试重启失败。线程sleep error。error={}",e.getMessage());
+            log.error("尝试重启失败。线程sleep error。error={}",e.getMessage(),e);
         }
     }
 }

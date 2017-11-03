@@ -21,7 +21,7 @@ public class LogSenderTest {
 
         LogClientBootstrap.start();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             executorService.execute(new Runnable() {
                 public void run() {
                     while(true){
