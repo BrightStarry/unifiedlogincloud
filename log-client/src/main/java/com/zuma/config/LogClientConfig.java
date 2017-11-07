@@ -1,7 +1,7 @@
 package com.zuma.config;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/31 0031 17:52
  * 日志客户端配置类
  */

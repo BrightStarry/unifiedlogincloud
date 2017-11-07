@@ -8,6 +8,7 @@
     <file url="file://$PROJECT_DIR$/log-storage" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/log-storage/src/main/resources/application.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/service-center" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sms-sender" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/unified-login" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/unified-login/src/main/resources/application-dev.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/unified-login/src/main/resources/application.yml" charset="UTF-8" />

@@ -1,0 +1,32 @@
+server:
+  port: 80
+  context-path: /
+spring:
+  application:
+    name: sms-sender
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/smsSender?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 970389
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+a:
+  smsAccount:
+    - channel: 1
+      type: 1
+      akey: 10010317
+      bkey: 710317
+      ckey: asdfg123456ghjjjjjkh
+    - channel: 2
+      type: 1
+      akey: 387568
+      bkey: 84f26c091438461bb01fcd021da1c197
+      ckey:
+    - channel: 3
+      type: 1
+      akey: hzzmkjyzm
+      bkey: YBpFJzkc2q170501
+      ckey:

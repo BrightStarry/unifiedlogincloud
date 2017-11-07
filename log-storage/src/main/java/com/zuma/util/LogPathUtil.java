@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 14:18
  * 日志存储路径生成
  */

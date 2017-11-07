@@ -13,7 +13,7 @@ import java.nio.ByteOrder;
 import java.util.List;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/31 0031 10:41
  * 日志消息解码器   byte[] --> LogMessage
  */

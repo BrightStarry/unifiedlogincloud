@@ -11,7 +11,7 @@ import java.util.Date;
 ;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/31 0031 10:38
  * 日志消息主体
  */

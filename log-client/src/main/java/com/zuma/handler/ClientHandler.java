@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/31 0031 13:39
  * 客户端处理类
  */

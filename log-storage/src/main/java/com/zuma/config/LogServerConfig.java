@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 09:05
  * 服务端配置类
  */

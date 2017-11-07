@@ -15,35 +15,21 @@
         <module name="logstorage" />
         <module name="logstoragenetty" />
         <module name="service-center" />
+        <module name="sms-sender" />
+        <module name="unified-login" />
         <module name="unifiedlogin" />
         <module name="unifylogin" />
         <module name="unifylogincloud" />
       </profile>
-      <profile name="Annotation profile for unifiedlogin" enabled="true">
-        <sourceOutputDir name="../unifiedlogin/target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../unifiedlogin/target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="unified-login" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="consumer" target="1.8" />
+      <module name="consumer" target="1.7" />
       <module name="log-client" target="1.7" />
       <module name="log-common" target="1.7" />
-      <module name="log-parent" target="1.5" />
-      <module name="log-producer" target="1.7" />
-      <module name="log-producere" target="1.7" />
       <module name="log-storage" target="1.7" />
-      <module name="logproducere" target="1.7" />
-      <module name="logstorage" target="1.7" />
-      <module name="logstoragenetty" target="1.7" />
       <module name="service-center" target="1.8" />
-      <module name="testconsumer" target="1.5" />
-      <module name="unified-login" target="1.8" />
-      <module name="unifiedlogin" target="1.8" />
-      <module name="unifiedlogincloud" target="1.5" />
-      <module name="unifylogin" target="1.8" />
-      <module name="unifylogincloud" target="1.5" />
+      <module name="sms-sender" target="1.7" />
+      <module name="unified-login" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

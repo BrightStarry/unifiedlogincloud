@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import static org.junit.Assert.*;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/2 0002 11:25
  */
 public class LogSenderTest {

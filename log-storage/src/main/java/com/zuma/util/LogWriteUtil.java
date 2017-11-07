@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 17:07
  * 日志消息 转 文件 工具类
  */

@@ -3,7 +3,7 @@ package com.zuma.factory;
 import com.esotericsoftware.kryo.Kryo;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/2 0002 16:59
  * Kryo序列化对象工厂
  */

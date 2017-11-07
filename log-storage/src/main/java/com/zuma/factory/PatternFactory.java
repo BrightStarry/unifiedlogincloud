@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Pattern;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 15:31
  * 正则对象Pattern工厂
  */

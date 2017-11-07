@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/2 0002 17:02
  * 序列化工具类
  */

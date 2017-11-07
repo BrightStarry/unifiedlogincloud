@@ -3,7 +3,7 @@ package com.zuma.enums;
 import lombok.Getter;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/23 0023 15:12
  */
 @Getter

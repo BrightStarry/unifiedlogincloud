@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/10/31 0031 13:23
  * 服务端处理类
  */

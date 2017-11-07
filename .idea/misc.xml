@@ -12,6 +12,8 @@
         <option value="$PROJECT_DIR$/logstoragenetty/pom.xml" />
         <option value="$PROJECT_DIR$/log-common/pom.xml" />
         <option value="$PROJECT_DIR$/log-storage/pom.xml" />
+        <option value="$PROJECT_DIR$/sms-sender/pom.xml" />
+        <option value="$PROJECT_DIR$/unified-login/pom.xml" />
       </list>
     </option>
   </component>

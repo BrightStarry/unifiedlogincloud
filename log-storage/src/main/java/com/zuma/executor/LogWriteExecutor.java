@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.*;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 18:01
  *
  * 日志写入任务执行器

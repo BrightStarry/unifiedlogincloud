@@ -3,7 +3,7 @@ package com.zuma.factory;
 import com.google.gson.Gson;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/1 0001 11:18
  * Gson对象工厂-创建线程私有gson
  */

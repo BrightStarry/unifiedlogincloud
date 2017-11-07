@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * author:Administrator
+ * author:ZhengXing
  * datetime:2017/11/2 0002 10:40
  * 日志写入任务
  */
