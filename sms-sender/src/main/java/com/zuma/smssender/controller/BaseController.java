@@ -1,10 +1,7 @@
-package com.zuma.controller;
+package com.zuma.smssender.controller;
 
-import com.zuma.config.Config;
-import com.zuma.domain.User;
-import com.zuma.enums.error.ErrorEnum;
-import com.zuma.exception.FormInvalidException;
-import com.zuma.exception.UnifiedLoginException;
+import com.zuma.smssender.enums.error.ErrorEnum;
+import com.zuma.smssender.exception.FormInvalidException;
 import org.slf4j.Logger;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,9 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.awt.print.Pageable;
 
 /**
  * author:ZhengXing
@@ -22,8 +17,7 @@ import java.awt.print.Pageable;
  * 基础Controller，复用一些方法
  */
 public class BaseController {
-    private static final String NAV_TOP1 = "navTop1";
-    private static final String NAV_TOP2 = "navTop2";
+
 
     /**
      * 表单验证
@@ -40,18 +34,6 @@ public class BaseController {
         }
     }
 
-    /**
-     * 从session中获取用户信息
-     * @param session
-     * @return
-     */
-    protected User getUser(HttpSession session) {
-        Object user = session.getAttribute(Config.SESSION_USER_ATTRIBUTE_NAME);
-        if (user == null) {
-            throw new UnifiedLoginException(ErrorEnum.USER_UNLOGIN);
-        }
-        return (User)user;
-    }
 
     /**
      * String 非空验证
@@ -73,22 +55,6 @@ public class BaseController {
                 throw new FormInvalidException(ErrorEnum.FORM_ERROR);
             }
         }
-    }
-
-
-    /**
-     * 分页请求对象拼接
-     */
-    protected PageRequest getPageRequest(int pageNo, Integer pageSize) {
-        return new PageRequest(--pageNo, pageSize == null ? Config.PAGE_SIZE : pageSize, new Sort(Sort.Direction.DESC,"id"));
-    }
-
-    /**
-     * 设置导航栏
-     */
-    protected void setNavigation(Model model, String navTop1, String navTop2) {
-        model.addAttribute(NAV_TOP1, navTop1);
-        model.addAttribute(NAV_TOP2, navTop2);
     }
 
 

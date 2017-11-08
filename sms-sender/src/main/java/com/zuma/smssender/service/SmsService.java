@@ -1,9 +1,13 @@
 package com.zuma.smssender.service;
 
+import com.zuma.smssender.dto.ResultDTO;
+import com.zuma.smssender.form.SendSmsForm;
+
 /**
  * author:ZhengXing
  * datetime:2017/11/7 0007 15:56
- * 短信服务
+ * 短信服务 抽象类 模版方法
  */
-public class SmsService {
+public interface SmsService {
+    ResultDTO<?> sendSms(SendSmsForm sendSmsForm);
 }

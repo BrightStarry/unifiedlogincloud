@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
+import com.zuma.smssender.factory.CommonFactory;
 import com.zuma.smssender.factory.GsonFactory;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class HttpClientUtil {
 
-    private GsonFactory gsonFactory = GsonFactory.getInstance();
+    private CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
 
     //连接池对象
     private PoolingHttpClientConnectionManager pool = null;
@@ -70,7 +71,7 @@ public class HttpClientUtil {
         try {
             response = getHttpClient().execute(httpPost);
         } catch (IOException e) {
-            log.error("httpClient 发送请求失败.IOException={}", e.getMessage(), e);
+            log.error("【httpClient】发送请求失败.IOException={}", e.getMessage(), e);
             throw new SmsSenderException(ErrorEnum.HTTP_ERROR);
         }
         return response;
@@ -130,10 +131,14 @@ public class HttpClientUtil {
      * 关闭  in 和 response
      */
     public void closeResponseAndIn(InputStream inputStream, CloseableHttpResponse response) {
-        @Cleanup
-        InputStream temp1 = inputStream;
-        @Cleanup
-        CloseableHttpResponse temp2 = response;
+        try {
+            @Cleanup
+            InputStream temp1 = inputStream;
+            @Cleanup
+            CloseableHttpResponse temp2 = response;
+        } catch (Exception e) {
+            log.error("【httpClient】关闭response失败.error={}",e.getMessage(),e);
+        }
 //        if (inputStream != null) {
 //            try {
 //                inputStream.close();
@@ -196,13 +201,15 @@ public class HttpClientUtil {
                     .setConnectTimeout(CONNECTION_TIMEOUT)
                     .build();
         } catch (Exception e) {
-            log.error("httpClient连接池创建失败!");
+            log.error("【httpClient】连接池创建失败!");
         }
     }
 
+    /**
+     * 单例
+     */
     private static HttpClientUtil instance;
     private static ReentrantLock lock = new ReentrantLock();
-
     public static HttpClientUtil getInstance() {
         if (instance == null) {
             lock.lock();

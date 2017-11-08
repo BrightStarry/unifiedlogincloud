@@ -23,8 +23,4 @@ public class PatternFactory {
         }
         return pattern.get();
     }
-
-
-
-
 }

@@ -47,7 +47,7 @@ public class CommonExceptionHandler {
      * @param code
      * @param message
      */
-    public void setCodeAndMessage(HttpServletRequest request, String code, String message) {
+    private void setCodeAndMessage(HttpServletRequest request, String code, String message) {
         request.setAttribute("code",code);
         request.setAttribute("message",message);
     }

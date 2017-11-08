@@ -1,9 +1,7 @@
 package com.zuma.smssender.controller;
 
 import com.zuma.smssender.dto.ResultDTO;
-import com.zuma.smssender.util.ResultDTOUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ErrorController {
 
     /**
-     * ajax请求异常返回
+     * 请求异常返回
      *
      * @param request
      * @return
@@ -27,7 +25,7 @@ public class ErrorController {
     @ResponseBody
     @RequestMapping(value = "/")
     public ResultDTO<?> commonJson(HttpServletRequest request) {
-        return ResultDTOUtil.error((String) request.getAttribute("code"), (String) request.getAttribute("message"));
+        return ResultDTO.error((String) request.getAttribute("code"), (String) request.getAttribute("message"));
     }
 
 }
