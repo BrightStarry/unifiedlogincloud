@@ -87,7 +87,7 @@ public class CodeUtil {
      * @param str
      * @return
      */
-    public static String StringToBase64(String str){
+    public static String stringToBase64(String str){
         byte[] bytes = byteToBase64(stringToByteOfUTF8(str));
         return byteToStringOfUTF8(bytes);
     }
@@ -97,7 +97,7 @@ public class CodeUtil {
      * @param str
      * @return
      */
-    public static String Base64ToString(String str){
+    public static String base64ToString(String str){
         byte[] bytes = base64ToByte(stringToByteOfUTF8(str));
         return byteToStringOfUTF8(bytes);
     }
@@ -176,7 +176,7 @@ public class CodeUtil {
      * @param str
      * @return
      */
-    public static String StringToMd5(String str) {
+    public static String stringToMd5(String str) {
         return DigestUtils.md5DigestAsHex(str.getBytes());
     }
 

@@ -13,14 +13,20 @@ public class Config {
     //掌游
     //掌游短信内容最大长度 TODO 短信字数校验
     public static final Integer ZHANGYOU_SMS_MAX_LEN = 210;
+    //掌游接口前缀
+    private static final String ZHANGYOU_URL_PRE = "http://ysms.game2palm.com:8899/smsAccept";
     //掌游流水号处理前缀
     public static final String ZHANGYOU_PRE = "ZHANGYOU";
 
     //宽信
+    //宽信流水号处理前缀
+    public static final String KUANXIN_PRE = "KUANXIN";
     //宽信接口前缀
     private static final String KUANXIN_URL_PRE = "http://114.55.90.98:8808/api";
     //宽信短信内容最大长度
     public static final Integer KUANXIN_SMS_MAX_LEN = 350;
+
+    //群正
 
     //regxep
     //移动手机号正则
@@ -32,11 +38,11 @@ public class Config {
 
     //URL
     //掌游发送短信接口url
-    public static final String ZHANGYOU_SEND_SMS_URL = "http://ysms.game2palm.com:8899/smsAccept/sendSms.action";
+    public static final String ZHANGYOU_SEND_SMS_URL = ZHANGYOU_URL_PRE + "/sendSms.action";
     //宽信发送短信接口url
     public static final String KUANXIN_SEND_SMS_URL = KUANXIN_URL_PRE + "/sms/send";
     //群正发送短信接口url
-    public static final String QUNZHENG_SEND_SMS_URL = "";
+    public static final String QUNZHENG_SEND_SMS_URL = "http://sms.uninets.com.cn/Modules/Interface/http/Iservicesbsjy.aspx";
 
     //分隔符
     //手机号数组分隔符

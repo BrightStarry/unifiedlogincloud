@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class ZhangYouCacheDTO {
+public class CommonCacheDTO {
     private String id;//api流水号
     private Long platformId;//平台id
     private Long timestamp;//时间戳-sendSmsForm中平台发过来的-方便平台区分

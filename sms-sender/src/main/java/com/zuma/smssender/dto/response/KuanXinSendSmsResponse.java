@@ -18,7 +18,7 @@ public class KuanXinSendSmsResponse {
      * 宽信发送短信接口响应对象中的data子对象
      */
     @Data
-    private class KuanXinSendSmsResponseData{
+    public class KuanXinSendSmsResponseData{
         private String taskId;//任务ID,接口返回的taskid，如果接口返回非0，则不返回data节点
     }
 }

@@ -11,8 +11,9 @@ import com.zuma.smssender.exception.SmsSenderException;
 import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.PlatformService;
 import com.zuma.smssender.service.SmsService;
-import com.zuma.smssender.strategy.SendSmsStrategy;
-import com.zuma.smssender.strategy.ZhangYouSendSmsStrategy;
+import com.zuma.smssender.strategy.KuanXinSendSmsTemplate;
+import com.zuma.smssender.strategy.SendSmsTemplate;
+import com.zuma.smssender.strategy.ZhangYouSendSmsTemplate;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
 import com.zuma.smssender.util.PhoneUtil;
@@ -32,8 +33,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SmsServiceImpl implements SmsService{
     //发送短信接口参数策略实现类数组，根据channel code 取
-    private SendSmsStrategy[] sendSmsStrategies = new SendSmsStrategy[]{
-        new ZhangYouSendSmsStrategy()
+    private SendSmsTemplate[] sendSmsStrategies = new SendSmsTemplate[]{
+        new ZhangYouSendSmsTemplate(),
+        new KuanXinSendSmsTemplate(),
     };
 
 
@@ -50,7 +52,7 @@ public class SmsServiceImpl implements SmsService{
         Platform platform = platformService.findOne(sendSmsForm.getPlatformId());
 
         //确认签名
-        String realSign = CodeUtil.StringToMd5(platform.getToken() + sendSmsForm.getPhones() + sendSmsForm.getTimestamp());
+        String realSign = CodeUtil.stringToMd5(platform.getToken() + sendSmsForm.getPhones() + sendSmsForm.getTimestamp());
         if(!sendSmsForm.getSign().equals(realSign)){
             log.error("【API发送短信接口】签名不匹配.currentSign={}",sendSmsForm.getSign());
         }
