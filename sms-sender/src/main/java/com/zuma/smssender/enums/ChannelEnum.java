@@ -8,7 +8,7 @@ import lombok.Getter;
  * 短信通道 枚举
  */
 @Getter
-public enum ChannelEnum implements CodeEnum<String> {
+public enum ChannelEnum implements CodeEnum<Integer> {
     ZHANG_YOU(1,"掌游",2,new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG}),
     KUAN_XIN(2,"宽信",1,new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG,PhoneOperatorEnum.LIANTONG,PhoneOperatorEnum.DIANXIN}),
     QUN_ZHENG(3,"群正",3,new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG})

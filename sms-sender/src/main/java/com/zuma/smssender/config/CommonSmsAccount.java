@@ -17,7 +17,7 @@ public class CommonSmsAccount {
     //帐号所属通道
     private String channel;
     //区分同个通道不同类型的帐号
-    private String type;
+    private Integer type;
     private String aKey;
     private String bKey;
     private String cKey;

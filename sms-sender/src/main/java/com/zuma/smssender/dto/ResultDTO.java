@@ -1,7 +1,10 @@
 package com.zuma.smssender.dto;
 
+import com.zuma.smssender.enums.CodeEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * author:ZhengXing
@@ -11,6 +14,8 @@ import lombok.Data;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResultDTO<T> {
     /**状态码*/
     private String code;
@@ -19,15 +24,27 @@ public class ResultDTO<T> {
     /**数据*/
     private T data;
 
+    public ResultDTO(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    /**
+     * 判断某个对象是否成功
+     * @param resultDTO
+     * @return
+     */
+    public static boolean isSuccess(ResultDTO<?> resultDTO){
+        return resultDTO.getCode().equals(ErrorEnum.SUCCESS.getCode());
+    }
+
     /**
      *  返回成功状态，以及数据
      */
     public static <T> ResultDTO<T> success(T data) {
-        ResultDTO<T> resultDTO = new ResultDTO<T>();
-        resultDTO.setCode(ErrorEnum.SUCCESS.getCode());
-        resultDTO.setMessage(ErrorEnum.SUCCESS.getMessage());
-        resultDTO.setData(data);
-        return resultDTO;
+        return new ResultDTO<T>(ErrorEnum.SUCCESS.getCode(),
+                ErrorEnum.SUCCESS.getMessage(),
+                data);
     }
 
     /**
@@ -41,9 +58,30 @@ public class ResultDTO<T> {
      * 返回错误状态， 包含错误状态码和错误消息
      */
     public static ResultDTO<?> error(String code, String msg) {
-        ResultDTO resultDTO = new ResultDTO();
-        resultDTO.setCode(code);
-        resultDTO.setMessage(msg);
-        return resultDTO;
+        return new ResultDTO(code,msg);
     }
+
+    /**
+     * 返回错误状态， 包含错误状态码和错误消息
+     */
+    public static <T> ResultDTO<T> error(String code, String msg,T obj) {
+        return new ResultDTO<T>(code,msg,obj);
+    }
+
+    /**
+     * 返回错误状态,
+     */
+    public static <T> ResultDTO<T> error(String code, String msg,Class<T> tClass) {
+        return new ResultDTO<T>(code,msg);
+    }
+
+    /**
+     * 返回错误状态
+     */
+    public static <T> ResultDTO<T> error(CodeEnum<String> errorEnum,T obj) {
+        return new ResultDTO<T>(errorEnum.getCode(),errorEnum.getMessage(),obj);
+    }
+
+
+
 }

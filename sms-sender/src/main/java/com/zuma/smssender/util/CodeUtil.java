@@ -1,7 +1,10 @@
 package com.zuma.smssender.util;
 
 import com.google.common.base.Charsets;
+import com.google.gson.Gson;
 import com.sun.xml.internal.fastinfoset.Encoder;
+import com.zuma.smssender.factory.CommonFactory;
+import com.zuma.smssender.factory.GsonFactory;
 import org.springframework.util.DigestUtils;
 import sun.awt.CharsetString;
 
@@ -15,6 +18,8 @@ import java.nio.charset.Charset;
  * md5工具类
  */
 public class CodeUtil {
+
+    private static final CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
 
 
 
@@ -176,7 +181,6 @@ public class CodeUtil {
     }
 
     //URLENCODER
-
     /**
      * string 转 urlencode
      * @param str
@@ -190,6 +194,29 @@ public class CodeUtil {
             //不可能发生。这个类设计有问题。传的不是Charset,而是String
         }
         return result;
+    }
+
+    //JSON
+
+    /**
+     * 对象转json字符串
+     * @param obj
+     * @param <T>
+     * @return
+     */
+    public static <T> String objectToJsonString(T obj) {
+        return gsonFactory.build().toJson(obj);
+    }
+
+    /**
+     * json字符串转对象
+     * @param jsonString
+     * @param tClass
+     * @param <T>
+     * @return
+     */
+    public static <T> T jsonStringToObject(String jsonString,Class<T> tClass){
+        return gsonFactory.build().fromJson(jsonString, tClass);
     }
 
 

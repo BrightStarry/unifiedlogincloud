@@ -61,6 +61,21 @@ public class HttpClientUtil {
     //连接超时时间
     private final Integer CONNECTION_TIMEOUT = 10000;
 
+
+    /**
+     * 发送post请求，返回String
+     */
+    public <T> String doPostForString(String url, T obj){
+        //发送请求返回response
+        CloseableHttpResponse response = doPost(url, obj);
+        //response 转 string
+        String result = responseToString(response);
+        //关闭
+        closeResponseAndIn(null,response);
+
+        return result;
+    }
+
     /**
      * 发起post请求,根据url，参数实体
      */
@@ -82,12 +97,16 @@ public class HttpClientUtil {
      * 从response 中取出 html String
      * 如果没有访问成功，返回null
      */
-    private String responseToString(CloseableHttpResponse response) throws IOException {
+    private String responseToString(CloseableHttpResponse response) {
         if (isSuccess(response)) {
-            return EntityUtils.toString(response.getEntity(), "UTF-8");
+            try {
+                return EntityUtils.toString(response.getEntity(), "UTF-8");
+            } catch (IOException e) {
+                log.error("【httpClient】response转String,发生io异常.error={}",e.getMessage(),e);
+                throw new SmsSenderException(ErrorEnum.HTTP_RESPONSE_IO_ERROR);
+            }
         }
-        //如果失败，关闭response
-        closeResponseAndIn(null, response);
+        //这句不可能执行到...，返回值不会为null
         return null;
     }
 
@@ -95,7 +114,15 @@ public class HttpClientUtil {
      * 校验是否请求成功
      */
     private boolean isSuccess(CloseableHttpResponse response) {
-        return null != response && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+        boolean flag = null != response && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+        //成功直接返回
+        if(flag)
+            return flag;
+
+        //如果失败，记录日志，关闭response，抛出异常
+        log.error("【httpClient】请求成功，但状态码非200，状态码:{}",response.getStatusLine().getStatusCode());
+        closeResponseAndIn(null, response);
+        throw new SmsSenderException(ErrorEnum.HTTP_STATUS_CODE_ERROR);
     }
 
     /**
@@ -138,6 +165,7 @@ public class HttpClientUtil {
             CloseableHttpResponse temp2 = response;
         } catch (Exception e) {
             log.error("【httpClient】关闭response失败.error={}",e.getMessage(),e);
+            //不抛出异常
         }
 //        if (inputStream != null) {
 //            try {

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * author:Administrator
@@ -14,8 +15,8 @@ import javax.validation.constraints.Pattern;
 @Data
 public class SendSmsForm {
     @NotBlank(message = "平台Id不能为空")
-    @Pattern(regexp = "^\\d{1,2}$",message = "平台id不符合规范")
-    private String platformId;//平台id
+    @Size(min = 1000, max = 9999,message = "平台id不符合规范")
+    private Long platformId;//平台id
 
     private String channel;//通道: 1:掌游；2：宽信；3：群正
 
@@ -31,5 +32,5 @@ public class SendSmsForm {
     private String sign;//签名； 平台key + 手机号 + 当前毫秒数,做MD5，32,小写
 
     @NotBlank(message = "毫秒数不能为空")
-    private String millisecond;
+    private Long timestamp;
 }

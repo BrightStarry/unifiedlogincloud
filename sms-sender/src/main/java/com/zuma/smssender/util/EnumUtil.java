@@ -17,7 +17,7 @@ public class EnumUtil {
      * @param <T>
      * @return
      */
-    public static <T extends CodeEnum> T getByCode(Integer code, Class<T> enumClass) {
+    public static <T extends CodeEnum<X>,X> T getByCode(X code, Class<T> enumClass) {
         for (T each : enumClass.getEnumConstants()) {
             if (code.equals(each.getCode())) {
                 return each;

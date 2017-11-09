@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class ZhangYouRequest {
+public class ZhangYouSendSmsRequest {
     private String sid;//* 合作商家的企业代码，每个合作商家仅有一个。由我方分配，形式如:10010001。
     private String cpid;//* 业务代码，用于区分同一合作商的不同业务。由我方分配，形式如:600100。
     private String mobi;//* 待发送的手机号码，多个号码用半角逗号隔开，但不能超过规定的个数（暂定为30个）。

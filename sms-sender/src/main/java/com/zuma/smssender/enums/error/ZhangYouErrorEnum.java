@@ -28,7 +28,19 @@ public enum ZhangYouErrorEnum implements CodeEnum<String>{
     N("1014","彩信标题有误(超长,或者为空等)"),
     O("1015","该业务在本时间段限制发送"),
     P("1016","短信内容包含非法关键字"),
-    Q("1050","其他错误，请联系我方技术人员");
+    Q("1050","其他错误，请联系我方技术人员"),
+
+
+    //异步回调状态
+    R("5000","信息下发成功"),
+    S("5001","信息下发失败"),
+    T("6000","普通消息上行"),
+    U("9999", "其它错误"),
+
+    //我们回应状态
+    RESPONSE_SUCCESS("9000","处理成功"),
+    RESPONSE_FAILED("9001","处理失败")
+    ;
 
     private String code;
     private String message;
