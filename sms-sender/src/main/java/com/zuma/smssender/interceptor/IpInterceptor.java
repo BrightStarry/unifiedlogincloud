@@ -1,6 +1,14 @@
 package com.zuma.smssender.interceptor;
 
+import com.zuma.smssender.annotation.Verify;
+import com.zuma.smssender.config.IpAllow;
+import com.zuma.smssender.enums.error.ErrorEnum;
+import com.zuma.smssender.exception.SmsSenderException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,10 +21,31 @@ import javax.servlet.http.HttpServletResponse;
  * ip白名单拦截器
  */
 @Component
+@Slf4j
 public class IpInterceptor implements HandlerInterceptor {
+
+    @Autowired
+    private IpAllow ipAllow;
+
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return false;
+    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
+        //如果访问的不是Controller层的方法
+        if (!handler.getClass().isAssignableFrom(HandlerMethod.class))
+            return true;
+        //获取注解
+        Verify verify = ((HandlerMethod) handler).getMethodAnnotation(Verify.class);
+        //如果为空
+        if (verify == null)
+            return true;
+
+        //验证ip是否被包含在白名单中
+        String ip = getIp(httpServletRequest);
+        for (String each : ipAllow.getIps()) {
+            if (each.equals(ip))
+                return true;
+        }
+        log.info("【ip白名单】拦截到不属于白名单主机.ip={}",ip);
+        throw new SmsSenderException(ErrorEnum.IP_UNALLOW);
     }
 
     @Override
@@ -27,5 +56,23 @@ public class IpInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
+    }
+
+    public static String getIp(HttpServletRequest request) {
+        String ip = request.getHeader("X-Real-IP");
+        if (StringUtils.isNotEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+        ip = request.getHeader("X-Forwarded-For");
+        if (StringUtils.isNotEmpty(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            int index = ip.indexOf(",");
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
+                return ip;
+            }
+        } else {
+            return request.getRemoteAddr();
+        }
     }
 }

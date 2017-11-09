@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class ZhangYouSendSmsSyncResponse {
-    private String code;//返回码
-    private String id;//本次请求id
+public class ZhangYouSendSmsSyncResponse{
+    String code;//返回码
+    String id;//本次请求id
 }

@@ -1,4 +1,4 @@
-package com.zuma.smssender.strategy;
+package com.zuma.smssender.template;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -8,6 +8,7 @@ import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.request.KuanXinSendSmsRequest;
 import com.zuma.smssender.dto.response.KuanXinSendSmsResponse;
+import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.KuanXinErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
@@ -15,6 +16,7 @@ import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.util.CacheUtil;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
+import com.zuma.smssender.util.PhoneUtil;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -26,9 +28,16 @@ import java.util.List;
  */
 public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsRequest, KuanXinSendSmsResponse> {
 
+    @Override
+    int case2(String phones, String messages, SendSmsForm sendSmsForm,
+                      PhoneOperatorEnum[] containOperators,
+                      int apiRequestCount,
+                      List<ResultDTO<ErrorData>> resultDTOList) {
+        return super.case2ForMultiOperatorPlatform(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList);
+    }
 
     @Override
-    ResultDTO<?> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList) {
+    ResultDTO<CommonResult> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList) {
         //拼接返回对象<T>中的T
         CommonResult commonResult = new CommonResult(apiRequestCount, resultDTOList);
         //判断是否有异常返回
@@ -45,7 +54,7 @@ public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsReques
         KuanXinSendSmsResponse response = null;
         //发送请求，并返回ZhangYouResponse对象
         try {
-            response = sendHttpRequest(request);
+            response = sendHttpRequest(request,Config.KUANXIN_SEND_SMS_URL);
         } catch (SmsSenderException e) {
             //自定义异常捕获到,日志已经记录
             //返回异常返回对象
@@ -89,12 +98,7 @@ public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsReques
                 .build();
     }
 
-    @Override
-    KuanXinSendSmsResponse sendHttpRequest(KuanXinSendSmsRequest request) {
-        //发送请求并获取返回值
-        String result = HTTP_CLIENT_UTIL.doPostForString(Config.KUANXIN_SEND_SMS_URL, request);
-        return stringToResponseObject(result);
-    }
+
 
     @Override
     KuanXinSendSmsResponse stringToResponseObject(String result) {

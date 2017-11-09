@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/consumer/consumer.iml" filepath="$PROJECT_DIR$/consumer/consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/log-client/log-client.iml" filepath="$PROJECT_DIR$/log-client/log-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/log-common/log-common.iml" filepath="$PROJECT_DIR$/log-common/log-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/log-storage/log-storage.iml" filepath="$PROJECT_DIR$/log-storage/log-storage.iml" />
-      <module fileurl="file://$PROJECT_DIR$/service-center/service-center.iml" filepath="$PROJECT_DIR$/service-center/service-center.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sms-sender/sms-sender.iml" filepath="$PROJECT_DIR$/sms-sender/sms-sender.iml" />
-      <module fileurl="file://$PROJECT_DIR$/unified-login/unified-login.iml" filepath="$PROJECT_DIR$/unified-login/unified-login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-center/servicecenter.iml" filepath="$PROJECT_DIR$/service-center/servicecenter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sms-sender/smssender.iml" filepath="$PROJECT_DIR$/sms-sender/smssender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unified-login/unifiedlogin.iml" filepath="$PROJECT_DIR$/unified-login/unifiedlogin.iml" />
     </modules>
   </component>
 </project>

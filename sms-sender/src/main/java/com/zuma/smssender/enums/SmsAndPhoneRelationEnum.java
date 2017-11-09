@@ -8,7 +8,7 @@ import lombok.Getter;
  * 短信消息-手机号对应关系枚举
  */
 @Getter
-public enum SmssAndPhonesRelationEnum implements CodeEnum<Integer>{
+public enum SmsAndPhoneRelationEnum implements CodeEnum<Integer>{
 
     ONE_ONE(1,"一对一，一个短信对一个手机号"),
     ONE_MULTI(2,"一对多，一个短信对多个手机号"),
@@ -18,7 +18,7 @@ public enum SmssAndPhonesRelationEnum implements CodeEnum<Integer>{
     private Integer code;
     private String message;
 
-    SmssAndPhonesRelationEnum(Integer code, String message) {
+    SmsAndPhoneRelationEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

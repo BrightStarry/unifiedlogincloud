@@ -1,4 +1,4 @@
-package com.zuma.smssender.strategy;
+package com.zuma.smssender.template;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -42,7 +42,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
         ZhangYouSendSmsSyncResponse response = null;
         //发送请求，并返回ZhangYouResponse对象
         try {
-            response = sendHttpRequest(request);
+            response = sendHttpRequest(request,Config.ZHANGYOU_SEND_SMS_URL);
         } catch (SmsSenderException e) {
             //自定义异常捕获到,日志已经记录
             //返回异常返回对象
@@ -51,8 +51,8 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
         //判断是否成功-根据api的response
         if(!ZhangYouErrorEnum.SUCCESS.getCode().equals(response.getCode())){
             //根据掌游异常码获取异常枚举
-            ZhangYouErrorEnum zhangyouErrorEnum = EnumUtil.getByCode(response.getCode(), ZhangYouErrorEnum.class);
-            return ResultDTO.error(zhangyouErrorEnum,new ErrorData(phones,smsMessae));
+            ZhangYouErrorEnum errorEnum = EnumUtil.getByCode(response.getCode(), ZhangYouErrorEnum.class);
+            return ResultDTO.error(errorEnum,new ErrorData(phones,smsMessae));
         }
 
         //流水号处理
@@ -92,21 +92,6 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
                 .build();
     }
 
-    /**
-     * 发送http请求，并将返回数据组装为对应的response对象
-     *
-     * @param request
-     * @return
-     */
-    public ZhangYouSendSmsSyncResponse sendHttpRequest(ZhangYouSendSmsRequest request) {
-        //发送请求并获取返回值
-        String result = HTTP_CLIENT_UTIL.doPostForString(Config.ZHANGYOU_SEND_SMS_URL, request);
-        /**
-         * 其格式为  1002|00000000000000000000
-         * 前4位为状态码，后20位为本次调用流水号,用来对应异步回调接口的状态返回
-         */
-        return stringToResponseObject(result);
-    }
 
     /**
      * 将返回的string转为对应response对象
@@ -123,7 +108,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
                     .id(temp[1])
                     .build();
         } catch (Exception e) {
-            log.error("【掌游sendSms策略】返回的string转为response对象失败.resultString={},error={}", result, e.getMessage(), e);
+            log.error("【掌游sendSms】返回的string转为response对象失败.resultString={},error={}", result, e.getMessage(), e);
             throw new SmsSenderException(ErrorEnum.STRING_TO_RESPONSE_ERROR);
         }
     }

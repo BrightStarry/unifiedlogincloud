@@ -1,7 +1,5 @@
 package com.zuma.smssender.dto;
 
-import com.google.gson.Gson;
-import com.zuma.smssender.enums.SmssAndPhonesRelationEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

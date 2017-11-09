@@ -27,6 +27,10 @@ public class Config {
     public static final Integer KUANXIN_SMS_MAX_LEN = 350;
 
     //群正
+    //群正流水号处理前缀
+    public static final String QUNZHENG_PRE = "QUNZHENG";
+    //群正接口前缀
+    private static final String QUNZHENG_URL_PRE = "http://sms.uninets.com.cn/Modules/Interface/http/Iservicesbsjy.aspx";
 
     //regxep
     //移动手机号正则
@@ -42,7 +46,7 @@ public class Config {
     //宽信发送短信接口url
     public static final String KUANXIN_SEND_SMS_URL = KUANXIN_URL_PRE + "/sms/send";
     //群正发送短信接口url
-    public static final String QUNZHENG_SEND_SMS_URL = "http://sms.uninets.com.cn/Modules/Interface/http/Iservicesbsjy.aspx";
+    public static final String QUNZHENG_SEND_SMS_URL = QUNZHENG_URL_PRE + "";
 
     //分隔符
     //手机号数组分隔符

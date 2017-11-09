@@ -15,7 +15,9 @@
         <module name="logstorage" />
         <module name="logstoragenetty" />
         <module name="service-center" />
+        <module name="servicecenter" />
         <module name="sms-sender" />
+        <module name="smssender" />
         <module name="unified-login" />
         <module name="unifiedlogin" />
         <module name="unifylogin" />
@@ -28,8 +30,11 @@
       <module name="log-common" target="1.7" />
       <module name="log-storage" target="1.7" />
       <module name="service-center" target="1.8" />
+      <module name="servicecenter" target="1.8" />
       <module name="sms-sender" target="1.7" />
+      <module name="smssender" target="1.7" />
       <module name="unified-login" target="1.7" />
+      <module name="unifiedlogin" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

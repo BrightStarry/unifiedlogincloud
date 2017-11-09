@@ -34,15 +34,28 @@ public class SmsAccountCollection {
                 .bKey("710317")
                 .cKey("asdfg123456ghjjjjjkh")
                 .build();
-        accounts
-                [ChannelEnum.KUAN_XIN.getCode()]
-                [PhoneOperatorEnum.ALL.getCode()] = CommonSmsAccount.builder()
+
+        //因为宽信帐号可以支持所有运营商，所以如此赋值
+        CommonSmsAccount kuanxin = CommonSmsAccount.builder()
                 .channel("2")
                 .type(PhoneOperatorEnum.ALL.getCode())
                 .aKey("387568")
                 .bKey("84f26c091438461bb01fcd021da1c197")
                 .cKey("")
                 .build();
+        accounts
+                [ChannelEnum.KUAN_XIN.getCode()]
+                [PhoneOperatorEnum.ALL.getCode()] = kuanxin;
+        accounts
+                [ChannelEnum.KUAN_XIN.getCode()]
+                [PhoneOperatorEnum.YIDONG.getCode()] = kuanxin;
+        accounts
+                [ChannelEnum.KUAN_XIN.getCode()]
+                [PhoneOperatorEnum.DIANXIN.getCode()] = kuanxin;
+        accounts
+                [ChannelEnum.KUAN_XIN.getCode()]
+                [PhoneOperatorEnum.LIANTONG.getCode()] = kuanxin;
+
         accounts
                 [ChannelEnum.QUN_ZHENG.getCode()]
                 [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()

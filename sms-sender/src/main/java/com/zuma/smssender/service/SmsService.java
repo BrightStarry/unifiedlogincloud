@@ -9,5 +9,5 @@ import com.zuma.smssender.form.SendSmsForm;
  * 短信服务 抽象类 模版方法
  */
 public interface SmsService {
-    ResultDTO<?> sendSms(SendSmsForm sendSmsForm);
+    ResultDTO sendSms(SendSmsForm sendSmsForm);
 }
