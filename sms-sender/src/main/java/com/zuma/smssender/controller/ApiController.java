@@ -32,8 +32,6 @@ public class ApiController extends BaseController{
     public ResultDTO<CommonResult> sendSms(@Valid SendSmsForm sendSmsForm, BindingResult bindingResult){
         //参数基本校验
         isValid(bindingResult,log,"【API发送短信接口】参数校验失败.form={}",sendSmsForm);
-
-
         return sendSmsService.sendSms(sendSmsForm);
     }
 

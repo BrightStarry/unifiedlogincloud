@@ -74,9 +74,10 @@ public class SendSmsServiceImpl implements SendSmsService {
         SmsSendRecord smsSendRecord = saveSmsSendRecord(sendSmsForm, platform);
 
         //确认签名
-        String realSign = CodeUtil.stringToMd5(platform.getToken() + sendSmsForm.getPhones() + sendSmsForm.getTimestamp());
+        String realSign = CodeUtil.stringToMd5(platform.getToken() + sendSmsForm.getPhone() + sendSmsForm.getTimestamp());
         if (!sendSmsForm.getSign().equals(realSign)) {
             log.error("【API发送短信接口】签名不匹配.currentSign={}", sendSmsForm.getSign());
+            throw new SmsSenderException(ErrorEnum.SIGN_ERROR);
         }
 
         //获取通道枚举
@@ -90,7 +91,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         }
 
         //确认手机号码
-        String[] phones = StringUtils.split(sendSmsForm.getPhones(), Config.PHONES_SEPARATOR);
+        String[] phones = StringUtils.split(sendSmsForm.getPhone(), Config.PHONES_SEPARATOR);
         //如果手机号数超限
         if (phones.length > Config.MAX_PHONE_NUM) {
             log.error("【API发送短信接口】手机号码数目超过最大值:{},当前数目:{}", Config.MAX_PHONE_NUM, phones.length);
@@ -116,7 +117,7 @@ public class SendSmsServiceImpl implements SendSmsService {
 
 
         //用来统计当前号码数组包含的不同运营商
-        PhoneOperatorEnum[] containOperators = new PhoneOperatorEnum[3];
+        PhoneOperatorEnum[] containOperators = new PhoneOperatorEnum[0];
 
         //如果指定了通道
         if (!sendSmsForm.getChannel().equals(ChannelEnum.UNKNOWN.getCode())) {
@@ -132,14 +133,15 @@ public class SendSmsServiceImpl implements SendSmsService {
                     throw new SmsSenderException(ErrorEnum.UNSUPPORTED_OPERATOR);
                 }
                 //如果统计数组不存在该运营商，就加入,以此统计出所有不同运营商
-                if (containOperators.length != 3 && !ArrayUtils.contains(containOperators, temp)) {
-                    ArrayUtils.add(containOperators, temp);
+                if (containOperators.length < 3 && !ArrayUtils.contains(containOperators, temp)) {
+                    //该工具类方法和arraylist相同，都是创建新数组，并在末尾加上元素
+                    containOperators = ArrayUtils.add(containOperators, temp);
                 }
             }
 
             //调用指定通道对应的发送短信策略
             return sendSmsTemplate[channelEnum.getCode()].sendSms(
-                    sendSmsForm.getPhones(),
+                    sendSmsForm.getPhone(),
                     sendSmsForm.getSmsMessage(),
                     sendSmsForm,
                     containOperators,
@@ -183,7 +185,7 @@ public class SendSmsServiceImpl implements SendSmsService {
                             SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
                             PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel) {
         //每次的phones
-        String eachPhones = sendSmsForm.getPhones();
+        String eachPhones = sendSmsForm.getPhone();
         //每次的smsMessage
         String eachSmsMessage = sendSmsForm.getSmsMessage();
         ResultDTO resultDTO = null;
@@ -239,5 +241,9 @@ public class SendSmsServiceImpl implements SendSmsService {
         return  smsSendRecordService.save(record);
     }
 
+    public static void main(String[] args) {
+        String s = CodeUtil.stringToMd5("a" + "17826824998" + "111111");
+        System.out.println(s);
+    }
 
 }

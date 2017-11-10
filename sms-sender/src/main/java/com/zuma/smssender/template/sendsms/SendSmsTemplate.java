@@ -70,6 +70,7 @@ public abstract class SendSmsTemplate<R, P> {
                 String[] smsMessages = StringUtils.split(messages, Config.SMS_MESSAGE_SEPARATOR);
                 //循环手机号
                 for (int i = 0; i < phoneArray.length; i++) {
+                    apiRequestCount++;
                     loop(PhoneUtil.getPhoneOperator(phoneArray[i])[0],//手机号运营商
                             phoneArray[i],
                             smsMessages[i],

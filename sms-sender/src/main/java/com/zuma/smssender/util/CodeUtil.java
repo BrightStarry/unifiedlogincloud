@@ -9,6 +9,7 @@ import org.springframework.util.DigestUtils;
 import sun.awt.CharsetString;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
@@ -190,6 +191,21 @@ public class CodeUtil {
         String result = null;
         try {
              result = URLEncoder.encode(str, Encoder.UTF_8);
+        } catch (UnsupportedEncodingException e) {
+            //不可能发生。这个类设计有问题。传的不是Charset,而是String
+        }
+        return result;
+    }
+
+    /**
+     * urlencode 转 string
+     * @param string
+     * @return
+     */
+    public static String urlEncodeToString(String string) {
+        String result = null;
+        try {
+            URLDecoder.decode(string,Encoder.UTF_8);
         } catch (UnsupportedEncodingException e) {
             //不可能发生。这个类设计有问题。传的不是Charset,而是String
         }

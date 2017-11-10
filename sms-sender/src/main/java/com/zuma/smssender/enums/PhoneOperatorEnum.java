@@ -10,10 +10,10 @@ import org.omg.CORBA.UNKNOWN;
  */
 @Getter
 public enum PhoneOperatorEnum implements CodeEnum<Integer> {
-    YIDONG(1,"移动"),
-    DIANXIN(2,"电信"),
-    LIANTONG(3,"联通"),
-    ALL(0,"所有"),
+    YIDONG(0,"移动"),
+    DIANXIN(1,"电信"),
+    LIANTONG(2,"联通"),
+    ALL(4,"所有"),
     UNKNOWN(-1,"未知")
     ;
     private Integer code;

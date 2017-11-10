@@ -29,6 +29,7 @@ public enum ErrorEnum implements CodeEnum<String> {
     IP_UNALLOW("0015","IP非法"),
     CACHE_EXPIRE("0016","缓存过期,无法解析发送短信接口异步回调信息"),
     SEND_CALLBACK_TO_PLATFORM_ERROR("0017", "发送回调请求到平台失败"),
+    SIGN_ERROR("0018","签名不匹配")
 
 
 
