@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 public enum KuanXinErrorEnum implements CodeEnum<String>{
-
+    CALLBACK_SUCCESS("DELIVRD","成功"),
     SUCCESS("0","成功"),
     A("1","提交失败"),
     B("2","参数校验失败，参数不能为空"),

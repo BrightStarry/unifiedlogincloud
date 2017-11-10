@@ -1,4 +1,4 @@
-package com.zuma.smssender.template;
+package com.zuma.smssender.template.sendsms;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -7,7 +7,7 @@ import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.request.KuanXinSendSmsRequest;
-import com.zuma.smssender.dto.response.KuanXinSendSmsResponse;
+import com.zuma.smssender.dto.response.sendsms.KuanXinSendSmsResponse;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.KuanXinErrorEnum;
@@ -16,7 +16,6 @@ import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.util.CacheUtil;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
-import com.zuma.smssender.util.PhoneUtil;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;

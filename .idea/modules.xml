@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/log-storage/log-storage.iml" filepath="$PROJECT_DIR$/log-storage/log-storage.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-center/servicecenter.iml" filepath="$PROJECT_DIR$/service-center/servicecenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/sms-sender/smssender.iml" filepath="$PROJECT_DIR$/sms-sender/smssender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sms-sender/smssender.iml" filepath="$PROJECT_DIR$/sms-sender/smssender.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unified-login/unifiedlogin.iml" filepath="$PROJECT_DIR$/unified-login/unifiedlogin.iml" />
       <module fileurl="file://$PROJECT_DIR$/unified-login/unifiedlogin.iml" filepath="$PROJECT_DIR$/unified-login/unifiedlogin.iml" />
     </modules>
   </component>

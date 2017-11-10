@@ -9,9 +9,9 @@ import lombok.Data;
  * 群正平台发送短信接口请求对象
  */
 @Data
-@Builder
+@Builder()
 public class QunZhengSendSmsRequest {
-    private String flag = "sendsms";//操作命令
+    private String flag;//操作命令
     private String loginName;//用户id
     private String password;//密码
     private String p;//手机号

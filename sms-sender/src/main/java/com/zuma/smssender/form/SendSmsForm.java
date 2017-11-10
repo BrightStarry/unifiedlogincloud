@@ -18,7 +18,7 @@ public class SendSmsForm {
     @Size(min = 1000, max = 9999,message = "平台id不符合规范")
     private Long platformId;//平台id
 
-    private String channel;//通道: 1:掌游；2：宽信；3：群正
+    private Integer channel;//通道: 1:掌游；2：宽信；3：群正
 
     @NotBlank(message = "手机号不能为空")
     @Length(min = 11,message = "手机号不符合规范,小于11位")

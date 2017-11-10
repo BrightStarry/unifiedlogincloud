@@ -1,4 +1,4 @@
-package com.zuma.smssender.template;
+package com.zuma.smssender.template.sendsms;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -59,8 +59,8 @@ public abstract class SendSmsTemplate<R, P> {
                 break;
             //1-*
             case 2:
-                apiRequestCount = case2(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList);
 
+                apiRequestCount = case2(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList);
                 break;
             //*-*
             case 3:

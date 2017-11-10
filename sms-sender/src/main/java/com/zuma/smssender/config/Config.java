@@ -16,11 +16,11 @@ public class Config {
     //掌游接口前缀
     private static final String ZHANGYOU_URL_PRE = "http://ysms.game2palm.com:8899/smsAccept";
     //掌游流水号处理前缀
-    public static final String ZHANGYOU_PRE = "ZHANGYOU";
+    public static final String ZHANGYOU_PRE = "zhangyou";
 
     //宽信
     //宽信流水号处理前缀
-    public static final String KUANXIN_PRE = "KUANXIN";
+    public static final String KUANXIN_PRE = "kuanxin";
     //宽信接口前缀
     private static final String KUANXIN_URL_PRE = "http://114.55.90.98:8808/api";
     //宽信短信内容最大长度
@@ -28,7 +28,7 @@ public class Config {
 
     //群正
     //群正流水号处理前缀
-    public static final String QUNZHENG_PRE = "QUNZHENG";
+    public static final String QUNZHENG_PRE = "qunzheng";
     //群正接口前缀
     private static final String QUNZHENG_URL_PRE = "http://sms.uninets.com.cn/Modules/Interface/http/Iservicesbsjy.aspx";
 

@@ -28,11 +28,21 @@ public class CacheUtil {
     }
 
     /**
+     * 取出并删除对象
+     */
+    public static <T> T getAndDelete(String key, Class<T> tClass){
+        T t = get(key, tClass);
+        delete(key);
+        return t;
+    }
+
+    /**
      * 取出对象
      */
-    public static <T> T get(String key,Class<T> tClass){
-         return CodeUtil.jsonStringToObject(cache.getIfPresent(key),tClass);
+    public static <T> T get(String key, Class<T> tClass) {
+        return CodeUtil.jsonStringToObject(cache.getIfPresent(key), tClass);
     }
+
 
     /**
      * 删除对象

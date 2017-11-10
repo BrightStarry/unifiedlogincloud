@@ -20,7 +20,6 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -66,12 +65,18 @@ public class HttpClientUtil {
      * 发送post请求，返回String
      */
     public <T> String doPostForString(String url, T obj){
-        //发送请求返回response
-        CloseableHttpResponse response = doPost(url, obj);
-        //response 转 string
-        String result = responseToString(response);
-        //关闭
-        closeResponseAndIn(null,response);
+        CloseableHttpResponse response = null;
+        String result;
+        try {
+            //发送请求返回response
+            response = doPost(url, obj);
+            //response 转 string
+            result = responseToString(response);
+        } finally {
+            //关闭
+            closeResponseAndIn(null,response);
+        }
+
 
         return result;
     }

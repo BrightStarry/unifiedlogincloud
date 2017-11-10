@@ -1,4 +1,4 @@
-package com.zuma.smssender.template;
+package com.zuma.smssender.template.sendsms;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -6,7 +6,7 @@ import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.request.ZhangYouSendSmsRequest;
-import com.zuma.smssender.dto.response.ZhangYouSendSmsSyncResponse;
+import com.zuma.smssender.dto.response.sendsms.ZhangYouSendSmsSyncResponse;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.ZhangYouErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;

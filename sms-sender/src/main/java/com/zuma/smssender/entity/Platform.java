@@ -40,6 +40,11 @@ public class Platform {
     private String token = "";
 
     /**
+     * 回调url
+     */
+    private String callbackUrl;
+
+    /**
      * 状态： 0：停止授权；1：启用授权
      */
     private Integer status = PlatformStatusEnum.VALID.getCode();

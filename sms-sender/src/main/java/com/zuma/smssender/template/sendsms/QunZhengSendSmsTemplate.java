@@ -1,4 +1,4 @@
-package com.zuma.smssender.template;
+package com.zuma.smssender.template.sendsms;
 
 import com.zuma.smssender.config.CommonSmsAccount;
 import com.zuma.smssender.config.Config;
@@ -6,7 +6,7 @@ import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.dto.request.QunZhengSendSmsRequest;
-import com.zuma.smssender.dto.response.QunZhengSendSmsResponse;
+import com.zuma.smssender.dto.response.sendsms.QunZhengSendSmsResponse;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.QunZhengErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
@@ -66,6 +66,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
             throw new SmsSenderException(ErrorEnum.TRANSCODE_ERROR);
         }
         return QunZhengSendSmsRequest.builder()
+                .flag("sendsms")
                 .loginName(account.getAKey())
                 .password(account.getBKey())
                 .p(phones)

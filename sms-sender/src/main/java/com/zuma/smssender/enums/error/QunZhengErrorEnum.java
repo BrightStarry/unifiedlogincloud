@@ -26,6 +26,9 @@ public enum QunZhengErrorEnum implements CodeEnum<String>{
     M("-13", "当前密码不符合系统规范"),
     N("-20", "签名不存在或者不符合要求（签名前两个字必须为汉字）"),
     O("-100", "未知错误"),
+
+    CALLBACK_SUCCESS("10","成功"),
+    Q("11","失败")
     ;
     private String code;
     private String message;

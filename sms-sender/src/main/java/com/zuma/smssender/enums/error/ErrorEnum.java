@@ -26,7 +26,10 @@ public enum ErrorEnum implements CodeEnum<String> {
     STRING_TO_RESPONSE_ERROR("0012","将http返回的string转为response对象失败"),
     SEND_SMS_ERROR("0013","短信发送异常"),
     TRANSCODE_ERROR("0014","转码失败"),
-    IP_UNALLOW("0015","IP非法")
+    IP_UNALLOW("0015","IP非法"),
+    CACHE_EXPIRE("0016","缓存过期,无法解析发送短信接口异步回调信息"),
+    SEND_CALLBACK_TO_PLATFORM_ERROR("0017", "发送回调请求到平台失败"),
+
 
 
     ;

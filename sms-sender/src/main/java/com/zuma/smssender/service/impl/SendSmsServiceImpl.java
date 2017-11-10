@@ -1,22 +1,27 @@
 package com.zuma.smssender.service.impl;
 
+import com.google.gson.Gson;
 import com.zuma.smssender.config.Config;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.entity.Platform;
+import com.zuma.smssender.entity.SmsSendRecord;
 import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.SmsAndPhoneRelationEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
+import com.zuma.smssender.factory.CommonFactory;
+import com.zuma.smssender.factory.GsonFactory;
 import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.PlatformService;
-import com.zuma.smssender.service.SmsService;
-import com.zuma.smssender.template.KuanXinSendSmsTemplate;
-import com.zuma.smssender.template.QunZhengSendSmsTemplate;
-import com.zuma.smssender.template.SendSmsTemplate;
-import com.zuma.smssender.template.ZhangYouSendSmsTemplate;
+import com.zuma.smssender.service.SendSmsService;
+import com.zuma.smssender.service.SmsSendRecordService;
+import com.zuma.smssender.template.sendsms.KuanXinSendSmsTemplate;
+import com.zuma.smssender.template.sendsms.QunZhengSendSmsTemplate;
+import com.zuma.smssender.template.sendsms.SendSmsTemplate;
+import com.zuma.smssender.template.sendsms.ZhangYouSendSmsTemplate;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
 import com.zuma.smssender.util.PhoneUtil;
@@ -38,9 +43,16 @@ import java.util.List;
 @Service
 @Setter
 @Slf4j
-public class SmsServiceImpl implements SmsService {
+public class SendSmsServiceImpl implements SendSmsService {
+
+
+    @Autowired
+    private SmsSendRecordService smsSendRecordService;
+
+    private CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
+
     //发送短信接口参数策略实现类数组，根据channel code 取
-    private SendSmsTemplate[] sendSmsStrategies = new SendSmsTemplate[]{
+    private SendSmsTemplate[] sendSmsTemplate = new SendSmsTemplate[]{
             new ZhangYouSendSmsTemplate(),
             new KuanXinSendSmsTemplate(),
             new QunZhengSendSmsTemplate()
@@ -58,20 +70,22 @@ public class SmsServiceImpl implements SmsService {
         //确认平台存在
         Platform platform = platformService.findOne(sendSmsForm.getPlatformId());
 
+        //记录入库
+        SmsSendRecord smsSendRecord = saveSmsSendRecord(sendSmsForm, platform);
+
         //确认签名
         String realSign = CodeUtil.stringToMd5(platform.getToken() + sendSmsForm.getPhones() + sendSmsForm.getTimestamp());
         if (!sendSmsForm.getSign().equals(realSign)) {
             log.error("【API发送短信接口】签名不匹配.currentSign={}", sendSmsForm.getSign());
         }
 
-
         //获取通道枚举
-        ChannelEnum channelEnum = EnumUtil.getByCode(Integer.valueOf(sendSmsForm.getChannel()), ChannelEnum.class);
-        //确认指定的通道是否存在，此时还有一种情况就是通道未指定
-        if (!StringUtils.isEmpty(sendSmsForm.getChannel()) &&
-                channelEnum == null) {
+        if (sendSmsForm.getChannel() == null) //如果未指定，则为未知
+            sendSmsForm.setChannel(ChannelEnum.UNKNOWN.getCode());
+        ChannelEnum channelEnum = EnumUtil.getByCode(sendSmsForm.getChannel(), ChannelEnum.class);
+        //确认指定的通道是否存在，
+        if (channelEnum == null) {
             log.error("【API发送短信接口】通道不存在.channel={}", sendSmsForm.getChannel());
-            ;
             throw new SmsSenderException(ErrorEnum.CHANNEL_EMPTY);
         }
 
@@ -99,11 +113,13 @@ public class SmsServiceImpl implements SmsService {
         }
         //--------------------参数校验END-------------------------------
 
+
+
         //用来统计当前号码数组包含的不同运营商
         PhoneOperatorEnum[] containOperators = new PhoneOperatorEnum[3];
 
         //如果指定了通道
-        if (!StringUtils.isEmpty(sendSmsForm.getChannel())) {
+        if (!sendSmsForm.getChannel().equals(ChannelEnum.UNKNOWN.getCode())) {
             //获取每个手机号的运营商枚举
             PhoneOperatorEnum[] phoneOperators = PhoneUtil.getPhoneOperator(phones);
             //获取通道支持的运营商数组
@@ -122,7 +138,7 @@ public class SmsServiceImpl implements SmsService {
             }
 
             //调用指定通道对应的发送短信策略
-            return sendSmsStrategies[channelEnum.getCode()].sendSms(
+            return sendSmsTemplate[channelEnum.getCode()].sendSms(
                     sendSmsForm.getPhones(),
                     sendSmsForm.getSmsMessage(),
                     sendSmsForm,
@@ -149,34 +165,79 @@ public class SmsServiceImpl implements SmsService {
                 availableChannel.add(channelEach);
         }
 
-
         //失败，更换通道重新发送机制
-        //返回对象集合,可能有多个
-        List<ResultDTO> resultDTOList = new ArrayList<>();
+        return retry(sendSmsForm, sendSmsTemplate[channelEnum.getCode()], smsAndPhoneRelationEnum, containOperators, availableChannel);
+    }
+
+    /**
+     * 失败重试机制
+     *
+     * @param sendSmsForm
+     * @param sendSmsTemplate
+     * @param smsAndPhoneRelationEnum
+     * @param containOperators
+     * @param availableChannel
+     * @return
+     */
+    private ResultDTO retry(SendSmsForm sendSmsForm, SendSmsTemplate sendSmsTemplate,
+                            SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
+                            PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel) {
+        //每次的phones
+        String eachPhones = sendSmsForm.getPhones();
+        //每次的smsMessage
+        String eachSmsMessage = sendSmsForm.getSmsMessage();
+        ResultDTO resultDTO = null;
         //循环所有可用通道
         for (ChannelEnum channelEach : availableChannel) {
             //发送短信
-            ResultDTO resultDTO = sendSmsStrategies[channelEnum.getCode()]
+            resultDTO = sendSmsTemplate
                     .sendSms(
-                            sendSmsForm.getPhones(),
-                            sendSmsForm.getSmsMessage(),
+                            eachPhones,
+                            eachSmsMessage,
                             sendSmsForm,
                             containOperators,
                             smsAndPhoneRelationEnum);
-            //提取失败的数据
-            //如果data为空说明全部成功
-            if (resultDTO.getData() == null)
+
+            //如果成功
+            if (resultDTO.getCode().equals(ErrorEnum.SUCCESS.getCode()))
                 return resultDTO;
-            //如果有失败的数据
 
+            //如果有失败的数据,使用失败的phones和smsMessage重试
+            //获取失败数据集合
+            CommonResult commonResult = (CommonResult) resultDTO.getData();
 
+            //循环本次失败的所有失败数据的集合
+            //失败数据拼接
+            StringBuilder failedPhones = new StringBuilder();
+            StringBuilder failedMessages = new StringBuilder();
+            for (ResultDTO<ErrorData> each : commonResult.getErrorResults()) {
+                failedPhones.append(each.getData().getPhones()).append(Config.PHONES_SEPARATOR);
+                failedMessages.append(each.getData().getMessages()).append(Config.SMS_MESSAGE_SEPARATOR);
+            }
+            //截取末尾分隔符
+            failedPhones.deleteCharAt(failedPhones.length() - Config.PHONES_SEPARATOR.length());
+            failedMessages.deleteCharAt(failedMessages.length() - Config.SMS_MESSAGE_SEPARATOR.length());
+            //如果不是一对多，因为该情况，不能叠加失败短信消息
+            if (!smsAndPhoneRelationEnum.equals(SmsAndPhoneRelationEnum.ONE_MULTI))
+                eachSmsMessage = failedMessages.toString();
+            eachPhones = failedPhones.toString();
         }
-
-
-        return null;
+        return resultDTO;
     }
 
-
+    /**
+     * 保存短信发送记录
+     *
+     * @return
+     */
+    private SmsSendRecord saveSmsSendRecord(SendSmsForm sendSmsForm, Platform platform) {
+        SmsSendRecord record = SmsSendRecord.builder()
+                .platformId(sendSmsForm.getPlatformId())
+                .platformName(platform.getName())
+                .requestBody(gsonFactory.build().toJson(sendSmsForm))
+                .build();
+        return  smsSendRecordService.save(record);
+    }
 
 
 }

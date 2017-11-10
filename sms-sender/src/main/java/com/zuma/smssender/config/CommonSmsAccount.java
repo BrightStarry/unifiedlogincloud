@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * datetime:2017/11/7 0007 14:24
  * 通用短信api帐号
  */
-@Component
 @Data
 @Builder
 public class CommonSmsAccount {

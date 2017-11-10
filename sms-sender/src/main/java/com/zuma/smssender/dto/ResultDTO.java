@@ -1,10 +1,12 @@
 package com.zuma.smssender.dto;
 
 import com.zuma.smssender.enums.CodeEnum;
+import com.zuma.smssender.enums.ResultDTOTypeEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * author:ZhengXing
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 
 
 @Data
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResultDTO<T> {
@@ -21,12 +24,20 @@ public class ResultDTO<T> {
     private String code;
     /**消息*/
     private String message;
+    /**类型*/
+    private String type = ResultDTOTypeEnum.COMMON.getCode();
     /**数据*/
     private T data;
 
     public ResultDTO(String code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public ResultDTO(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
     /**
@@ -50,7 +61,7 @@ public class ResultDTO<T> {
     /**
      * 返回成功状态，数据为空
      */
-    public static ResultDTO<?> success(){
+    public static <T> ResultDTO<T> success(Class<T> tClass){
         return success(null);
     }
 
@@ -81,7 +92,6 @@ public class ResultDTO<T> {
     public static <T> ResultDTO<T> error(CodeEnum<String> errorEnum,T obj) {
         return new ResultDTO<T>(errorEnum.getCode(),errorEnum.getMessage(),obj);
     }
-
 
 
 }
