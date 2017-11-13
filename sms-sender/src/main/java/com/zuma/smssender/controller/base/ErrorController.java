@@ -1,4 +1,4 @@
-package com.zuma.smssender.controller;
+package com.zuma.smssender.controller.base;
 
 import com.zuma.smssender.dto.ResultDTO;
 import org.springframework.stereotype.Controller;

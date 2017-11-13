@@ -5,6 +5,7 @@ import com.zuma.smssender.config.IpAllow;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,8 +25,15 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class IpInterceptor implements HandlerInterceptor {
 
+
+    private static IpAllow ipAllow;
+    private static String[] ips;
+
     @Autowired
-    private IpAllow ipAllow;
+    public void setIpAllow(IpAllow ipAllow) {
+        ipAllow = ipAllow;
+        ips = StringUtils.split(ipAllow.getAllowIp(),",");
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
@@ -40,11 +48,9 @@ public class IpInterceptor implements HandlerInterceptor {
 
         //验证ip是否被包含在白名单中
         String ip = getIp(httpServletRequest);
-        for (String each : ipAllow.getIps()) {
-            if (each.equals(ip))
-                return true;
-        }
-        log.info("【ip白名单】拦截到不属于白名单主机.ip={}",ip);
+        if (ArrayUtils.contains(ips, ip))
+            return true;
+        log.info("【ip白名单】拦截到未知主机.ip={}",ip);
         throw new SmsSenderException(ErrorEnum.IP_UNALLOW);
     }
 

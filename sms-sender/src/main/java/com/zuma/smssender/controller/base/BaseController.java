@@ -1,4 +1,4 @@
-package com.zuma.smssender.controller;
+package com.zuma.smssender.controller.base;
 
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.FormInvalidException;

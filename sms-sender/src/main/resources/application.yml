@@ -1,3 +1,6 @@
+
+ip:
+  allowIp: 127
 server:
   port: 80
   context-path: /
@@ -16,5 +19,3 @@ spring:
   http:
     encoding:
       force: true
-ip:
-  allowIp: 127.0.0.1

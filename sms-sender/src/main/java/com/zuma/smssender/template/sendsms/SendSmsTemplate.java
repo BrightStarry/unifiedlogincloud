@@ -38,7 +38,8 @@ public abstract class SendSmsTemplate<R, P> {
      * @param smsAndPhoneRelationEnum 短信消息-手机号 关系，例如1-1；1-*；*-*
      * @return 返回对象
      */
-    public  ResultDTO<CommonResult> sendSms(String phones,
+    public  ResultDTO<CommonResult> sendSms(ChannelEnum channelEnum,
+                                            String phones,
                                             String messages,
                                             SendSmsForm sendSmsForm,
                                             PhoneOperatorEnum[] containOperators,
@@ -55,12 +56,12 @@ public abstract class SendSmsTemplate<R, P> {
                 //api调用次数累加--Integer也是值传递，所以直接放在方法外
                 apiRequestCount++;
                 //相同步骤封装
-                loop(containOperators[0],phones,messages,resultDTOList,sendSmsForm);
+                loop(containOperators[0],phones,messages,resultDTOList,sendSmsForm,channelEnum);
                 break;
             //1-*
             case 2:
 
-                apiRequestCount = case2(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList);
+                apiRequestCount = case2(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList,channelEnum);
                 break;
             //*-*
             case 3:
@@ -75,7 +76,8 @@ public abstract class SendSmsTemplate<R, P> {
                             phoneArray[i],
                             smsMessages[i],
                             resultDTOList,
-                            sendSmsForm);
+                            sendSmsForm,
+                            channelEnum);
                 }
                 break;
         }
@@ -87,7 +89,7 @@ public abstract class SendSmsTemplate<R, P> {
     /**
      * 当一对多时执行的方法，如果平台帐号为单一账号只能发送单一运营商，使用该方法
      * 如果是的单一帐号可发送所有运营商，则可以在子类中，重写该方法：
-     * 在该方法中，直接调用${@link #case2ForMultiOperatorPlatform(String,String,SendSmsForm, PhoneOperatorEnum[], int, List)}
+     * 在该方法中，直接调用${@link #case2ForMultiOperatorPlatform(String,String,SendSmsForm, PhoneOperatorEnum[], int, List,ChannelEnum)}
      * @param sendSmsForm
      * @param containOperators
      * @param apiRequestCount
@@ -97,7 +99,8 @@ public abstract class SendSmsTemplate<R, P> {
     int case2(String phones,String messages,SendSmsForm sendSmsForm,
                       PhoneOperatorEnum[] containOperators,
                       int apiRequestCount,
-                      List<ResultDTO<ErrorData>> resultDTOList) {
+                      List<ResultDTO<ErrorData>> resultDTOList,
+                        ChannelEnum channelEnum) {
         //循环运营商，将手机号分为多个运营商组发送
         for (PhoneOperatorEnum phoneOperatorEnum : containOperators) {
             //api调用次数累加
@@ -105,7 +108,8 @@ public abstract class SendSmsTemplate<R, P> {
             loop(phoneOperatorEnum,
                     PhoneUtil.getPhonesByOperator(phones, phoneOperatorEnum),
                     messages,
-                    resultDTOList,sendSmsForm);
+                    resultDTOList,sendSmsForm,
+                    channelEnum);
         }
         return apiRequestCount;
     }
@@ -121,13 +125,15 @@ public abstract class SendSmsTemplate<R, P> {
     int case2ForMultiOperatorPlatform(String phones,String messages, SendSmsForm sendSmsForm,
               PhoneOperatorEnum[] containOperators,
               int apiRequestCount,
-              List<ResultDTO<ErrorData>> resultDTOList) {
+              List<ResultDTO<ErrorData>> resultDTOList,
+                                      ChannelEnum channelEnum) {
         //api调用次数累加
         apiRequestCount++;
         loop(PhoneOperatorEnum.ALL,
                 phones,
                 messages,
-                resultDTOList,sendSmsForm);
+                resultDTOList,sendSmsForm,
+                channelEnum);
         return apiRequestCount;
     }
 
@@ -152,9 +158,10 @@ public abstract class SendSmsTemplate<R, P> {
     void loop(PhoneOperatorEnum phoneOperatorEnum,
                        String phone, String smsMessage,
                        List<ResultDTO<ErrorData>> resultDTOList,
-                       SendSmsForm sendSmsForm){
+                       SendSmsForm sendSmsForm,
+                        ChannelEnum channelEnum){
         //获取当前通道、当前运营商帐号
-        CommonSmsAccount account = ACCOUNTS.getAccounts()[ChannelEnum.ZHANG_YOU.getCode()][phoneOperatorEnum.getCode()];
+        CommonSmsAccount account = ACCOUNTS.getAccounts()[channelEnum.getCode()][phoneOperatorEnum.getCode()];
         //调用http请求工具，获取response并解析为返回对象返回
         ResultDTO<ErrorData> resultDTO = getResponse(account, phone, smsMessage, sendSmsForm);
         //如果不成功将返回对象加入数组

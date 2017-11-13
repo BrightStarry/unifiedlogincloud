@@ -130,33 +130,6 @@ public class HttpClientUtil {
         throw new SmsSenderException(ErrorEnum.HTTP_STATUS_CODE_ERROR);
     }
 
-    /**
-     * 发起get请求，返回 response
-     */
-    public CloseableHttpResponse sendGetRequestForResponse(String url) throws Exception {
-        HttpGet httpget = new HttpGet(url);
-        CloseableHttpResponse response = null;
-        response = getHttpClient().execute(httpget);
-        /**
-         * 如果失败，关闭连接
-         */
-        if (!isSuccess(response)) {
-            httpget.abort();
-            closeResponseAndIn(null, response);
-        }
-        return response;
-    }
-
-
-    /**
-     * 发起get请求，返回 html string
-     */
-    public String sendGetRequestForHtml(String url) throws Exception {
-        CloseableHttpResponse response = sendGetRequestForResponse(url);
-        String html = responseToString(response);
-        closeResponseAndIn(null, response);
-        return html;
-    }
 
 
     /**

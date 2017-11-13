@@ -8,6 +8,7 @@ import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.request.KuanXinSendSmsRequest;
 import com.zuma.smssender.dto.response.sendsms.KuanXinSendSmsResponse;
+import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.KuanXinErrorEnum;
@@ -31,8 +32,9 @@ public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsReques
     int case2(String phones, String messages, SendSmsForm sendSmsForm,
                       PhoneOperatorEnum[] containOperators,
                       int apiRequestCount,
-                      List<ResultDTO<ErrorData>> resultDTOList) {
-        return super.case2ForMultiOperatorPlatform(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList);
+                      List<ResultDTO<ErrorData>> resultDTOList,
+                        ChannelEnum channelEnum) {
+        return super.case2ForMultiOperatorPlatform(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList,channelEnum);
     }
 
     @Override

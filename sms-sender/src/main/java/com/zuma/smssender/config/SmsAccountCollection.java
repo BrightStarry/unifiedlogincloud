@@ -27,7 +27,7 @@ public class SmsAccountCollection {
         accounts
                 [ChannelEnum.ZHANG_YOU.getCode()]
                 [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
-                .channel("1")
+                .channel(String.valueOf(ChannelEnum.ZHANG_YOU.getCode()))
                 .type(PhoneOperatorEnum.YIDONG.getCode())
                 .aKey("10010317")
                 .bKey("710317")
@@ -36,7 +36,7 @@ public class SmsAccountCollection {
 
         //因为宽信帐号可以支持所有运营商，所以如此赋值
         CommonSmsAccount kuanxin = CommonSmsAccount.builder()
-                .channel("2")
+                .channel(String.valueOf(ChannelEnum.KUAN_XIN.getCode()))
                 .type(PhoneOperatorEnum.ALL.getCode())
                 .aKey("387568")
                 .bKey("84f26c091438461bb01fcd021da1c197")
@@ -58,7 +58,7 @@ public class SmsAccountCollection {
         accounts
                 [ChannelEnum.QUN_ZHENG.getCode()]
                 [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
-                .channel("2")
+                .channel(String.valueOf(ChannelEnum.QUN_ZHENG.getCode()))
                 .type(PhoneOperatorEnum.YIDONG.getCode())
                 .aKey("hzzmkjyzm")
                 .bKey("YBpFJzkc2q170501")

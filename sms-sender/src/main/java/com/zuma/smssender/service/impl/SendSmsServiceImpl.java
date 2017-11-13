@@ -141,6 +141,7 @@ public class SendSmsServiceImpl implements SendSmsService {
 
             //调用指定通道对应的发送短信策略
             return sendSmsTemplate[channelEnum.getCode()].sendSms(
+                    channelEnum,
                     sendSmsForm.getPhone(),
                     sendSmsForm.getSmsMessage(),
                     sendSmsForm,
@@ -168,7 +169,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         }
 
         //失败，更换通道重新发送机制
-        return retry(sendSmsForm, sendSmsTemplate[channelEnum.getCode()], smsAndPhoneRelationEnum, containOperators, availableChannel);
+        return retry(sendSmsForm, sendSmsTemplate[channelEnum.getCode()], smsAndPhoneRelationEnum, containOperators, availableChannel,channelEnum);
     }
 
     /**
@@ -183,7 +184,8 @@ public class SendSmsServiceImpl implements SendSmsService {
      */
     private ResultDTO retry(SendSmsForm sendSmsForm, SendSmsTemplate sendSmsTemplate,
                             SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
-                            PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel) {
+                            PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel,
+                            ChannelEnum channelEnum) {
         //每次的phones
         String eachPhones = sendSmsForm.getPhone();
         //每次的smsMessage
@@ -194,11 +196,13 @@ public class SendSmsServiceImpl implements SendSmsService {
             //发送短信
             resultDTO = sendSmsTemplate
                     .sendSms(
+                            channelEnum,
                             eachPhones,
                             eachSmsMessage,
                             sendSmsForm,
                             containOperators,
-                            smsAndPhoneRelationEnum);
+                            smsAndPhoneRelationEnum
+                            );
 
             //如果成功
             if (resultDTO.getCode().equals(ErrorEnum.SUCCESS.getCode()))

@@ -15,5 +15,5 @@ import org.springframework.stereotype.Component;
 @Data
 public class IpAllow {
     private String allowIp;
-    private String[] ips = StringUtils.split(allowIp,",");
+
 }
