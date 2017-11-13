@@ -1,4 +1,4 @@
-package com.zuma.smssender.factory;
+package com.zuma.smssender.pool;
 
 import com.zuma.smssender.config.Config;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
  */
 public class OperatorPatternPoolFactory {
 
-    private CommonFactory<Pattern> dianxinPatternPool = new BaseCommonPool<Pattern>(){
+    private CommonPool<Pattern> dianxinPatternPool = new BaseCommonPool<Pattern>(){
         @Override
-        CommonPool initCommonPool() {
-            return new CommonPool<Pattern>() {
+        SimpleObjectFactory initCommonPool() {
+            return new SimpleObjectFactory<Pattern>() {
                 @Override
                 Pattern create() {
                     return Pattern.compile(Config.DIANXIN_PHONE_NUMBER_REGEXP);
@@ -25,10 +25,10 @@ public class OperatorPatternPoolFactory {
         }
     };
 
-    private CommonFactory<Pattern> liantongPatternPool = new BaseCommonPool<Pattern>(){
+    private CommonPool<Pattern> liantongPatternPool = new BaseCommonPool<Pattern>(){
         @Override
-        CommonPool initCommonPool() {
-            return new CommonPool<Pattern>() {
+        SimpleObjectFactory initCommonPool() {
+            return new SimpleObjectFactory<Pattern>() {
                 @Override
                 Pattern create() {
                     return Pattern.compile(Config.LIANTONG_PHONE_NUMBER_REGEXP);
@@ -37,10 +37,10 @@ public class OperatorPatternPoolFactory {
         }
     };
 
-    private CommonFactory<Pattern> yidongPatternPool = new BaseCommonPool<Pattern>(){
+    private CommonPool<Pattern> yidongPatternPool = new BaseCommonPool<Pattern>(){
         @Override
-        CommonPool initCommonPool() {
-            return new CommonPool<Pattern>() {
+        SimpleObjectFactory initCommonPool() {
+            return new SimpleObjectFactory<Pattern>() {
                 @Override
                 Pattern create() {
                     return Pattern.compile(Config.YIDONG_PHONE_NUMBER_REGEXP);
@@ -49,14 +49,14 @@ public class OperatorPatternPoolFactory {
         }
     };
 
-    private CommonFactory[] pools = new CommonFactory[]{
+    private CommonPool[] pools = new CommonPool[]{
             yidongPatternPool,
             dianxinPatternPool,
             liantongPatternPool
     };
 
-    public CommonFactory<Pattern> build(PhoneOperatorEnum phoneOperatorEnum){
-        return (CommonFactory<Pattern>)pools[phoneOperatorEnum.getCode()];
+    public CommonPool<Pattern> build(PhoneOperatorEnum phoneOperatorEnum){
+        return (CommonPool<Pattern>)pools[phoneOperatorEnum.getCode()];
     }
 
 

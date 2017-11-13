@@ -50,6 +50,7 @@ public class IpInterceptor implements HandlerInterceptor {
         String ip = getIp(httpServletRequest);
         if (ArrayUtils.contains(ips, ip))
             return true;
+        //如果未包含
         log.info("【ip白名单】拦截到未知主机.ip={}",ip);
         throw new SmsSenderException(ErrorEnum.IP_UNALLOW);
     }

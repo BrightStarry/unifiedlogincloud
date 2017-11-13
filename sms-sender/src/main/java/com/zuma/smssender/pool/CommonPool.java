@@ -1,4 +1,4 @@
-package com.zuma.smssender.factory;
+package com.zuma.smssender.pool;
 
 /**
  * author:Administrator
@@ -6,7 +6,7 @@ package com.zuma.smssender.factory;
  * 工厂类接口
  * 方便后续将使用线程局部变量实现的factory换成pool形式
  */
-public interface CommonFactory<T> {
+public interface CommonPool<T> {
     T borrow();
 
     void returnObj(T obj);

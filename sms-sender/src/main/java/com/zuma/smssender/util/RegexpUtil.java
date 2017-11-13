@@ -1,8 +1,8 @@
 package com.zuma.smssender.util;
 
 import com.zuma.smssender.enums.PhoneOperatorEnum;
-import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.OperatorPatternPoolFactory;
+import com.zuma.smssender.pool.CommonPool;
+import com.zuma.smssender.pool.OperatorPatternPoolFactory;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +16,7 @@ public class RegexpUtil {
     private static OperatorPatternPoolFactory factory = OperatorPatternPoolFactory.getInstance();
 
     public static boolean match(PhoneOperatorEnum operatorEnum,String phone){
-        CommonFactory<Pattern> pool = factory.build(operatorEnum);
+        CommonPool<Pattern> pool = factory.build(operatorEnum);
         Pattern pattern = null;
         try {
             pattern = pool.borrow();

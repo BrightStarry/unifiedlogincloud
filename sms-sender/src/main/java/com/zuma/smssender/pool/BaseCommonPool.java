@@ -1,4 +1,4 @@
-package com.zuma.smssender.factory;
+package com.zuma.smssender.pool;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -7,10 +7,10 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 /**
  * author:Administrator
  * datetime:2017/11/13 0013 14:14
- * 组合CommonPool，简单实现{@link CommonFactory}接口
+ * 组合CommonPool，简单实现{@link CommonPool}接口
  */
 @Slf4j
-public abstract class BaseCommonPool<T> implements CommonFactory<T>{
+public abstract class BaseCommonPool<T> implements CommonPool<T> {
 
     protected GenericObjectPool<T> pool;
 
@@ -19,8 +19,8 @@ public abstract class BaseCommonPool<T> implements CommonFactory<T>{
     }
 
     void initPool(){
-        CommonPool<T> commonPool = initCommonPool();
-        pool = new GenericObjectPool<T>(commonPool,getPoolConfig());
+        SimpleObjectFactory<T> simpleObjectFactory = initCommonPool();
+        pool = new GenericObjectPool<T>(simpleObjectFactory,getPoolConfig());
     }
 
     //默认获取config类方法，可在子类中重写
@@ -32,7 +32,7 @@ public abstract class BaseCommonPool<T> implements CommonFactory<T>{
         return config;
     }
 
-    abstract CommonPool<T> initCommonPool();
+    abstract SimpleObjectFactory<T> initCommonPool();
 
 
     @Override

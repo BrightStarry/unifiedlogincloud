@@ -3,6 +3,7 @@ package com.zuma.smssender.util;
 import com.google.common.base.Charsets;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
+import com.zuma.smssender.pool.GsonPool;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
@@ -214,7 +215,8 @@ public class HttpClientUtil {
     public static HttpClientUtil getInstance() {
         if (instance == null) {
             lock.lock();
-            instance = new HttpClientUtil();
+            if(instance == null)
+                instance = new HttpClientUtil();
             lock.unlock();
         }
         return instance;

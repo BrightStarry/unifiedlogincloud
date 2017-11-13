@@ -3,8 +3,8 @@ package com.zuma.smssender.util;
 import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.sun.xml.internal.fastinfoset.Encoder;
-import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.GsonPool;
+import com.zuma.smssender.pool.CommonPool;
+import com.zuma.smssender.pool.GsonPool;
 import org.springframework.util.DigestUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -18,7 +18,7 @@ import java.net.URLEncoder;
  */
 public class CodeUtil {
 
-    private static final CommonFactory<Gson> gsonFactory = GsonPool.getInstance();
+    private static final CommonPool<Gson> gsonFactory = GsonPool.getInstance();
 
 
 

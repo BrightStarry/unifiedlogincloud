@@ -1,4 +1,4 @@
-package com.zuma.smssender.factory;
+package com.zuma.smssender.pool;
 
 import com.google.gson.Gson;
 
@@ -13,8 +13,8 @@ public class GsonPool extends BaseCommonPool<Gson> {
 
 
     @Override
-    CommonPool<Gson> initCommonPool() {
-        return  new CommonPool<Gson>() {
+    SimpleObjectFactory<Gson> initCommonPool() {
+        return  new SimpleObjectFactory<Gson>() {
             @Override
             Gson create() {
                 return new Gson();

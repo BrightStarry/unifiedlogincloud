@@ -1,13 +1,9 @@
-package com.zuma.smssender.factory;
+package com.zuma.smssender.pool;
 
-import com.google.gson.Gson;
-import com.zuma.smssender.factory.CommonFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
-import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 /**
  * author:Administrator
@@ -15,13 +11,8 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * 简单实现{@link PooledObjectFactory }接口
  */
 @Slf4j
-public abstract class CommonPool<T> implements PooledObjectFactory<T> {
-
-
+public abstract class SimpleObjectFactory<T> implements PooledObjectFactory<T> {
     abstract T create();
-
-
-
 
     @Override
     public PooledObject<T> makeObject() throws Exception {
