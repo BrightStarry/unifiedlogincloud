@@ -52,7 +52,7 @@ public class SendSmsServiceImpl implements SendSmsService {
     private CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
 
     //发送短信接口参数策略实现类数组，根据channel code 取
-    private SendSmsTemplate[] sendSmsTemplate = new SendSmsTemplate[]{
+    private SendSmsTemplate[] sendSmsTemplates = new SendSmsTemplate[]{
             new ZhangYouSendSmsTemplate(),
             new KuanXinSendSmsTemplate(),
             new QunZhengSendSmsTemplate()
@@ -140,7 +140,7 @@ public class SendSmsServiceImpl implements SendSmsService {
             }
 
             //调用指定通道对应的发送短信策略
-            return sendSmsTemplate[channelEnum.getCode()].sendSms(
+            return sendSmsTemplates[channelEnum.getCode()].sendSms(
                     channelEnum,
                     sendSmsForm.getPhone(),
                     sendSmsForm.getSmsMessage(),
@@ -155,6 +155,8 @@ public class SendSmsServiceImpl implements SendSmsService {
         List<ChannelEnum> availableChannel = new ArrayList<>();
         //遍历所有通道,提取可用通道集合
         for (ChannelEnum channelEach : ChannelEnum.values()) {
+            if (channelEach.equals(ChannelEnum.UNKNOWN))
+                continue;
             //标识，该通道是否支持当前手机号数组
             boolean flag = true;
             //遍历该手机号数组包含的所有运营商
@@ -169,7 +171,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         }
 
         //失败，更换通道重新发送机制
-        return retry(sendSmsForm, sendSmsTemplate[channelEnum.getCode()], smsAndPhoneRelationEnum, containOperators, availableChannel,channelEnum);
+        return retry(sendSmsForm, smsAndPhoneRelationEnum, containOperators, availableChannel,channelEnum);
     }
 
     /**
@@ -182,7 +184,7 @@ public class SendSmsServiceImpl implements SendSmsService {
      * @param availableChannel
      * @return
      */
-    private ResultDTO retry(SendSmsForm sendSmsForm, SendSmsTemplate sendSmsTemplate,
+    private ResultDTO retry(SendSmsForm sendSmsForm,
                             SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
                             PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel,
                             ChannelEnum channelEnum) {
@@ -194,9 +196,9 @@ public class SendSmsServiceImpl implements SendSmsService {
         //循环所有可用通道
         for (ChannelEnum channelEach : availableChannel) {
             //发送短信
-            resultDTO = sendSmsTemplate
+            resultDTO = sendSmsTemplates[channelEach.getCode()]
                     .sendSms(
-                            channelEnum,
+                            channelEach,
                             eachPhones,
                             eachSmsMessage,
                             sendSmsForm,
@@ -222,7 +224,7 @@ public class SendSmsServiceImpl implements SendSmsService {
             }
             //截取末尾分隔符
             failedPhones.deleteCharAt(failedPhones.length() - Config.PHONES_SEPARATOR.length());
-            failedMessages.deleteCharAt(failedMessages.length() - Config.SMS_MESSAGE_SEPARATOR.length());
+            failedMessages.delete(failedMessages.length() - Config.SMS_MESSAGE_SEPARATOR.length(), failedMessages.length());
             //如果不是一对多，因为该情况，不能叠加失败短信消息
             if (!smsAndPhoneRelationEnum.equals(SmsAndPhoneRelationEnum.ONE_MULTI))
                 eachSmsMessage = failedMessages.toString();

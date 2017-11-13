@@ -27,7 +27,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
         QunZhengSendSmsResponse response = null;
         //发送请求，并返回ZhangYouResponse对象
         try {
-            response = sendHttpRequest(request, Config.ZHANGYOU_SEND_SMS_URL);
+            response = sendHttpRequest(request, Config.QUNZHENG_SEND_SMS_URL);
         } catch (SmsSenderException e) {
             //自定义异常捕获到,日志已经记录
             //返回异常返回对象
@@ -35,7 +35,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
         }
         //判断是否成功-根据api的response
         if (!QunZhengErrorEnum.SUCCESS.getCode().equals(response.getCode())) {
-            //根据掌游异常码获取异常枚举
+            //根据异常码获取异常枚举
             QunZhengErrorEnum errorEnum = EnumUtil.getByCode(response.getCode(), QunZhengErrorEnum.class);
             return ResultDTO.error(errorEnum, new ErrorData(phones, smsMessae));
         }
@@ -85,7 +85,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
                     .id(temp[1])
                     .build();
         } catch (Exception e) {
-            log.error("【掌游sendSms】返回的string转为response对象失败.resultString={},error={}", result, e.getMessage(), e);
+            log.error("【群正sendSms】返回的string转为response对象失败.resultString={},error={}", result, e.getMessage(), e);
             throw new SmsSenderException(ErrorEnum.STRING_TO_RESPONSE_ERROR);
         }
     }

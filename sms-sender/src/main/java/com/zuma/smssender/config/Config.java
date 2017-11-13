@@ -30,7 +30,7 @@ public class Config {
     //群正流水号处理前缀
     public static final String QUNZHENG_PRE = "qunzheng";
     //群正接口前缀
-    private static final String QUNZHENG_URL_PRE = "http://sms.uninets.com.cn/Modules/Interface/http/Iservicesbsjy.aspx";
+    private static final String QUNZHENG_URL_PRE = "http://sms.uninets.com.cn/Modules/Interface/http/IservicesBSJY.aspx";
 
     //regxep
     //移动手机号正则

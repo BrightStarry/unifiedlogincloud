@@ -23,7 +23,7 @@ public enum ErrorEnum implements CodeEnum<String> {
     UNSUPPORTED_OPERATOR("0009","包含指定通道不支持的运营商"),
     HTTP_RESPONSE_IO_ERROR("0010","http请求response对象，转换时io异常"),
     HTTP_STATUS_CODE_ERROR("0011","http请求状态码非200"),
-    STRING_TO_RESPONSE_ERROR("0012","将http返回的string转为response对象失败"),
+    STRING_TO_RESPONSE_ERROR("0012","短信API返回参数有误"),
     SEND_SMS_ERROR("0013","短信发送异常"),
     TRANSCODE_ERROR("0014","转码失败"),
     IP_UNALLOW("0015","IP非法"),
