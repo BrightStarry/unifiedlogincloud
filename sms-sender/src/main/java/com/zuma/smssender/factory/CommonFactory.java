@@ -7,5 +7,7 @@ package com.zuma.smssender.factory;
  * 方便后续将使用线程局部变量实现的factory换成pool形式
  */
 public interface CommonFactory<T> {
-    T build();
+    T borrow();
+
+    void returnObj(T obj);
 }

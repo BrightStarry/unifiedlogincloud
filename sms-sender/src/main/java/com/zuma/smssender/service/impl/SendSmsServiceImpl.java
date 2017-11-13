@@ -1,6 +1,5 @@
 package com.zuma.smssender.service.impl;
 
-import com.google.gson.Gson;
 import com.zuma.smssender.config.Config;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.ErrorData;
@@ -12,8 +11,6 @@ import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.SmsAndPhoneRelationEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
-import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.GsonFactory;
 import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.PlatformService;
 import com.zuma.smssender.service.SendSmsService;
@@ -49,7 +46,6 @@ public class SendSmsServiceImpl implements SendSmsService {
     @Autowired
     private SmsSendRecordService smsSendRecordService;
 
-    private CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
 
     //发送短信接口参数策略实现类数组，根据channel code 取
     private SendSmsTemplate[] sendSmsTemplates = new SendSmsTemplate[]{
@@ -178,7 +174,6 @@ public class SendSmsServiceImpl implements SendSmsService {
      * 失败重试机制
      *
      * @param sendSmsForm
-     * @param sendSmsTemplate
      * @param smsAndPhoneRelationEnum
      * @param containOperators
      * @param availableChannel
@@ -242,7 +237,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         SmsSendRecord record = SmsSendRecord.builder()
                 .platformId(sendSmsForm.getPlatformId())
                 .platformName(platform.getName())
-                .requestBody(gsonFactory.build().toJson(sendSmsForm))
+                .requestBody(CodeUtil.objectToJsonString(sendSmsForm))
                 .build();
         return  smsSendRecordService.save(record);
     }

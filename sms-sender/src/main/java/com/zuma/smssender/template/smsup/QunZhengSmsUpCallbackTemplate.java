@@ -3,6 +3,7 @@ package com.zuma.smssender.template.smsup;
 import com.zuma.smssender.dto.response.QunZhengSmsUpResponse;
 import com.zuma.smssender.entity.SmsUpRecord;
 import com.zuma.smssender.enums.ChannelEnum;
+import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.DateUtil;
 
 /**
@@ -17,7 +18,7 @@ public class QunZhengSmsUpCallbackTemplate extends  SmsUpCallbackTemplate<QunZhe
                 .channelName(ChannelEnum.QUN_ZHENG.getMessage())
                 .phone(response.getSms().getPhone())
                 .content(response.getSms().getContent())
-                .requestBody(gsonCommonFactory.build().toJson(response))
+                .requestBody(CodeUtil.objectToJsonString(response))
                 .upTime(DateUtil.stringToDate(response.getSms().getRecvDate(),DateUtil.FORMAT_B))//时间可能为空,如果解析失败
                 .build();
     }

@@ -1,17 +1,13 @@
 package com.zuma.smssender.util;
 
 import com.google.common.base.Charsets;
-import com.google.gson.Gson;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
-import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.GsonFactory;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -38,7 +34,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class HttpClientUtil {
 
-    private CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
 
     //连接池对象
     private PoolingHttpClientConnectionManager pool = null;
@@ -86,7 +81,7 @@ public class HttpClientUtil {
      */
     public <T> CloseableHttpResponse doPost(String url, T obj) {
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(new StringEntity(gsonFactory.build().toJson(obj), Charsets.UTF_8));
+        httpPost.setEntity(new StringEntity(CodeUtil.objectToJsonString(obj), Charsets.UTF_8));
         CloseableHttpResponse response = null;
         try {
             response = getHttpClient().execute(httpPost);

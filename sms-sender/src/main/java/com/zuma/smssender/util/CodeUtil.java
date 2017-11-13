@@ -4,14 +4,12 @@ import com.google.common.base.Charsets;
 import com.google.gson.Gson;
 import com.sun.xml.internal.fastinfoset.Encoder;
 import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.GsonFactory;
+import com.zuma.smssender.factory.GsonPool;
 import org.springframework.util.DigestUtils;
-import sun.awt.CharsetString;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 
 /**
  * author:ZhengXing
@@ -20,7 +18,7 @@ import java.nio.charset.Charset;
  */
 public class CodeUtil {
 
-    private static final CommonFactory<Gson> gsonFactory = GsonFactory.getInstance();
+    private static final CommonFactory<Gson> gsonFactory = GsonPool.getInstance();
 
 
 
@@ -221,7 +219,14 @@ public class CodeUtil {
      * @return
      */
     public static <T> String objectToJsonString(T obj) {
-        return gsonFactory.build().toJson(obj);
+        Gson gson = null;
+        try {
+            gson = gsonFactory.borrow();
+            return gson.toJson(obj);
+        } finally {
+            gsonFactory.returnObj(gson);
+        }
+
     }
 
     /**
@@ -232,7 +237,13 @@ public class CodeUtil {
      * @return
      */
     public static <T> T jsonStringToObject(String jsonString,Class<T> tClass){
-        return gsonFactory.build().fromJson(jsonString, tClass);
+        Gson gson = null;
+        try {
+            gson = gsonFactory.borrow();
+            return gson.fromJson(jsonString, tClass);
+        } finally {
+            gsonFactory.returnObj(gson);
+        }
     }
 
 

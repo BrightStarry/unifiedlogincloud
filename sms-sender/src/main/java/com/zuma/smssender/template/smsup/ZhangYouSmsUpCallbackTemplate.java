@@ -26,7 +26,7 @@ public class ZhangYouSmsUpCallbackTemplate extends SmsUpCallbackTemplate<ZhangYo
                 .channelName(ChannelEnum.ZHANG_YOU.getMessage())
                 .phone(response.getMobileSource())
                 .content(msgContent)
-                .requestBody(gsonCommonFactory.build().toJson(response))
+                .requestBody(CodeUtil.objectToJsonString(response))
                 .upTime(DateUtil.stringToDate(response.getTimestamp()))//时间可能为空,如果解析失败
                 .build();
     }

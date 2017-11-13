@@ -4,14 +4,8 @@ import com.zuma.smssender.config.Config;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
-import com.zuma.smssender.factory.CommonFactory;
-import com.zuma.smssender.factory.DianXinPatternFactory;
-import com.zuma.smssender.factory.LianTongPatternFactory;
-import com.zuma.smssender.factory.YiDongPatternFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.regex.Pattern;
 
 /**
  * author:Administrator
@@ -20,10 +14,6 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 public class PhoneUtil {
-    private static CommonFactory<Pattern> yidongPatternFactory = YiDongPatternFactory.getInstance();
-    private static CommonFactory<Pattern> liantongPatternFactory = LianTongPatternFactory.getInstance();
-    private static CommonFactory<Pattern> dianxinPatternFactory = DianXinPatternFactory.getInstance();
-
     /**
      * 根据手机号判断其运营商
      */
@@ -32,14 +22,10 @@ public class PhoneUtil {
         PhoneOperatorEnum[] result = new PhoneOperatorEnum[phones.length];
         for (int i=0 ;i < phones.length; i++){
             // 责任链模式...
-            //获取pattern
-            Pattern yidongPattern = yidongPatternFactory.build();
-            Pattern liantongPattern = liantongPatternFactory.build();
-            Pattern dianxinPattern = dianxinPatternFactory.build();
             //如果匹配
-            result[i] = yidongPattern.matcher(phones[i]).matches() ? PhoneOperatorEnum.YIDONG :
-                    liantongPattern.matcher(phones[i]).matches() ? PhoneOperatorEnum.LIANTONG :
-                            dianxinPattern.matcher(phones[i]).matches() ? PhoneOperatorEnum.DIANXIN :
+            result[i] = RegexpUtil.yidongMatch(phones[i]) ? PhoneOperatorEnum.YIDONG :
+                    RegexpUtil.liantongMatch(phones[i]) ? PhoneOperatorEnum.LIANTONG :
+                            RegexpUtil.dianxinMatch(phones[i]) ? PhoneOperatorEnum.DIANXIN :
                                     PhoneOperatorEnum.UNKNOWN;
             //如果运营商未知
             if(result[i].equals(PhoneOperatorEnum.UNKNOWN)){
