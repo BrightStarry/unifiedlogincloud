@@ -2,7 +2,7 @@
 ip:
   allowIp: 127.0.0.1
 server:
-  port: 80
+  port: 8080
   context-path: /
 spring:
   application:
