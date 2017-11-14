@@ -3,11 +3,14 @@ package com.zuma.smssender.util;
 import com.google.common.base.Charsets;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
-import com.zuma.smssender.pool.GsonPool;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.http.Consts;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.Registry;
@@ -20,11 +23,16 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -81,8 +89,23 @@ public class HttpClientUtil {
      * 发起post请求,根据url，参数实体
      */
     public <T> CloseableHttpResponse doPost(String url, T obj) {
+        //实体类转map
+        Map<String, String> map = null;
+        try {
+            map = BeanUtils.describe(obj);
+        } catch (IllegalAccessException |InvocationTargetException |NoSuchMethodException e) {
+            log.error("【httpClient】实体类转map失败.error={}",e.getMessage(),e);
+            throw new SmsSenderException(ErrorEnum.HTTP_ERROR);
+        }
+        //遍历map将其将如paramList
+        List<NameValuePair> params = new ArrayList<>();
+        for(Map.Entry<String,String> each : map.entrySet()){
+            params.add(new BasicNameValuePair(each.getKey(),each.getValue()));
+        }
+        //放入请求参数中
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(new StringEntity(CodeUtil.objectToJsonString(obj), Charsets.UTF_8));
+        httpPost.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
+
         CloseableHttpResponse response = null;
         try {
             response = getHttpClient().execute(httpPost);

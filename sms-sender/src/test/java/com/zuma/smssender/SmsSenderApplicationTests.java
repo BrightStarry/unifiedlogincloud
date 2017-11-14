@@ -26,38 +26,11 @@ import java.util.List;
 public class SmsSenderApplicationTests {
 	private static HttpClientUtil httpClientUtil = HttpClientUtil.getInstance();
 
-	@Test
-	public void textSendXml() throws IOException {
-		HttpPost post = new HttpPost("http://127.0.0.1/callback/qunzheng/sendsms");
-		List<BasicNameValuePair> parameters = new ArrayList<>();
-		parameters.add(new BasicNameValuePair("xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-				"<result>\n" +
-				"<response>2</response> \n" +
-				"<sms>\n" +
-				"<phone>13601655231</phone> \n" +
-				"<pno>2013052523410511622e47b16c140f</pno> \n" +
-				"<state>11</state>\n" +
-				"<description>手机黑名单</description>\n" +
-				"</sms>\n" +
-				"<sms>\n" +
-				"<phone>1386612345678</phone> \n" +
-				"<pno>2013052523410511622e47b16c140f</pno> \n" +
-				"<state>10</state>\n" +
-				"</sms>\n" +
-				"<sms>\n" +
-				"<phone>18676767676</phone> \n" +
-				"<pno>20130530225527701599f4c9c82827</pno> \n" +
-				"<state>10</state>\n" +
-				"<description>成功</description>\n" +
-				"</sms>\n" +
-				"</result>\n"));
-		post.setEntity(new UrlEncodedFormEntity(parameters,"UTF-8"));
-		HttpResponse response = httpClientUtil.getHttpClient().execute(post);
-	}
+
 
 	@Test
 	public void test() {
-		String url = "http://127.0.0.1/sendSms";
+		String url = "http://127.0.0.1/sendsms";
 
 		Integer channel = null;
 		String phone = "17826824998";

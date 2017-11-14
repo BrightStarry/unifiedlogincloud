@@ -13,7 +13,7 @@ import lombok.Getter;
 public enum ErrorEnum implements CodeEnum<String> {
     SUCCESS("0000","成功"),
     UNKNOWN_ERROR("0001","发生未知异常"),
-    HTTP_ERROR("0002","http请求网络异常，无法发送http请求"),
+    HTTP_ERROR("0002","http请求失败"),
     FORM_ERROR("0003","参数校验失败"),
     PLATFORM_EMPTY("0004","平台不存在"),
     CHANNEL_EMPTY("0005","通道不存在"),
