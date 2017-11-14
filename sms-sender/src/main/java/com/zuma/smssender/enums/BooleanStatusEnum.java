@@ -8,15 +8,16 @@ import lombok.Getter;
  */
 @Getter
 public enum BooleanStatusEnum implements CodeEnum<Integer> {
-    TRUE(1,"是"),
-    FALSE(0,"否"),
-    OTHER(2,"待定")
+    TRUE(1,"是",true),
+    FALSE(0,"否",false),
+    OTHER(2,"待定",false)
     ;
 
     private Integer code;
     private String message;
+    private Boolean isSuccess;
 
-    BooleanStatusEnum(Integer code, String message) {
+    BooleanStatusEnum(Integer code, String message,Boolean isSuccess) {
         this.code = code;
         this.message = message;
     }

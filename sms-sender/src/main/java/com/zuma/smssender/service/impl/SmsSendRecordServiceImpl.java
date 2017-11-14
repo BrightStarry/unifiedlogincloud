@@ -32,4 +32,12 @@ public class SmsSendRecordServiceImpl implements SmsSendRecordService {
     public SmsSendRecord findOne(Long id) {
         return smsSendRecordRepository.findOne(id);
     }
+
+    @Override
+    public void updateStatus(Long id,BooleanStatusEnum flag,String resultBody){
+        SmsSendRecord record = findOne(id);
+        record.setIsSuccess(flag.getCode())
+                .setResultBody(resultBody);
+        save(record);
+    }
 }

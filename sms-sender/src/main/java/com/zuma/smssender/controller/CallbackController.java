@@ -12,6 +12,7 @@ import com.zuma.smssender.enums.ZhangYouCallbackMsgTypeEnum;
 import com.zuma.smssender.enums.error.ZhangYouErrorEnum;
 import com.zuma.smssender.service.CallbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,10 +67,10 @@ public class CallbackController {
      * @param response
      */
     @RequestMapping("/" + Config.QUNZHENG_PRE + "/sendsms")
-    public void qunzhengSendSmsCallback(QunZhengSendSmsAsyncResponse response) {
+    public void qunzhengSendSmsCallback(@RequestBody QunZhengSendSmsAsyncResponse response) {
         //循环调用
         for (int i = 0; i < response.getResponse(); i++) {
-            response.setSms(response.getSmsList().get(i));
+            response.setUniqueSms(response.getSms().get(i));
             callbackService.sendSmsCallbackHandle(response, ChannelEnum.QUN_ZHENG);
         }
     }
@@ -86,10 +87,10 @@ public class CallbackController {
      * 群正短信上行接口
      */
     @RequestMapping("/" + Config.QUNZHENG_PRE + "/smsup")
-    public void qunzhengSmsUp(QunZhengSmsUpResponse response) {
+    public void qunzhengSmsUp(@RequestBody QunZhengSmsUpResponse response) {
         //循环调用
         for (int i = 0; i < response.getResponse(); i++) {
-            response.setSms(response.getSmsList().get(i));
+            response.setUniqueSms(response.getSms().get(i));
             callbackService.smsUpCallbackHandle(response, ChannelEnum.QUN_ZHENG);
         }
     }

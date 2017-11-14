@@ -6,14 +6,19 @@ import com.zuma.smssender.config.SmsAccountCollection;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
+import com.zuma.smssender.enums.BooleanStatusEnum;
 import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.enums.PhoneOperatorEnum;
 import com.zuma.smssender.enums.SmsAndPhoneRelationEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.form.SendSmsForm;
+import com.zuma.smssender.service.SmsSendRecordService;
+import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.HttpClientUtil;
 import com.zuma.smssender.util.PhoneUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -25,6 +30,11 @@ import java.util.List;
  * 发送短信参数策略模式 接口
  */
 public abstract class SendSmsTemplate<R, P> {
+
+    private static SmsSendRecordService smsSendRecordService;
+
+
+
     //帐号s
     SmsAccountCollection ACCOUNTS = SmsAccountCollection.getInstance();
     //httpclient工具类
@@ -43,7 +53,9 @@ public abstract class SendSmsTemplate<R, P> {
                                             String messages,
                                             SendSmsForm sendSmsForm,
                                             PhoneOperatorEnum[] containOperators,
-                                            SmsAndPhoneRelationEnum smsAndPhoneRelationEnum){
+                                            SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
+                                            SmsSendRecordService smsSendRecordService,
+                                            Long recordId){
         //接口请求次数
         int apiRequestCount = 0;
         //每次调用返回对象数组
@@ -82,7 +94,7 @@ public abstract class SendSmsTemplate<R, P> {
                 break;
         }
 
-        return errorData(apiRequestCount, resultDTOList);
+        return errorData(apiRequestCount, resultDTOList,smsSendRecordService,recordId);
     }
 
 
@@ -138,14 +150,22 @@ public abstract class SendSmsTemplate<R, P> {
     }
 
 
-    ResultDTO<CommonResult> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList){
+    ResultDTO<CommonResult> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList,
+                                      SmsSendRecordService smsSendRecordService, Long recordId){
         //拼接返回对象<T>中的T
         CommonResult commonResult = new CommonResult(apiRequestCount, resultDTOList);
         //判断是否有异常返回
-        if(CollectionUtils.isEmpty(resultDTOList))
-            return ResultDTO.success(commonResult);
+        if(CollectionUtils.isEmpty(resultDTOList)){
+            ResultDTO<CommonResult> resultDTO = ResultDTO.success(commonResult);
+            //更新记录状态
+            smsSendRecordService.updateStatus(recordId, BooleanStatusEnum.TRUE, CodeUtil.objectToJsonString(resultDTO));
+            return resultDTO;
+        }
         //如果有异常
-        return ResultDTO.error(ErrorEnum.SEND_SMS_ERROR, commonResult);
+        ResultDTO<CommonResult> resultDTO = ResultDTO.error(ErrorEnum.SEND_SMS_ERROR, commonResult);
+        //更新记录状态
+        smsSendRecordService.updateStatus(recordId, BooleanStatusEnum.FALSE, CodeUtil.objectToJsonString(resultDTO));
+        return resultDTO;
     }
     /**
      * 封装每个for循环中相同的部分

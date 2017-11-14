@@ -16,10 +16,10 @@ public class QunZhengSmsUpCallbackTemplate extends  SmsUpCallbackTemplate<QunZhe
         return SmsUpRecord.builder()
                 .channelId(ChannelEnum.QUN_ZHENG.getCode())
                 .channelName(ChannelEnum.QUN_ZHENG.getMessage())
-                .phone(response.getSms().getPhone())
-                .content(response.getSms().getContent())
+                .phone(response.getUniqueSms().getPhone())
+                .content(response.getUniqueSms().getContent())
                 .requestBody(CodeUtil.objectToJsonString(response))
-                .upTime(DateUtil.stringToDate(response.getSms().getRecvDate(),DateUtil.FORMAT_B))//时间可能为空,如果解析失败
+                .upTime(DateUtil.stringToDate(response.getUniqueSms().getRecvdate(),DateUtil.FORMAT_B))//时间可能为空,如果解析失败
                 .build();
     }
 }

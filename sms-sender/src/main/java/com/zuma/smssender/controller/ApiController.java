@@ -47,10 +47,11 @@ public class ApiController extends BaseController {
             @ApiImplicitParam(name = "sign",value = "签名:平台key + 手机号 + 当前毫秒数,做MD5，32,小写",required = true)
     })
     @Verify
-    @PostMapping("/sendSms")
+    @PostMapping("/sendsms")
     public ResultDTO<CommonResult> sendSms(@ApiIgnore @Valid SendSmsForm sendSmsForm, BindingResult bindingResult){
         //参数基本校验
         isValid(bindingResult,log,"【API发送短信接口】参数校验失败.form={}",sendSmsForm);
+        log.info("【API发送短信接口】接收到请求.params={}",sendSmsForm);
         return sendSmsService.sendSms(sendSmsForm);
     }
 

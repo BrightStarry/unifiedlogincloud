@@ -25,15 +25,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="consumer" target="1.7" />
       <module name="log-client" target="1.7" />
       <module name="log-common" target="1.7" />
       <module name="log-storage" target="1.7" />
-      <module name="service-center" target="1.8" />
       <module name="servicecenter" target="1.8" />
-      <module name="sms-sender" target="1.7" />
       <module name="smssender" target="1.7" />
-      <module name="unified-login" target="1.7" />
       <module name="unifiedlogin" target="1.7" />
     </bytecodeTargetLevel>
   </component>

@@ -16,18 +16,18 @@ import com.zuma.smssender.util.EnumUtil;
 public class QunZhengSendSmsCallbackTemplate extends SendSmsCallbackTemplate<QunZhengSendSmsAsyncResponse> {
     @Override
     String getKey(QunZhengSendSmsAsyncResponse response) {
-        return Config.QUNZHENG_PRE + response.getSms().getPno();
+        return Config.QUNZHENG_PRE + response.getUniqueSms().getPno();
     }
 
     @Override
     ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO, QunZhengSendSmsAsyncResponse response) {
         //如果成功
-        if(QunZhengErrorEnum.CALLBACK_SUCCESS.getCode().equals(response.getSms().getState())){
+        if(QunZhengErrorEnum.CALLBACK_SUCCESS.getCode().equals(response.getUniqueSms().getState())){
             return ResultDTO.success(ErrorData.class).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK.getCode());
         }
         //失败
         //找到失败码对应枚举
-        QunZhengErrorEnum errorEnum = EnumUtil.getByCode(response.getSms().getState(), QunZhengErrorEnum.class);
+        QunZhengErrorEnum errorEnum = EnumUtil.getByCode(response.getUniqueSms().getState(), QunZhengErrorEnum.class);
         //返回失败信息
         return ResultDTO.error(errorEnum,new ErrorData(cacheDTO.getPhones(),cacheDTO.getSmsMessage()));
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Accessors(chain = true)
 public class SmsSendRecord {
     /**
      * 记录id
@@ -47,8 +49,13 @@ public class SmsSendRecord {
     /**
      * 是否成功 1.成功 0.失败
      */
-//    private Integer isSuccess;
+    private Integer isSuccess;
 
+
+    /**
+     * 返回对象json
+     */
+    private String resultBody;
     /**
      * 创建时间
      */

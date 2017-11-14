@@ -12,12 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "sms")
 @Data
 public class QunZhengSmsUpResponseChild {
-    @XmlElement(name = "phone")
     private String phone;//手机号
-    @XmlElement(name = "content")
     private String content;//消息内容
-    @XmlElement(name = "recvdate")
-    private String recvDate;//接收日期
-    @XmlElement(name = "service_no")
+    private String recvdate;//接收日期
     private String serviceNo;//扩展号
 }

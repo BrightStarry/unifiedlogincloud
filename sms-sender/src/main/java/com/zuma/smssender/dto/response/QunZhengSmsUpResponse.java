@@ -16,8 +16,7 @@ import java.util.List;
 public class QunZhengSmsUpResponse {
     private Integer response;//大于0：此消息所对应的状态报告条数
 
-    @XmlElement(name = "sms",type = QunZhengSmsUpResponseChild.class)
-    private List<QunZhengSmsUpResponseChild> smsList;
+    private List<QunZhengSmsUpResponseChild> sms;
 
-    private QunZhengSmsUpResponseChild sms;//特例属性，方便service循环调用
+    private QunZhengSmsUpResponseChild uniqueSms;//特例属性，方便service循环调用
 }

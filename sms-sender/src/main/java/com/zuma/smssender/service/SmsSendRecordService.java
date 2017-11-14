@@ -12,7 +12,8 @@ public interface SmsSendRecordService {
     //保存
     SmsSendRecord save(SmsSendRecord smsSendRecord);
 
-
+    //修改记录状态
+    void updateStatus(Long id, BooleanStatusEnum flag, String resultBody);
 
     //根据id查询
     SmsSendRecord findOne(Long id);

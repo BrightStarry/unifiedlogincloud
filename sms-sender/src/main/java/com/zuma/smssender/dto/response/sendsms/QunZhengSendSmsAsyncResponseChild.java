@@ -14,10 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "sms")
 @Data
 public class QunZhengSendSmsAsyncResponseChild {
-    @XmlElement(name = "phone")
+//    @XmlElement(name = "phone")
     private String phone;//手机号
-    @XmlElement(name = "pno")
+//    @XmlElement(name = "pno")
     private String pno;//流水号
-    @XmlElement(name = "state")
+//    @XmlElement(name = "state")
     private String state;//状态码
 }

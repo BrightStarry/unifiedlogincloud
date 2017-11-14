@@ -37,16 +37,6 @@ public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsReques
         return super.case2ForMultiOperatorPlatform(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList,channelEnum);
     }
 
-    @Override
-    ResultDTO<CommonResult> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList) {
-        //拼接返回对象<T>中的T
-        CommonResult commonResult = new CommonResult(apiRequestCount, resultDTOList);
-        //判断是否有异常返回
-        if(CollectionUtils.isEmpty(resultDTOList))
-            return ResultDTO.success(commonResult);
-        //如果有异常
-        return ResultDTO.error(ErrorEnum.SEND_SMS_ERROR, commonResult);
-    }
 
     @Override
     ResultDTO<ErrorData> getResponse(CommonSmsAccount account, String phones, String smsMessae, SendSmsForm sendSmsForm) {

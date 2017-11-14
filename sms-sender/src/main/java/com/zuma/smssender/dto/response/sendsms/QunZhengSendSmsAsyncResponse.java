@@ -15,12 +15,12 @@ import java.util.List;
 @Data
 @XmlRootElement(name = "result")
 public class QunZhengSendSmsAsyncResponse {
-    @XmlElement(name = "response")
+//    @XmlElement(name = "response")
     private Integer response;//本次返回的状态报告条数
 
-    @XmlElement(name = "sms",type = QunZhengSendSmsAsyncResponseChild.class)
-    private List<QunZhengSendSmsAsyncResponseChild> smsList;//每条报告实体类
+//    @XmlElement(name = "sms",type = QunZhengSendSmsAsyncResponseChild.class)
+    private List<QunZhengSendSmsAsyncResponseChild> sms;//每条报告实体类
 
-    private QunZhengSendSmsAsyncResponseChild sms;//特例，用来给service方法循环调用
+    private QunZhengSendSmsAsyncResponseChild uniqueSms;//特例，用来给service方法循环调用
 
 }
