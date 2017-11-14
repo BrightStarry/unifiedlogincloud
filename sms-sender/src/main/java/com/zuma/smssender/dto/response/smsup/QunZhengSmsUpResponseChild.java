@@ -1,4 +1,4 @@
-package com.zuma.smssender.dto.response;
+package com.zuma.smssender.dto.response.smsup;
 
 import lombok.Data;
 

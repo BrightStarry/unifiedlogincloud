@@ -6,7 +6,7 @@ import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.dto.request.QunZhengSendSmsRequest;
-import com.zuma.smssender.dto.response.sendsms.QunZhengSendSmsResponse;
+import com.zuma.smssender.dto.response.sendsms.sync.QunZhengSendSmsResponse;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.QunZhengErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;

@@ -36,7 +36,7 @@ public class CommonExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public String exceptionHandler(Exception e, HttpServletRequest request) {
-        log.error("【异常处理】未知异常,error={}",e);
+        log.error("【异常处理】未知异常,error={}",e.getMessage(),e);
         setCodeAndMessage(request, ErrorEnum.UNKNOWN_ERROR.getCode(),ErrorEnum.UNKNOWN_ERROR.getMessage());
         return "forward:/error/";
     }

@@ -1,4 +1,4 @@
-package com.zuma.smssender.dto.response.sendsms;
+package com.zuma.smssender.dto.response.sendsms.sync;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class ZhangYouSendSmsSyncResponse{
+public class ZhangYouSendSmsResponse {
     String code;//返回码
     String id;//本次请求id
 }

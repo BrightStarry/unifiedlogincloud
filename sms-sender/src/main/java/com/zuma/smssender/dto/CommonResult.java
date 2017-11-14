@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * author:Administrator
  * datetime:2017/11/9 0009 10:46
- * 指定掌游通道时的返回对象，也就是ResultDTO<T>中的T
+ * ResultDTO<T>中的T
  */
 @Data
 @AllArgsConstructor

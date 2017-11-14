@@ -4,7 +4,7 @@ import com.zuma.smssender.config.Config;
 import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
-import com.zuma.smssender.dto.response.sendsms.KuanXinSendSmsAsyncResponse;
+import com.zuma.smssender.dto.response.sendsms.async.KuanXinSendSmsAsyncResponse;
 import com.zuma.smssender.enums.ResultDTOTypeEnum;
 import com.zuma.smssender.enums.error.KuanXinErrorEnum;
 import com.zuma.smssender.util.EnumUtil;

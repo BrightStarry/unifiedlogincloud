@@ -1,11 +1,11 @@
 package com.zuma.smssender.controller;
 
 import com.zuma.smssender.config.Config;
-import com.zuma.smssender.dto.response.QunZhengSmsUpResponse;
-import com.zuma.smssender.dto.response.sendsms.KuanXinSendSmsAsyncResponse;
-import com.zuma.smssender.dto.response.KuanXinSmsUpResponse;
-import com.zuma.smssender.dto.response.sendsms.QunZhengSendSmsAsyncResponse;
-import com.zuma.smssender.dto.response.ZhangYouAsyncResponse;
+import com.zuma.smssender.dto.response.smsup.QunZhengSmsUpResponse;
+import com.zuma.smssender.dto.response.sendsms.async.KuanXinSendSmsAsyncResponse;
+import com.zuma.smssender.dto.response.smsup.KuanXinSmsUpResponse;
+import com.zuma.smssender.dto.response.sendsms.async.QunZhengSendSmsAsyncResponse;
+import com.zuma.smssender.dto.response.sendsms.async.ZhangYouAsyncResponse;
 import com.zuma.smssender.dto.response.self.ZhangYouAsyncResponseResult;
 import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.enums.ZhangYouCallbackMsgTypeEnum;

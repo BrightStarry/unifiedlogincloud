@@ -1,8 +1,7 @@
-package com.zuma.smssender.dto.response.sendsms;
+package com.zuma.smssender.dto.response.sendsms.async;
 
 import lombok.Data;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 

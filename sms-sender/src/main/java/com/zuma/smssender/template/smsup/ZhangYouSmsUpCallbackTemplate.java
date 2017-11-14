@@ -1,6 +1,6 @@
 package com.zuma.smssender.template.smsup;
 
-import com.zuma.smssender.dto.response.ZhangYouAsyncResponse;
+import com.zuma.smssender.dto.response.sendsms.async.ZhangYouAsyncResponse;
 import com.zuma.smssender.entity.SmsUpRecord;
 import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.util.CodeUtil;

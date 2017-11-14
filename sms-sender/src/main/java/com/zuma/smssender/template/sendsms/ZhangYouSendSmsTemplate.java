@@ -6,7 +6,7 @@ import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.request.ZhangYouSendSmsRequest;
-import com.zuma.smssender.dto.response.sendsms.ZhangYouSendSmsSyncResponse;
+import com.zuma.smssender.dto.response.sendsms.sync.ZhangYouSendSmsResponse;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.enums.error.ZhangYouErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
  * 掌游，策略实现类
  */
 @Slf4j
-public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequest,ZhangYouSendSmsSyncResponse> {
+public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequest,ZhangYouSendSmsResponse> {
 
 
     /**
@@ -39,7 +39,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
                                              SendSmsForm sendSmsForm) {
         //转为 请求对象
         ZhangYouSendSmsRequest request = toRequestObject(account, phones, smsMessae);
-        ZhangYouSendSmsSyncResponse response = null;
+        ZhangYouSendSmsResponse response = null;
         //发送请求，并返回ZhangYouResponse对象
         try {
             response = sendHttpRequest(request,Config.ZHANGYOU_SEND_SMS_URL);
@@ -99,11 +99,11 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
      * @param result
      * @return
      */
-    public ZhangYouSendSmsSyncResponse stringToResponseObject(String result) {
+    public ZhangYouSendSmsResponse stringToResponseObject(String result) {
         try {
             //根据| 分割，获取[0]code 和[1]流水号
             String[] temp = StringUtils.split(result, "|");
-            return ZhangYouSendSmsSyncResponse.builder()
+            return ZhangYouSendSmsResponse.builder()
                     .code(temp[0])
                     .id(temp[1])
                     .build();
