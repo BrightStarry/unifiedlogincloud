@@ -27,8 +27,7 @@ public class LogWriteExecutor {
     //是否停止
     private static boolean stop = false;
 
-    @Autowired
-    private LogServerConfig logServerConfig;
+    private LogServerConfig logServerConfig = new LogServerConfig();
 
     @Autowired
     private LogWriteUtil logWriteUtil;
@@ -72,7 +71,7 @@ public class LogWriteExecutor {
         //因为全是无线循环，所以如果停止一定是发生了异常,重启
         if(!isStop()){
             threadPoolExecutor.execute(new LogWriteTask(logQueue,logWriteUtil));
-            log.error("线程任务停止，重新开启");
+            log.error("线程任务停止，重新开启.");
             log.error("当前线程数:{}，队列线程数:{}",threadPoolExecutor.getActiveCount(),threadPoolExecutor.getQueue().size());
         }
     }

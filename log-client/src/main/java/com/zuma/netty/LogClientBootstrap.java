@@ -147,6 +147,8 @@ public class LogClientBootstrap {
             LogSender.send(LogMessage.builder()
                     .content(i + "  17:19:39.663 [main] DEBUG io.netty.buffer.PooledByteBufAllocator - -Dio.netty.allocator.pageSize: 8192")
                     .date(new Date())
+                    .serviceId(1)
+                    .moduleName("a模块")
                     .build());
             Thread.sleep(5000);
         }

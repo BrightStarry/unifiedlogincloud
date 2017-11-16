@@ -32,8 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class LogServiceBootstrap {
 
-    @Autowired
-    private LogServerConfig logServerConfig;
+    private LogServerConfig logServerConfig = new LogServerConfig();
 
     private static Integer RETRY_NUM = 0;
 

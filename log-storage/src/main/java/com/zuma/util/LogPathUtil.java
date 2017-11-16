@@ -3,6 +3,7 @@ package com.zuma.util;
 import com.zuma.dto.LogMessage;
 import com.zuma.enums.ServiceEnum;
 import com.zuma.factory.PatternFactory;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -61,9 +62,10 @@ public class LogPathUtil {
         if (datePath == null)
             return null;
         //获取
+        Integer serviceId = logMessage.getServiceId();
         String path = new StringBuilder()
                 .append(BASE_PATH)//基础路径
-                .append(EnumUtil.getByCode(logMessage.getServiceId(), ServiceEnum.class).getMessage())//服务名，根据服务id枚举返回
+                .append(EnumUtil.getByCode(serviceId, ServiceEnum.class).getMessage())//服务名，根据服务id枚举返回
                 .append(File.separator)
                 .append(logMessage.getModuleName())//模块名
                 .append(File.separator)

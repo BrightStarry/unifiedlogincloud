@@ -37,7 +37,7 @@ public class LogWriteTask implements Runnable {
                 //写入操作
                 LogWriteUtil.write(logMessage);
             }
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             log.error("线程任务中断。error={}",e.getMessage(),e);
         }
     }

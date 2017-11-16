@@ -1,17 +1,2 @@
 server:
-  port: 80
-logServerConfig:
   port: 8080
-  soBacklog: 128
-  soSndbuf: 32768
-  soRcvbbuf: 32768
-  retryNum: 5
-  stopTime: 5000
-  readIdleTimeout: 20
-  threadNum: 10
-  maxThreadNum: 20
-
-
-
-
-
