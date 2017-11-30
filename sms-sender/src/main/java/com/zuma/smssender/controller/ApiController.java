@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
@@ -40,7 +41,7 @@ public class ApiController extends BaseController {
             response = ResultDTO.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "platformId",value = "平台id",required = true),
-            @ApiImplicitParam(name = "channel",value = "通道",required = false),
+            @ApiImplicitParam(name = "channel",value = "通道"),
             @ApiImplicitParam(name = "phone",value = "手机号(\",\"分隔)",required = true),
             @ApiImplicitParam(name = "smsMessage",value = "短信消息(\"!&\"分隔)",required = true),
             @ApiImplicitParam(name = "timestamp",value = "毫秒数",required = true),
@@ -48,7 +49,7 @@ public class ApiController extends BaseController {
     })
     @Verify
     @PostMapping("/sendsms")
-    public ResultDTO<CommonResult> sendSms(@ApiIgnore @Valid SendSmsForm sendSmsForm, BindingResult bindingResult){
+    public ResultDTO<CommonResult> sendSms(@ApiIgnore @Valid @RequestBody SendSmsForm sendSmsForm, BindingResult bindingResult){
         //参数基本校验
         isValid(bindingResult,log,"【API发送短信接口】参数校验失败.form={}",sendSmsForm);
         log.info("【API发送短信接口】接收到请求.params={}",sendSmsForm);

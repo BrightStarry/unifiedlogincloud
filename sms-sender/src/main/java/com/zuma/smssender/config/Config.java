@@ -9,6 +9,32 @@ public class Config {
     //单次最多发送手机号数
     public static final Integer MAX_PHONE_NUM = 30;
 
+    //筑望
+    //前缀
+    public static final String ZHUWANG_PRE = "zhuwang";
+    //业务代码
+    public static final String ZHUWANG_SERVICE_CODE = "HELP";
+    //发送速率,每秒100条
+    public static final Integer ZHUWANG_SEND_SPEED = 100;
+    //字数
+    public static final Integer ZHUWANG_SMS_MAX_LEN = 70;
+    //对接ip
+    public static final String ZHUWANG_IP = "115.231.73.206";
+//    public static final String ZHUWANG_IP = "118.178.35.191";
+    //端口号
+//    public static final Integer ZHUWANG_PORT = 7892;
+    public static final Integer ZHUWANG_PORT = 8855;
+    //接入号
+//    public static final String ZHUWANG_JOIN_NUMBER = "10689082";
+    public static final String ZHUWANG_JOIN_NUMBER = "1069026427";
+    //连接重试次数
+    public static final Integer ZHUWANG_CONNECT_MAX_RETRY_NUMBER = 1;
+    //断开后x秒后再次尝试重连
+    public static final Integer ZHUWANG_RETRY_CONNECT_TIME = 3600;
+    //心跳检测频率
+    public static final Integer ZHUWANG_ACTIVE_TEST_SECOND = 180;
+
+
 
     //掌游
     //掌游短信内容最大长度 TODO 短信字数校验

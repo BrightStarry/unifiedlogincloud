@@ -6,9 +6,7 @@ import com.zuma.smssender.template.sendsms.callback.KuanXinSendSmsCallbackTempla
 import com.zuma.smssender.template.sendsms.callback.QunZhengSendSmsCallbackTemplate;
 import com.zuma.smssender.template.sendsms.callback.SendSmsCallbackTemplate;
 import com.zuma.smssender.template.sendsms.callback.ZhangYouSendSmsCallbackTemplate;
-import com.zuma.smssender.template.smsup.KuanXinSmsUpCallbackTemplate;
-import com.zuma.smssender.template.smsup.SmsUpCallbackTemplate;
-import com.zuma.smssender.template.smsup.ZhangYouSmsUpCallbackTemplate;
+import com.zuma.smssender.template.smsup.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,8 +25,10 @@ public class CallbackServiceImpl implements CallbackService {
 
     //短信上行处理模版类
     private SmsUpCallbackTemplate[] smsUpCallbackTemplates = new SmsUpCallbackTemplate[]{
-        new ZhangYouSmsUpCallbackTemplate(),
-        new KuanXinSmsUpCallbackTemplate(),
+            new ZhangYouSmsUpCallbackTemplate(),
+            new KuanXinSmsUpCallbackTemplate(),
+            new QunZhengSmsUpCallbackTemplate(),
+            new ZhuWangSmsUpCallbackTemplate(),
     };
 
     @Override

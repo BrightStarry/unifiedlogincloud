@@ -1,5 +1,6 @@
 package com.zuma.smssender;
 
+import com.zuma.smssender.dto.zhuwang.ZhuWangSubmitAPI;
 import com.zuma.smssender.enums.ChannelEnum;
 import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.PlatformService;
@@ -57,6 +58,16 @@ public class SmsSenderApplicationTests {
 		log.info("执行结果:{}",result);
 	}
 
+	public static void main(String[] args) {
+		String s = CodeUtil.stringToMd5("a" + "17826824998,17826824998,17826824998" + "111111");
+		System.out.println(s);
+
+//		byte[] bytes = CodeUtil.intToByte4(-2147483648);
+//		for (byte aByte : bytes) {
+//			System.out.println(aByte);
+//		}
+
+	}
 
 
 }

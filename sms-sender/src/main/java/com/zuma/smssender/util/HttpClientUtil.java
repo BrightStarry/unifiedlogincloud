@@ -109,8 +109,8 @@ public class HttpClientUtil {
         CloseableHttpResponse response = null;
         try {
             response = getHttpClient().execute(httpPost);
-        } catch (IOException e) {
-            log.error("【httpClient】发送请求失败.IOException={}", e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("【httpClient】发送请求失败.Exception={}", e.getMessage(), e);
             throw new SmsSenderException(ErrorEnum.HTTP_ERROR);
         }
         return response;
@@ -164,24 +164,6 @@ public class HttpClientUtil {
             log.error("【httpClient】关闭response失败.error={}",e.getMessage(),e);
             //不抛出异常
         }
-//        if (inputStream != null) {
-//            try {
-//                inputStream.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                inputStream = null;
-//            }
-//        }
-//        if (response != null) {
-//            try {
-//                response.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                response = null;
-//            }
-//        }
     }
 
     /**

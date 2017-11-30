@@ -32,15 +32,21 @@ public abstract class SendSmsCallbackTemplate<T> {
 
     private HttpClientUtil httpClientUtil = HttpClientUtil.getInstance();
 
-    //发送给调用者回调url的请求失败，重试次数
-    private Integer sendInfoRetryCount;
-    
-    //处理
+
+    /**
+     * 回调处理方法
+     * @param response
+     * @return
+     */
     public  boolean callbackHandle(T response) {
+        //根据返回对象,获取到之前存入缓存的key
         String key = getKey(response);
+        //获取到缓存中的数据
         CommonCacheDTO cacheDTO = getCache(key);
+        //根据数据拼接出 返回对象
         ResultDTO<ErrorData> resultDTO = getResultDTO(cacheDTO, response);
-        sendCallback(resultDTO,cacheDTO.getPlatformId());
+        //发送返回对象给调用者
+        sendCallback(resultDTO,cacheDTO.getPlatformId(),1);
         return true;
     }
 
@@ -61,9 +67,14 @@ public abstract class SendSmsCallbackTemplate<T> {
     
     //将缓存信息和T组装为ResultDTO对象
     abstract ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO,T response);
-    
-    //将ResultDTO发送给对应调用者
-    void sendCallback(ResultDTO<ErrorData> resultDTO, Long platformId){
+
+    /**
+     * 将ResultDTO发送给对应调用者
+     * @param resultDTO 返回对象
+     * @param platformId 返回给的平台id
+     * @param sendInfoRetryCount 发送给调用者回调url的请求失败，重试次数
+     */
+    void sendCallback(ResultDTO<ErrorData> resultDTO, Long platformId,Integer sendInfoRetryCount){
         //获取对应平台的回调url
         Platform platform = platformService.findOne(platformId);
         String callbackUrl = platform.getCallbackUrl();
@@ -72,11 +83,12 @@ public abstract class SendSmsCallbackTemplate<T> {
         } catch (Exception e) {
             //重试
             log.error("【给调用者发送回调】发送失败.重试次数={},调用者={},error={}",sendInfoRetryCount++,platform,e.getMessage(),e);
-            //超过3次后，不在发送，抛出异常记录
-            if(sendInfoRetryCount > 3){
-                sendInfoRetryCount = 0;
+            //超过3次后，不再发送，抛出异常记录
+            if(sendInfoRetryCount >= 3){
                 throw new SmsSenderException(ErrorEnum.SEND_CALLBACK_TO_PLATFORM_ERROR);
             }
+            //未超过三次重试
+            sendCallback(resultDTO,platformId,++sendInfoRetryCount);
         }
     }
 }

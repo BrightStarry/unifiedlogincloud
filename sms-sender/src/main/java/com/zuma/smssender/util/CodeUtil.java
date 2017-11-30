@@ -2,7 +2,6 @@ package com.zuma.smssender.util;
 
 import com.google.common.base.Charsets;
 import com.google.gson.Gson;
-import com.sun.xml.internal.fastinfoset.Encoder;
 import com.zuma.smssender.pool.CommonPool;
 import com.zuma.smssender.pool.GsonPool;
 import org.springframework.util.DigestUtils;
@@ -21,15 +20,22 @@ public class CodeUtil {
     private static final CommonPool<Gson> gsonFactory = GsonPool.getInstance();
 
 
-
     //BASE64
-    /** 一个8位串的最大长度 */
+    /**
+     * 一个8位串的最大长度
+     */
     static private final int BASELENGTH = 255;
-    /** BASE64编码长度 */
+    /**
+     * BASE64编码长度
+     */
     static private final int LOOKUPLENGTH = 64;
-    /** BASE64数组 */
+    /**
+     * BASE64数组
+     */
     public static final byte[] base64_alphabet = new byte[LOOKUPLENGTH];
-    /** BASE64反转数组 */
+    /**
+     * BASE64反转数组
+     */
     public static final byte[] base64_inv = new byte[BASELENGTH];
 
     static {
@@ -65,15 +71,17 @@ public class CodeUtil {
 
     /**
      * string 转 byte，使用utf8编码
+     *
      * @param str
      * @return
      */
-    public static byte[] stringToByteOfUTF8(String str){
+    public static byte[] stringToByteOfUTF8(String str) {
         return str.getBytes(Charsets.UTF_8);
     }
 
     /**
      * byte转 string，utf-8
+     *
      * @param b
      * @return
      */
@@ -83,20 +91,22 @@ public class CodeUtil {
 
     /**
      * string 转 base64形式的 string
+     *
      * @param str
      * @return
      */
-    public static String stringToBase64(String str){
+    public static String stringToBase64(String str) {
         byte[] bytes = byteToBase64(stringToByteOfUTF8(str));
         return byteToStringOfUTF8(bytes);
     }
 
     /**
      * string形式的base64 转 string
+     *
      * @param str
      * @return
      */
-    public static String base64ToString(String str){
+    public static String base64ToString(String str) {
         byte[] bytes = base64ToByte(stringToByteOfUTF8(str));
         return byteToStringOfUTF8(bytes);
     }
@@ -134,8 +144,8 @@ public class CodeUtil {
 
     /**
      * 进行BASE64解码
-     *  bt的长度满足下面公式 bt.length = 3n*8/6
-     *  即:bt的长度必定为4的倍数，必须能被4整除
+     * bt的长度满足下面公式 bt.length = 3n*8/6
+     * 即:bt的长度必定为4的倍数，必须能被4整除
      *
      * @param bt
      * @return
@@ -170,8 +180,10 @@ public class CodeUtil {
     }
 
     //MD5
+
     /**
      * 字符串转MD5，32位，小写
+     *
      * @param str
      * @return
      */
@@ -179,16 +191,41 @@ public class CodeUtil {
         return DigestUtils.md5DigestAsHex(str.getBytes());
     }
 
-    //URLENCODER
     /**
-     * string 转 urlencode
+     * bytes转MD5，16
+     *
+     * @param bytes
+     * @return
+     */
+    public static byte[] byteToMd5(byte[] bytes) {
+        return DigestUtils.md5Digest(bytes);
+    }
+
+
+
+    /**
+     * 字符串转MD5，16位，小写
+     *
      * @param str
      * @return
      */
-    public static String stringToUrlEncode(String str){
+    public static String stringToMd5For16Bit(String str) {
+        return stringToMd5(str).substring(8, 24);
+    }
+
+
+    //URLENCODER
+
+    /**
+     * string 转 urlencode
+     *
+     * @param str
+     * @return
+     */
+    public static String stringToUrlEncode(String str) {
         String result = null;
         try {
-             result = URLEncoder.encode(str, Encoder.UTF_8);
+            result = URLEncoder.encode(str, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             //不可能发生。这个类设计有问题。传的不是Charset,而是String
         }
@@ -197,13 +234,14 @@ public class CodeUtil {
 
     /**
      * urlencode 转 string
+     *
      * @param string
      * @return
      */
     public static String urlEncodeToString(String string) {
         String result = null;
         try {
-            URLDecoder.decode(string,Encoder.UTF_8);
+            URLDecoder.decode(string, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             //不可能发生。这个类设计有问题。传的不是Charset,而是String
         }
@@ -214,6 +252,7 @@ public class CodeUtil {
 
     /**
      * 对象转json字符串
+     *
      * @param obj
      * @param <T>
      * @return
@@ -231,12 +270,13 @@ public class CodeUtil {
 
     /**
      * json字符串转对象
+     *
      * @param jsonString
      * @param tClass
      * @param <T>
      * @return
      */
-    public static <T> T jsonStringToObject(String jsonString,Class<T> tClass){
+    public static <T> T jsonStringToObject(String jsonString, Class<T> tClass) {
         Gson gson = null;
         try {
             gson = gsonFactory.borrow();
@@ -246,6 +286,33 @@ public class CodeUtil {
         }
     }
 
+
+    /**
+     * int整数转换为4字节的byte数组
+     *
+     * @param i 整数
+     * @return byte数组
+     */
+    public static byte[] intToByte4(int i) {
+        byte[] targets = new byte[4];
+        targets[3] = (byte) (i & 0xFF);
+        targets[2] = (byte) (i >> 8 & 0xFF);
+        targets[1] = (byte) (i >> 16 & 0xFF);
+        targets[0] = (byte) (i >> 24 & 0xFF);
+        return targets;
+    }
+
+    /**
+     * byte数组转int
+     * @param b
+     * @return
+     */
+    public static int bytesToInt(byte[] b) {
+        return   b[3] & 0xFF |
+                (b[2] & 0xFF) << 8 |
+                (b[1] & 0xFF) << 16 |
+                (b[0] & 0xFF) << 24;
+    }
 
 
 }

@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/log-storage/pom.xml" />
         <option value="$PROJECT_DIR$/sms-sender/pom.xml" />
         <option value="$PROJECT_DIR$/unified-login/pom.xml" />
+        <option value="$PROJECT_DIR$/consumer/pom.xml" />
       </list>
     </option>
   </component>
@@ -25,7 +26,6 @@
     <option name="port" value="2181" />
     <option name="charset" value="UTF-8" />
     <option name="whitePaths" value="" />
-    <option name="enabled" value="true" />
     <option name="tooltip" value="true" />
   </component>
 </project>

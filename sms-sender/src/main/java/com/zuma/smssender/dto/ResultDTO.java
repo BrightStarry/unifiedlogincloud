@@ -3,6 +3,7 @@ package com.zuma.smssender.dto;
 import com.zuma.smssender.enums.CodeEnum;
 import com.zuma.smssender.enums.ResultDTOTypeEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
+import com.zuma.smssender.exception.SmsSenderException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,11 +60,23 @@ public class ResultDTO<T> {
     }
 
     /**
-     * 返回成功状态，数据为空
+     *  返回成功状态，以及数据
      */
-    public static <T> ResultDTO<T> success(Class<T> tClass){
+    public static <T> ResultDTO<T> success() {
         return success(null);
     }
+
+    /**
+     * 返回成功状态，数据为空
+     */
+//    public static <T> ResultDTO<T> success(Class<T> tClass){
+//        try {
+//            return success(tClass.newInstance());
+//        } catch (InstantiationException | IllegalAccessException e) {
+//            //...
+//        }
+//        throw new SmsSenderException(ErrorEnum.UNKNOWN_ERROR);
+//    }
 
     /**
      * 返回错误状态， 包含错误状态码和错误消息
@@ -91,6 +104,20 @@ public class ResultDTO<T> {
      */
     public static <T> ResultDTO<T> error(CodeEnum<String> errorEnum,T obj) {
         return new ResultDTO<T>(errorEnum.getCode(),errorEnum.getMessage(),obj);
+    }
+
+    /**
+     * 返回错误状态,以及返回类型
+     */
+    public static <T> ResultDTO<T> error(CodeEnum<String> errorEnum,T obj,ResultDTOTypeEnum typeEnum) {
+        return new ResultDTO<T>(errorEnum.getCode(),errorEnum.getMessage(),typeEnum.getCode(),obj);
+    }
+
+    /**
+     * 返回错误状态
+     */
+    public static <T> ResultDTO<T> errorOfInteger(CodeEnum<Integer> errorEnum,T obj) {
+        return new ResultDTO<T>(String.valueOf(errorEnum.getCode()),errorEnum.getMessage(),obj);
     }
 
 

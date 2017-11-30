@@ -23,7 +23,7 @@ public class QunZhengSendSmsCallbackTemplate extends SendSmsCallbackTemplate<Qun
     ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO, QunZhengSendSmsAsyncResponse response) {
         //如果成功
         if(QunZhengErrorEnum.CALLBACK_SUCCESS.getCode().equals(response.getUniqueSms().getState())){
-            return ResultDTO.success(ErrorData.class).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK.getCode());
+            return ResultDTO.success(new ErrorData()).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK_ASYNC.getCode());
         }
         //失败
         //找到失败码对应枚举

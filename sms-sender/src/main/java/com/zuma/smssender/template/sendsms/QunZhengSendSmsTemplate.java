@@ -24,7 +24,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
     ResultDTO<ErrorData> getResponse(CommonSmsAccount account, String phones, String smsMessae, SendSmsForm sendSmsForm) {
         //转为 请求对象
         QunZhengSendSmsRequest request = toRequestObject(account, phones, smsMessae);
-        QunZhengSendSmsResponse response = null;
+        QunZhengSendSmsResponse response;
         //发送请求，并返回ZhangYouResponse对象
         try {
             response = sendHttpRequest(request, Config.QUNZHENG_SEND_SMS_URL);
@@ -53,7 +53,7 @@ public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequ
         CacheUtil.put(Config.QUNZHENG_PRE + cacheDTO.getId(), cacheDTO);
 
         //成功
-        return ResultDTO.success(null);
+        return ResultDTO.success();
     }
 
     @Override

@@ -15,10 +15,7 @@ import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.PlatformService;
 import com.zuma.smssender.service.SendSmsService;
 import com.zuma.smssender.service.SmsSendRecordService;
-import com.zuma.smssender.template.sendsms.KuanXinSendSmsTemplate;
-import com.zuma.smssender.template.sendsms.QunZhengSendSmsTemplate;
-import com.zuma.smssender.template.sendsms.SendSmsTemplate;
-import com.zuma.smssender.template.sendsms.ZhangYouSendSmsTemplate;
+import com.zuma.smssender.template.sendsms.*;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
 import com.zuma.smssender.util.PhoneUtil;
@@ -28,6 +25,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +45,15 @@ public class SendSmsServiceImpl implements SendSmsService {
     private SmsSendRecordService smsSendRecordService;
 
 
+    /**
+     * TODO 将所有模版实现类加入spring管理,使用Map接收spring注入,通过KEY查找对应bean
+     */
     //发送短信接口参数策略实现类数组，根据channel code 取
     private SendSmsTemplate[] sendSmsTemplates = new SendSmsTemplate[]{
             new ZhangYouSendSmsTemplate(),
             new KuanXinSendSmsTemplate(),
-            new QunZhengSendSmsTemplate()
+            new QunZhengSendSmsTemplate(),
+            new ZhuWangSendSmsTemplate(),
     };
 
 
@@ -73,7 +75,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         String realSign = CodeUtil.stringToMd5(platform.getToken() + sendSmsForm.getPhone() + sendSmsForm.getTimestamp());
         if (!sendSmsForm.getSign().equals(realSign)) {
             log.error("【API发送短信接口】签名不匹配.currentSign={}", sendSmsForm.getSign());
-            throw new SmsSenderException(ErrorEnum.SIGN_ERROR);
+            throw new SmsSenderException(ErrorEnum.SIGN_NOT_MATCH_ERROR);
         }
 
         //获取通道枚举
@@ -248,9 +250,6 @@ public class SendSmsServiceImpl implements SendSmsService {
         return  smsSendRecordService.save(record);
     }
 
-    public static void main(String[] args) {
-        String s = CodeUtil.stringToMd5("a" + "17826824998" + "111111");
-        System.out.println(s);
-    }
+
 
 }

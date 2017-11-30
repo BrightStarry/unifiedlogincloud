@@ -24,7 +24,7 @@ public class ZhangYouSendSmsCallbackTemplate extends SendSmsCallbackTemplate<Zha
     ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO, ZhangYouAsyncResponse response) {
         //如果成功
         if(ZhangYouErrorEnum.SUCCESS.getCode().equals(response.getMsgCode())){
-            return ResultDTO.success(ErrorData.class).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK.getCode());
+            return ResultDTO.success(new ErrorData()).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK_ASYNC.getCode());
         }
         //失败
         //找到失败码对应枚举

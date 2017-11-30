@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zuma</groupId>
-	<artifactId>logstorage</artifactId>
+	<artifactId>consumer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>LogStorage</name>
-	<description>日志存储</description>
+	<name>consumer</name>
+	<description>微服务消费</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

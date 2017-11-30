@@ -32,8 +32,6 @@ public class LogSender {
      * 连接是否可用
      */
     public static boolean isAvailable(){
-        if(ctx == null)
-            return false;
-        return ctx.isWritable();
+        return ctx != null && ctx.isWritable();
     }
 }

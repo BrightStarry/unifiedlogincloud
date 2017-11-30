@@ -68,7 +68,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
         CacheUtil.put(Config.ZHANGYOU_PRE + cacheDTO.getId(),cacheDTO);
 
         //成功
-        return ResultDTO.success(null);
+        return ResultDTO.success();
     }
 
     /**

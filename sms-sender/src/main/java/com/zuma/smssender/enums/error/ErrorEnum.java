@@ -29,8 +29,15 @@ public enum ErrorEnum implements CodeEnum<String> {
     IP_UNALLOW("0015","IP非法"),
     CACHE_EXPIRE("0016","缓存过期,无法解析发送短信接口异步回调信息"),
     SEND_CALLBACK_TO_PLATFORM_ERROR("0017", "发送回调请求到平台失败"),
-    SIGN_ERROR("0018","签名不匹配"),
-    POOL_ERROR("0019","对象池异常")
+    SIGN_NOT_MATCH_ERROR("0018","签名不匹配"),
+    POOL_ERROR("0019","对象池异常"),
+    ZHUWANG_CONNECT_ERROR("0020", "连接筑望服务器失败"),
+    MD5_SIGN_ERROR("0021", "MD5签名异常"),
+    ZHUWANG_RESPONSE_MESSAGE_ERROR("0022","筑望服务器响应异常"),
+    SOCKET_REQUEST_ERROR("0023","socket请求失败"),
+    ENCODE_ERROR("0024","消息对象编码异常")
+
+
 
 
 

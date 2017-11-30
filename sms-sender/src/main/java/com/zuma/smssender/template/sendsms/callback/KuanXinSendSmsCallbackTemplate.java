@@ -23,7 +23,7 @@ public class KuanXinSendSmsCallbackTemplate extends  SendSmsCallbackTemplate<Kua
     ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO, KuanXinSendSmsAsyncResponse response) {
         //如果成功
         if(KuanXinErrorEnum.CALLBACK_SUCCESS.getCode().equals(response.getCode())){
-            return ResultDTO.success(ErrorData.class).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK.getCode());
+            return ResultDTO.success(new ErrorData()).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK_ASYNC.getCode());
         }
 
         //失败--宽信接口似乎只会将成功返回，此处应该不会执行到

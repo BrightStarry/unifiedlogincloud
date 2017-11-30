@@ -6,10 +6,7 @@ import com.zuma.smssender.config.SmsAccountCollection;
 import com.zuma.smssender.dto.CommonResult;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
-import com.zuma.smssender.enums.BooleanStatusEnum;
-import com.zuma.smssender.enums.ChannelEnum;
-import com.zuma.smssender.enums.PhoneOperatorEnum;
-import com.zuma.smssender.enums.SmsAndPhoneRelationEnum;
+import com.zuma.smssender.enums.*;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.service.SmsSendRecordService;
@@ -30,23 +27,23 @@ import java.util.List;
  * 发送短信参数策略模式 接口
  */
 public abstract class SendSmsTemplate<R, P> {
-
-    private static SmsSendRecordService smsSendRecordService;
-
-
-
     //帐号s
     SmsAccountCollection ACCOUNTS = SmsAccountCollection.getInstance();
     //httpclient工具类
     HttpClientUtil HTTP_CLIENT_UTIL = HttpClientUtil.getInstance();
 
+
     /**
      * 发送短信，根据实体和　手机号数组包含的所有不同运营商数组 和  短信消息-手机号对应关系
-     *
-     * @param sendSmsForm               api收到的消息
-     * @param containOperators          手机号数组包含的所有不同的运营商
-     * @param smsAndPhoneRelationEnum 短信消息-手机号 关系，例如1-1；1-*；*-*
-     * @return 返回对象
+     * @param channelEnum 当前使用的通道
+     * @param phones 手机号
+     * @param messages 短信消息
+     * @param sendSmsForm 调用者传入的数据表单(ps:手机号和短信不能从该对象中拿,因为可能是异常手机号重试策略)
+     * @param containOperators 手机号包含的运营商集合(不重复)
+     * @param smsAndPhoneRelationEnum 短信和手机号的关联关系
+     * @param smsSendRecordService 短信发送记录service TODO 加入spring
+     * @param recordId 该条短信发送记录的数据库中的id
+     * @return 返回成功失败数据
      */
     public  ResultDTO<CommonResult> sendSms(ChannelEnum channelEnum,
                                             String phones,
@@ -72,7 +69,6 @@ public abstract class SendSmsTemplate<R, P> {
                 break;
             //1-*
             case 2:
-
                 apiRequestCount = case2(phones,messages,sendSmsForm, containOperators, apiRequestCount, resultDTOList,channelEnum);
                 break;
             //*-*
@@ -97,6 +93,28 @@ public abstract class SendSmsTemplate<R, P> {
         return errorData(apiRequestCount, resultDTOList,smsSendRecordService,recordId);
     }
 
+
+    /**
+     * 封装每个for循环中相同的部分
+     *
+     * @param phoneOperatorEnum 手机运营商
+     * @param phone             手机号码s
+     * @param smsMessage        短信消息s
+     * @param resultDTOList     异常返回list
+     */
+    void loop(PhoneOperatorEnum phoneOperatorEnum,
+              String phone, String smsMessage,
+              List<ResultDTO<ErrorData>> resultDTOList,
+              SendSmsForm sendSmsForm,
+              ChannelEnum channelEnum){
+        //获取当前通道、当前运营商帐号
+        CommonSmsAccount account = ACCOUNTS.getAccounts()[channelEnum.getCode()][phoneOperatorEnum.getCode()];
+        //调用http请求工具，获取response并解析为返回对象返回
+        ResultDTO<ErrorData> resultDTO = getResponse(account, phone, smsMessage, sendSmsForm);
+        //如果不成功将返回对象加入数组
+        if (!ResultDTO.isSuccess(resultDTO))
+            resultDTOList.add(resultDTO);
+    }
 
     /**
      * 当一对多时执行的方法，如果平台帐号为单一账号只能发送单一运营商，使用该方法
@@ -150,10 +168,18 @@ public abstract class SendSmsTemplate<R, P> {
     }
 
 
+    /**
+     * 失败数据拼接
+     * @param apiRequestCount api调用总次数
+     * @param resultDTOList 返回对象集合(只返回失败数据)
+     * @param smsSendRecordService 发送记录服务
+     * @param recordId 该发送记录在数据库中的id
+     * @return
+     */
     ResultDTO<CommonResult> errorData(int apiRequestCount, List<ResultDTO<ErrorData>> resultDTOList,
                                       SmsSendRecordService smsSendRecordService, Long recordId){
         //拼接返回对象<T>中的T
-        CommonResult commonResult = new CommonResult(apiRequestCount, resultDTOList);
+        CommonResult commonResult = new CommonResult( resultDTOList);
         //判断是否有异常返回
         if(CollectionUtils.isEmpty(resultDTOList)){
             ResultDTO<CommonResult> resultDTO = ResultDTO.success(commonResult);
@@ -162,32 +188,12 @@ public abstract class SendSmsTemplate<R, P> {
             return resultDTO;
         }
         //如果有异常
-        ResultDTO<CommonResult> resultDTO = ResultDTO.error(ErrorEnum.SEND_SMS_ERROR, commonResult);
+        ResultDTO<CommonResult> resultDTO = ResultDTO.error(ErrorEnum.SEND_SMS_ERROR, commonResult, ResultDTOTypeEnum.SEND_SMS_CALLBACK_SYNC);
         //更新记录状态
         smsSendRecordService.updateStatus(recordId, BooleanStatusEnum.FALSE, CodeUtil.objectToJsonString(resultDTO));
         return resultDTO;
     }
-    /**
-     * 封装每个for循环中相同的部分
-     *
-     * @param phoneOperatorEnum 手机运营商
-     * @param phone             手机号码s
-     * @param smsMessage        短信消息s
-     * @param resultDTOList     异常返回list
-     */
-    void loop(PhoneOperatorEnum phoneOperatorEnum,
-                       String phone, String smsMessage,
-                       List<ResultDTO<ErrorData>> resultDTOList,
-                       SendSmsForm sendSmsForm,
-                        ChannelEnum channelEnum){
-        //获取当前通道、当前运营商帐号
-        CommonSmsAccount account = ACCOUNTS.getAccounts()[channelEnum.getCode()][phoneOperatorEnum.getCode()];
-        //调用http请求工具，获取response并解析为返回对象返回
-        ResultDTO<ErrorData> resultDTO = getResponse(account, phone, smsMessage, sendSmsForm);
-        //如果不成功将返回对象加入数组
-        if (!ResultDTO.isSuccess(resultDTO))
-            resultDTOList.add(resultDTO);
-    }
+
 
     /**
      * 直接获取response，组合下面两个方法。
@@ -195,11 +201,11 @@ public abstract class SendSmsTemplate<R, P> {
      *
      * @param account
      * @param phones
-     * @param smsMessae
+     * @param smsMessage
      * @return
      */
     abstract ResultDTO<ErrorData> getResponse(CommonSmsAccount account,
-                                              String phones, String smsMessae,
+                                              String phones, String smsMessage,
                                               SendSmsForm sendSmsForm);
 
     /**

@@ -55,6 +55,8 @@ public class SmsAccountCollection {
                 [ChannelEnum.KUAN_XIN.getCode()]
                 [PhoneOperatorEnum.LIANTONG.getCode()] = kuanxin;
 
+
+        //群正
         accounts
                 [ChannelEnum.QUN_ZHENG.getCode()]
                 [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
@@ -64,6 +66,26 @@ public class SmsAccountCollection {
                 .bKey("YBpFJzkc2q170501")
                 .cKey("")
                 .build();
+
+        //筑望
+        accounts
+                [ChannelEnum.ZHU_WANG.getCode()]
+                [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
+                .channel(String.valueOf(ChannelEnum.QUN_ZHENG.getCode()))
+                .type(PhoneOperatorEnum.YIDONG.getCode())
+                .aKey("944027")//企业id
+                .bKey("944027")//企业帐号
+                .cKey("SVPOUXJLYD")//企业密码
+                .build();
+//        accounts
+//                [ChannelEnum.ZHU_WANG.getCode()]
+//                [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
+//                .channel(String.valueOf(ChannelEnum.QUN_ZHENG.getCode()))
+//                .type(PhoneOperatorEnum.YIDONG.getCode())
+//                .aKey("387843")//企业id
+//                .bKey("387843")//企业帐号
+//                .cKey("zuma#387843")//企业密码
+//                .build();
 
     }
 

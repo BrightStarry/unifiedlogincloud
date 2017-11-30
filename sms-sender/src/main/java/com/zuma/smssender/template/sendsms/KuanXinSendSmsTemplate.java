@@ -68,7 +68,7 @@ public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsReques
         CacheUtil.put(Config.KUANXIN_PRE + cacheDTO.getId(), cacheDTO);
 
         //成功
-        return ResultDTO.success(null);
+        return ResultDTO.success(new ErrorData());
     }
 
     @Override

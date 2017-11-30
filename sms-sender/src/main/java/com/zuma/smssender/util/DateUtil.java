@@ -1,6 +1,9 @@
 package com.zuma.smssender.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateParser;
+import org.springframework.format.datetime.joda.DateTimeParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +17,7 @@ import java.util.Date;
 public class DateUtil {
     public static final String FORMAT_A = "yyyyMMddHHmmss";
     public static final String FORMAT_B = "yyyy-MM-dd HH:mm:ss.S";
+    public static final String FORMAT_C = "MMddHHmmss";
 
     /**
      * string转日期，指定格式
@@ -35,5 +39,12 @@ public class DateUtil {
      */
     public static Date stringToDate(String dateString) {
         return stringToDate(dateString, FORMAT_A);
+    }
+
+    /**
+     * date转string,指定格式
+     */
+    public static String dateToString(Date date,String format) {
+        return DateFormatUtils.format(date, format);
     }
 }
