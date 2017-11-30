@@ -59,7 +59,7 @@ public class SmsSenderApplicationTests {
 	}
 
 	public static void main(String[] args) {
-		String s = CodeUtil.stringToMd5("a" + "17826824998,17826824998,17826824998" + "111111");
+		String s = CodeUtil.stringToMd5("a" + "17681958416,17681958416,17681958416" + "111111");
 		System.out.println(s);
 
 //		byte[] bytes = CodeUtil.intToByte4(-2147483648);

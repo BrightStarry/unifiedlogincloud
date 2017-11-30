@@ -28,11 +28,13 @@ public class Config {
 //    public static final String ZHUWANG_JOIN_NUMBER = "10689082";
     public static final String ZHUWANG_JOIN_NUMBER = "1069026427";
     //连接重试次数
-    public static final Integer ZHUWANG_CONNECT_MAX_RETRY_NUMBER = 1;
+    public static final Integer ZHUWANG_CONNECT_MAX_RETRY_NUMBER = 3;
     //断开后x秒后再次尝试重连
     public static final Integer ZHUWANG_RETRY_CONNECT_TIME = 3600;
     //心跳检测频率
     public static final Integer ZHUWANG_ACTIVE_TEST_SECOND = 180;
+    //每个socket的并发量,也就是每秒的并发量
+    public static final Integer ZHUWANG_SOCKET_QPS = 1000;
 
 
 

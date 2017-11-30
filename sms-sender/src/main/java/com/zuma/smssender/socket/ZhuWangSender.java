@@ -22,11 +22,14 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.UploadContext;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * author:ZhengXing
@@ -38,9 +41,7 @@ import java.util.Date;
 @Slf4j
 @Setter
 public class ZhuWangSender {
-    //保存通道,用来发送消息
-    private Channel channel;
-    //帐号s
+    //帐号
     private CommonSmsAccount account = SmsAccountCollection.getInstance().
         getAccounts()[ChannelEnum.ZHU_WANG.getCode()][PhoneOperatorEnum.YIDONG.getCode()];
 
@@ -134,18 +135,34 @@ public class ZhuWangSender {
 
 
     /**
-     * 发送数据
+     * 发送数据,第一次
      */
     public void send(ToByteArray data) {
-        verifyAvailable();
-        channel.writeAndFlush(data);
+        send1(data,0);
     }
 
     /**
-     * 连接是否可用
+     * 发送数据
      */
-    private void verifyAvailable(){
-        if(channel == null || !channel.isWritable())
-            throw new SmsSenderException(ErrorEnum.ZHUWANG_CONNECT_ERROR);
+    public void send1(ToByteArray data,Integer retryNum) {
+        try {
+            SocketPair socketPair = SocketStore.getBestSocketPair();
+            //获取信号量
+            socketPair.getSemaphore().acquire();
+            Channel channel = socketPair.getChannel();
+
+            channel.writeAndFlush(data.toByteArray());
+        } catch (Exception e) {
+            //重试
+            log.error("【筑望】发送数据失败.重试次数={},error={}",retryNum,e.getMessage());
+            //超过3次后，不再发送，抛出异常记录
+            if(retryNum >= 3){
+                throw new SmsSenderException(ErrorEnum.SOCKET_REQUEST_ERROR);
+            }
+            //未超过三次重试
+            send1(data,++retryNum);
+        }
     }
+
+
 }

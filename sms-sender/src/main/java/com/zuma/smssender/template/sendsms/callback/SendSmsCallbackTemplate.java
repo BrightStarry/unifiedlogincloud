@@ -46,7 +46,7 @@ public abstract class SendSmsCallbackTemplate<T> {
         //根据数据拼接出 返回对象
         ResultDTO<ErrorData> resultDTO = getResultDTO(cacheDTO, response);
         //发送返回对象给调用者
-        sendCallback(resultDTO,cacheDTO.getPlatformId(),1);
+        sendCallback(resultDTO,cacheDTO.getPlatformId(),0);
         return true;
     }
 
@@ -82,7 +82,7 @@ public abstract class SendSmsCallbackTemplate<T> {
             httpClientUtil.doPostForString(callbackUrl, resultDTO);
         } catch (Exception e) {
             //重试
-            log.error("【给调用者发送回调】发送失败.重试次数={},调用者={},error={}",sendInfoRetryCount++,platform,e.getMessage(),e);
+            log.error("【给调用者发送回调】发送失败.重试次数={},调用者={},error={}",sendInfoRetryCount,platform,e.getMessage(),e);
             //超过3次后，不再发送，抛出异常记录
             if(sendInfoRetryCount >= 3){
                 throw new SmsSenderException(ErrorEnum.SEND_CALLBACK_TO_PLATFORM_ERROR);

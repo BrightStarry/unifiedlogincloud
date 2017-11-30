@@ -35,7 +35,8 @@ public enum ErrorEnum implements CodeEnum<String> {
     MD5_SIGN_ERROR("0021", "MD5签名异常"),
     ZHUWANG_RESPONSE_MESSAGE_ERROR("0022","筑望服务器响应异常"),
     SOCKET_REQUEST_ERROR("0023","socket请求失败"),
-    ENCODE_ERROR("0024","消息对象编码异常")
+    ENCODE_ERROR("0024","消息对象编码异常"),
+    NON_AVAILABLE_SOCKET("0025","该平台没有可用socket连接")
 
 
 

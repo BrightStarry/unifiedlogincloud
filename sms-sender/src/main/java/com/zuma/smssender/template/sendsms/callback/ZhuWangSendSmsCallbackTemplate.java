@@ -51,7 +51,7 @@ public class ZhuWangSendSmsCallbackTemplate extends SendSmsCallbackTemplate<ZhuW
             CacheUtil.put(Config.ZHUWANG_PRE + cacheDTO.getId(),cacheDTO);
         }else{
             //失败
-            sendCallback(resultDTO,cacheDTO.getPlatformId(),1);
+            sendCallback(resultDTO,cacheDTO.getPlatformId(),0);
         }
         return true;
     }

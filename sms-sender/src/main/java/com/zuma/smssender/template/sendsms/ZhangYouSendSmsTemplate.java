@@ -16,6 +16,7 @@ import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 /**
  * author:Administrator
@@ -23,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  * 掌游，策略实现类
  */
 @Slf4j
+@Component
 public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequest,ZhangYouSendSmsResponse> {
 
 

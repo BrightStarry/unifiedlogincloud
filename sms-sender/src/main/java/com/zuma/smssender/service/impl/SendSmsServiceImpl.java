@@ -29,6 +29,7 @@ import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * author:Administrator
@@ -48,13 +49,16 @@ public class SendSmsServiceImpl implements SendSmsService {
     /**
      * TODO 将所有模版实现类加入spring管理,使用Map接收spring注入,通过KEY查找对应bean
      */
-    //发送短信接口参数策略实现类数组，根据channel code 取
-    private SendSmsTemplate[] sendSmsTemplates = new SendSmsTemplate[]{
-            new ZhangYouSendSmsTemplate(),
-            new KuanXinSendSmsTemplate(),
-            new QunZhengSendSmsTemplate(),
-            new ZhuWangSendSmsTemplate(),
-    };
+//    //发送短信接口参数策略实现类数组，根据channel code 取
+//    private SendSmsTemplate[] sendSmsTemplates = new SendSmsTemplate[]{
+//            new ZhangYouSendSmsTemplate(),
+//            new KuanXinSendSmsTemplate(),
+//            new QunZhengSendSmsTemplate(),
+//            new ZhuWangSendSmsTemplate(),
+//    };
+
+    @Autowired
+    private Map<String, SendSmsTemplate> sendSmsTemplateMap;
 
 
     @Autowired
@@ -117,28 +121,35 @@ public class SendSmsServiceImpl implements SendSmsService {
         //用来统计当前号码数组包含的不同运营商
         PhoneOperatorEnum[] containOperators = new PhoneOperatorEnum[0];
 
+        //获取每个手机号的运营商枚举
+        PhoneOperatorEnum[] phoneOperators = PhoneUtil.getPhoneOperator(phones);
+
+        //确认channel和手机运营商是否吻合,并统计包含的所有不同运营商，遍历每个手机号的运营商枚举数组
+        for (PhoneOperatorEnum temp : phoneOperators) {
+            //如果统计数组不存在该运营商，就加入,以此统计出所有不同运营商
+            if (containOperators.length < 3 && !ArrayUtils.contains(containOperators, temp)) {
+                //该工具类方法和arraylist相同，都是创建新数组，并在末尾加上元素
+                containOperators = ArrayUtils.add(containOperators, temp);
+            }
+        }
+
         //如果指定了通道
         if (!sendSmsForm.getChannel().equals(ChannelEnum.UNKNOWN.getCode())) {
-            //获取每个手机号的运营商枚举
-            PhoneOperatorEnum[] phoneOperators = PhoneUtil.getPhoneOperator(phones);
             //获取通道支持的运营商数组
             PhoneOperatorEnum[] phoneOperatorSupports = channelEnum.getPhoneOperatorSupport();
-            //确认channel和手机运营商是否吻合,并统计包含的所有不同运营商，遍历每个手机号的运营商枚举数组
-            for (PhoneOperatorEnum temp : phoneOperators) {
-                //如果通道不包含某运营商，则失败
-                if (!ArrayUtils.contains(phoneOperatorSupports, temp)) {
-                    log.error("【API发送短信接口】该通道:{}不支持运营商:{}的手机号码", channelEnum.getMessage(), temp.getMessage());
+
+            //遍历当前号码数组包含的不同运营商
+            for (PhoneOperatorEnum item : containOperators) {
+                //如果通道支持的运营商数组不包含某运营商，则失败
+                if (!ArrayUtils.contains(phoneOperatorSupports, item)) {
+                    log.error("【API发送短信接口】该通道:{}不支持运营商:{}的手机号码", channelEnum.getMessage(),
+                            item.getMessage());
                     throw new SmsSenderException(ErrorEnum.UNSUPPORTED_OPERATOR);
-                }
-                //如果统计数组不存在该运营商，就加入,以此统计出所有不同运营商
-                if (containOperators.length < 3 && !ArrayUtils.contains(containOperators, temp)) {
-                    //该工具类方法和arraylist相同，都是创建新数组，并在末尾加上元素
-                    containOperators = ArrayUtils.add(containOperators, temp);
                 }
             }
 
             //调用指定通道对应的发送短信策略
-            return sendSmsTemplates[channelEnum.getCode()].sendSms(
+            return sendSmsTemplateMap.get(channelEnum.getKey() + "SendSmsTemplate").sendSms(
                     channelEnum,
                     sendSmsForm.getPhone(),
                     sendSmsForm.getSmsMessage(),
@@ -161,9 +172,9 @@ public class SendSmsServiceImpl implements SendSmsService {
             //标识，该通道是否支持当前手机号数组
             boolean flag = true;
             //遍历该手机号数组包含的所有运营商
-            for (PhoneOperatorEnum operatorEech : containOperators) {
+            for (PhoneOperatorEnum operatorEach : containOperators) {
                 //如果不包含该运营商，则表示该通道不支持该手机号数组
-                if (!ArrayUtils.contains(channelEach.getPhoneOperatorSupport(), operatorEech))
+                if (!ArrayUtils.contains(channelEach.getPhoneOperatorSupport(), operatorEach))
                     flag = false;
             }
             //将校验通过的channel加入可用通道数组
@@ -172,7 +183,7 @@ public class SendSmsServiceImpl implements SendSmsService {
         }
 
         //失败，更换通道重新发送机制
-        return retry(sendSmsForm, smsAndPhoneRelationEnum, containOperators, availableChannel,channelEnum,smsSendRecord.getId());
+        return retry(sendSmsForm, smsAndPhoneRelationEnum, containOperators, availableChannel,smsSendRecord.getId());
     }
 
     /**
@@ -187,7 +198,6 @@ public class SendSmsServiceImpl implements SendSmsService {
     private ResultDTO retry(SendSmsForm sendSmsForm,
                             SmsAndPhoneRelationEnum smsAndPhoneRelationEnum,
                             PhoneOperatorEnum[] containOperators, List<ChannelEnum> availableChannel,
-                            ChannelEnum channelEnum,
                             Long recordId) {
         //每次的phones
         String eachPhones = sendSmsForm.getPhone();
@@ -196,8 +206,10 @@ public class SendSmsServiceImpl implements SendSmsService {
         ResultDTO resultDTO = null;
         //循环所有可用通道
         for (ChannelEnum channelEach : availableChannel) {
+            if(channelEach.equals(ChannelEnum.UNKNOWN))
+                continue;
             //发送短信
-            resultDTO = sendSmsTemplates[channelEach.getCode()]
+            resultDTO = sendSmsTemplateMap.get(channelEach.getKey() + "SendSmsTemplate")
                     .sendSms(
                             channelEach,
                             eachPhones,

@@ -31,9 +31,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 public class SocketConnectBootstrap {
-
-    @Autowired
-    private ZhuWangHandler zhuWangHandler;
+    //每个该类对应一个新的handler,主要为了保存每个socket连接各自的一些属性,方便关闭时清理资源
+    private ZhuWangHandler zhuWangHandler = new ZhuWangHandler();
 
     @Autowired
     private ZhuWangDecoder zhuWangDecoder;
@@ -41,10 +40,6 @@ public class SocketConnectBootstrap {
     @Autowired
     private ZhuWangEncoder zhuWangEncoder;
 
-    //当前重试次数
-    private  Integer RETRY_NUM = 0;
-    //上次修改重试次数的时间
-    private Date modifyRetryNumTime = new Date();
 
     /**
      * 异步启动
@@ -52,7 +47,7 @@ public class SocketConnectBootstrap {
     public  void start() {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             public void run() {
-                start1();
+                start1(1,new Date());
             }
         });
     }
@@ -61,7 +56,7 @@ public class SocketConnectBootstrap {
      * 启动
      * @throws Exception
      */
-    private void start1() {
+    private void start1(int retryNum,Date lastTryTime) {
         try {
             //创建线程组
             EventLoopGroup workLoopGroup = new NioEventLoopGroup();
@@ -128,9 +123,20 @@ public class SocketConnectBootstrap {
         } catch (Exception e){
             log.error("筑望客户端启动失败.error={}",e.getMessage(),e);
         }finally {
-            //重试机制
-            retryStart();
-            start1();
+            //清理资源
+            zhuWangHandler.clean();
+
+            /**
+             * 重试机制:
+             * 该重试机制会一直在retryStart方法和start1方法间循环,
+             * 在未到达重试次数限制,陷入暂停前,不会执行到下面的start1()
+             * 一旦执行了下面这句start1,则表明已经经历了一次重试失败机制,
+             * 再次开始新的连接
+             */
+            retryStart(retryNum,lastTryTime);
+
+            //执行到这里表示已经经历过一次重试x次失败的等待.继续执行该方法即可..重置重试次数为1
+            start1(1,new Date());
         }
 
     }
@@ -138,28 +144,31 @@ public class SocketConnectBootstrap {
     /**
      * 重试机制
      */
-    private  void retryStart(){
+    private  void  retryStart(int retryNum,Date lastTryTime){
+        //如果距离上一次重试的时间,超过x分钟
+        if (new Date().after(DateUtils.addSeconds(lastTryTime, Config.ZHUWANG_RETRY_CONNECT_TIME))) {
+            lastTryTime = new Date();
+            retryNum = 0;
+        }
+
+
         //重试机制,如果重试次数超过限制。暂停x秒后再重试
         try {
-            if(incrementRetryNum() > Config.ZHUWANG_CONNECT_MAX_RETRY_NUMBER){
-                RETRY_NUM = 0;
+            if(retryNum >= Config.ZHUWANG_CONNECT_MAX_RETRY_NUMBER){
+                log.warn("[筑望]socket出错.超过最大重试次数.进入暂停状态.");
                 TimeUnit.SECONDS.sleep(Config.ZHUWANG_RETRY_CONNECT_TIME);
+                log.info("[筑望]socket从暂停状态恢复.");
+                //如果被暂停了.跳出该重试方法
+                return;
             }
         } catch (Exception e) {
-            log.error("筑望客户端尝试重启失败。线程sleep error。error={}",e.getMessage());
+            log.error("筑望客户端尝试重启失败。error={}",e.getMessage());
         }
-    }
 
-    /**
-     * 递增重试次数,
-     * 确认距离上次修改重试次数是否超过一定时间,超过后重置重试次数;
-     * 修改 修改重试次数时间
-     */
-    public Integer incrementRetryNum() {
-        //如果距离上次修改重试次数时间已超过60分钟,重置重试次数
-        if(new Date().after(DateUtils.addSeconds(modifyRetryNumTime,60))){
-            RETRY_NUM = 0;
-        }
-        return ++RETRY_NUM;
+        //否则重启,并递增重试次数
+        lastTryTime = new Date();
+        retryNum++;
+        log.warn("[筑望]socket出错,正在重试.第{}次",retryNum);
+        start1(retryNum,lastTryTime);
     }
 }

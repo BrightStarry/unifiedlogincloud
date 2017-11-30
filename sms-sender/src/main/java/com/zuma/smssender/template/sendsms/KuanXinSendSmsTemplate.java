@@ -15,6 +15,7 @@ import com.zuma.smssender.form.SendSmsForm;
 import com.zuma.smssender.util.CacheUtil;
 import com.zuma.smssender.util.CodeUtil;
 import com.zuma.smssender.util.EnumUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
  * datetime:2017/11/9 0009 17:13
  * 宽信发送短信策略接口
  */
+@Component
 public class KuanXinSendSmsTemplate extends SendSmsTemplate<KuanXinSendSmsRequest, KuanXinSendSmsResponse> {
 
     @Override

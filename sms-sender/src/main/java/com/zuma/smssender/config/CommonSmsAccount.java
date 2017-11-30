@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * author:ZhengXing
  * datetime:2017/11/7 0007 14:24
- * 通用短信api帐号
+ * 短信api帐号
  */
 @Data
 @Builder

@@ -15,10 +15,12 @@ import com.zuma.smssender.util.CacheUtil;
 import com.zuma.smssender.util.EnumUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
+@Component
 public class QunZhengSendSmsTemplate extends SendSmsTemplate<QunZhengSendSmsRequest, QunZhengSendSmsResponse> {
     @Override
     ResultDTO<ErrorData> getResponse(CommonSmsAccount account, String phones, String smsMessae, SendSmsForm sendSmsForm) {

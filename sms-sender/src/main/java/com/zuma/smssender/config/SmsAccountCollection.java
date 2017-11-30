@@ -19,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 帐号集合.使用二维数组来获取对应 通道和运营商 的帐号
  */
 @Data
+@Component
 public class SmsAccountCollection {
     //帐号数组， 根据[通道code][运营商code]
     private CommonSmsAccount[][] accounts = new CommonSmsAccount[4][5];
