@@ -37,7 +37,8 @@ CREATE TABLE sms_send_record(
   paltform_name VARCHAR(16) DEFAULT '' COMMENT '平台名',
   request_body VARCHAR(1024) DEFAULT '' COMMENT '调用者请求对象json字符',
   isSuccess TINYINT DEFAULT 0 COMMENT '是否成功， 0：否（失败），1是（成功）',
-  result_body VARCHAR(1024)DEFAULT '' COMMENT '返回对象json字符',
+  result_body VARCHAR(1024) DEFAULT '' COMMENT '同步返回对象json字符',
+  async_result_body VARCHAR(1024) DEFAULT  '' COMMENT '异步返回对象json字符',
   create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   update_time TIMESTAMP NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
   PRIMARY KEY (id)

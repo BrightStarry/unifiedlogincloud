@@ -38,7 +38,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
      */
     public ResultDTO<ErrorData> getResponse(CommonSmsAccount account,
                                              String phones, String smsMessae,
-                                             SendSmsForm sendSmsForm) {
+                                             SendSmsForm sendSmsForm,Long recordId) {
         //转为 请求对象
         ZhangYouSendSmsRequest request = toRequestObject(account, phones, smsMessae);
         ZhangYouSendSmsResponse response = null;
@@ -65,6 +65,7 @@ public class ZhangYouSendSmsTemplate extends SendSmsTemplate<ZhangYouSendSmsRequ
                 .timestamp(sendSmsForm.getTimestamp())//时间戳
                 .phones(phones)//手机号
                 .smsMessage(smsMessae)//短信消息
+                .recordId(recordId)//该次发送记录数据库id
                 .build();
         //存入缓存,key使用 掌游前缀 + 流水号
         CacheUtil.put(Config.ZHANGYOU_PRE + cacheDTO.getId(),cacheDTO);

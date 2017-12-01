@@ -3,6 +3,7 @@ package com.zuma.smssender.socket;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -25,7 +26,7 @@ public class ZhuWangEncoder  extends MessageToByteEncoder<ToByteArray> {
     protected void encode(ChannelHandlerContext channelHandlerContext, ToByteArray data,ByteBuf byteBuf) throws Exception {
         //使用toByteArray方法将其转为字节数组,并加入输出集合中
         try {
-            byteBuf.writeBytes(data.toByteArray());
+            byteBuf.writeBytes(Unpooled.copiedBuffer(data.toByteArray()));
         } catch (Exception e) {
             log.error("[消息编码器]消息编码异常.data:{}",data);
             throw new SmsSenderException(ErrorEnum.ENCODE_ERROR);

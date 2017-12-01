@@ -150,8 +150,8 @@ public class ZhuWangSender {
             //获取信号量
             socketPair.getSemaphore().acquire();
             Channel channel = socketPair.getChannel();
-
-            channel.writeAndFlush(data.toByteArray());
+            ByteBuf byteBuf = Unpooled.copiedBuffer(data.toByteArray());
+            channel.writeAndFlush(byteBuf);
         } catch (Exception e) {
             //重试
             log.error("【筑望】发送数据失败.重试次数={},error={}",retryNum,e.getMessage());

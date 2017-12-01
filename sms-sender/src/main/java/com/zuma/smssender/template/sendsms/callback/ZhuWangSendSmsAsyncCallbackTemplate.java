@@ -10,6 +10,7 @@ import com.zuma.smssender.enums.ResultDTOTypeEnum;
 import com.zuma.smssender.enums.error.ZhuWangDeliverStatEnum;
 import com.zuma.smssender.enums.error.ZhuWangSubmitErrorEnum;
 import com.zuma.smssender.util.EnumUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,9 +18,11 @@ import org.springframework.stereotype.Component;
  * datetime:2017/11/27 0027 13:56
  */
 @Component
+@Slf4j
 public class ZhuWangSendSmsAsyncCallbackTemplate extends SendSmsCallbackTemplate<ZhuWangDeliverAPI.Request>  {
     @Override
     String getKey(ZhuWangDeliverAPI.Request response) {
+        log.info("[筑望][短信下发异步回调]尝试取出缓存,key:{}", Config.ZHUWANG_PRE + String.valueOf(response.getMsgContent().getMsgId()));
         return Config.ZHUWANG_PRE + String.valueOf(response.getMsgContent().getMsgId());
     }
 

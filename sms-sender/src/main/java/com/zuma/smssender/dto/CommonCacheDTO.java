@@ -16,4 +16,5 @@ public class CommonCacheDTO {
     private Long timestamp;//时间戳-sendSmsForm中平台发过来的-方便平台区分
     private String phones;//该次调用的手机号
     private String smsMessage;//该次调用的短信消息
+    private Long recordId;//该次短信发送记录id
 }

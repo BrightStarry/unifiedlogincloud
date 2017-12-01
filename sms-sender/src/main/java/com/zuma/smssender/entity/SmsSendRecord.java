@@ -53,9 +53,15 @@ public class SmsSendRecord {
 
 
     /**
-     * 返回对象json
+     * 同步返回对象json
      */
     private String resultBody;
+
+    /**
+     * 异步返回对象json
+     */
+    private String asyncResultBody;
+
     /**
      * 创建时间
      */

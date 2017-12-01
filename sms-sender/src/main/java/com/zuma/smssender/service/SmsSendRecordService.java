@@ -15,6 +15,9 @@ public interface SmsSendRecordService {
     //修改记录状态
     void updateStatus(Long id, BooleanStatusEnum flag, String resultBody);
 
+    //增加修改记录状态异步
+    void updateStatusOfAsync(Long id, BooleanStatusEnum flag, String asyncResultBody);
+
     //根据id查询
     SmsSendRecord findOne(Long id);
 }

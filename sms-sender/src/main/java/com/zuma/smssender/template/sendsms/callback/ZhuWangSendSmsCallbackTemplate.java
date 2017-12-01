@@ -36,19 +36,22 @@ public class ZhuWangSendSmsCallbackTemplate extends SendSmsCallbackTemplate<ZhuW
     @Override
     public boolean callbackHandle(ZhuWangSubmitAPI.Response response) {
         String key = getKey(response);
+        log.info("[筑望][短信下发同步回调]从缓存中取出数据,key:{}",key);
         CommonCacheDTO cacheDTO = getCache(key);
         ResultDTO<ErrorData> resultDTO = getResultDTO(cacheDTO, response);
         //如果成功
         if(ResultDTO.isSuccess(resultDTO)){
-            CommonCacheDTO.builder()
+            CommonCacheDTO newCacheDTO = CommonCacheDTO.builder()
                     .id(String.valueOf(response.getMsgId()))//流水号
                     .platformId(cacheDTO.getPlatformId())//平台id
                     .timestamp(cacheDTO.getTimestamp())//时间戳
                     .phones(cacheDTO.getPhones())//手机号
                     .smsMessage(cacheDTO.getSmsMessage())//短信消息
+                    .recordId(cacheDTO.getRecordId())//该次发送记录数据库id
                     .build();
             //存入缓存,key使用 掌游前缀 + 流水号
-            CacheUtil.put(Config.ZHUWANG_PRE + cacheDTO.getId(),cacheDTO);
+            CacheUtil.put(Config.ZHUWANG_PRE + newCacheDTO.getId(),newCacheDTO);
+            log.info("[筑望][发送短信]同步回调信息存入缓存.key:{}",Config.ZHUWANG_PRE + newCacheDTO.getId());
         }else{
             //失败
             sendCallback(resultDTO,cacheDTO.getPlatformId(),0);
@@ -83,7 +86,7 @@ public class ZhuWangSendSmsCallbackTemplate extends SendSmsCallbackTemplate<ZhuW
     @Override
     ResultDTO<ErrorData> getResultDTO(CommonCacheDTO cacheDTO, ZhuWangSubmitAPI.Response response) {
         //如果成功
-        if(ZhuWangSubmitErrorEnum.SUCCESS.getCode().equals(response.getResult())){
+        if(ZhuWangSubmitErrorEnum.SUCCESS.getCode().equals((int)response.getResult())){
             return ResultDTO.success(new ErrorData()).setType(ResultDTOTypeEnum.SEND_SMS_CALLBACK_SYNC.getCode());
         }
         //失败

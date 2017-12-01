@@ -96,9 +96,9 @@ public class SocketConnectBootstrap {
                                      */
                                     .addLast("logMessage decoder", zhuWangDecoder)
                                     /**
-                                     * 消息编码器，将发送的消息进行转换
+                                     * 消息编码器，将发送的消息进行转换,使用编码器后会有问题..
                                      */
-                                    .addLast("logMessage encoder",zhuWangEncoder )
+//                                    .addLast("logMessage encoder",zhuWangEncoder )
                                     /**
                                      * 长度编码器，防止粘包拆包
                                      * 第一个参数为 长度字段长度

@@ -38,7 +38,7 @@ public class ZhuWangSendSmsTemplate extends SendSmsTemplate<ZhuWangSubmitAPI.Req
      * 筑望平台获取响应方法,因为没有同步回调,所以,全部显示为成功
      */
     @Override
-    ResultDTO<ErrorData> getResponse(CommonSmsAccount account, String phones, String smsMessage, SendSmsForm sendSmsForm) {
+    ResultDTO<ErrorData> getResponse(CommonSmsAccount account, String phones, String smsMessage, SendSmsForm sendSmsForm,Long recordId) {
         Integer sequenceId;
         try {
             sequenceId = zhuWangSender.sendSms(smsMessage,phones);
@@ -53,9 +53,11 @@ public class ZhuWangSendSmsTemplate extends SendSmsTemplate<ZhuWangSubmitAPI.Req
                 .timestamp(sendSmsForm.getTimestamp())//时间戳
                 .phones(phones)//手机号
                 .smsMessage(smsMessage)//短信消息
+                .recordId(recordId)//该次发送记录数据库id
                 .build();
         //存入缓存,key使用 筑望前缀 + 流水号
         CacheUtil.put(Config.ZHUWANG_PRE + cacheDTO.getId(),cacheDTO);
+        log.info("[筑望][发送短信]发送信息存入缓存.key:{}",Config.ZHUWANG_PRE + cacheDTO.getId());
 
         //筑望所有同步回调,都为成功
         return ResultDTO.success();

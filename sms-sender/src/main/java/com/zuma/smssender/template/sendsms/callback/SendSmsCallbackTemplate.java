@@ -4,9 +4,11 @@ import com.zuma.smssender.dto.CommonCacheDTO;
 import com.zuma.smssender.dto.ErrorData;
 import com.zuma.smssender.dto.ResultDTO;
 import com.zuma.smssender.entity.Platform;
+import com.zuma.smssender.enums.BooleanStatusEnum;
 import com.zuma.smssender.enums.error.ErrorEnum;
 import com.zuma.smssender.exception.SmsSenderException;
 import com.zuma.smssender.service.PlatformService;
+import com.zuma.smssender.service.SmsSendRecordService;
 import com.zuma.smssender.util.CacheUtil;
 import com.zuma.smssender.util.HttpClientUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +27,11 @@ public abstract class SendSmsCallbackTemplate<T> {
     
 
     private static PlatformService platformService;
+    private static SmsSendRecordService smsSendRecordService;
     @Autowired
-    public  void setPlatformService(PlatformService platformService) {
+    public  void setup(PlatformService platformService, SmsSendRecordService smsSendRecordService) {
         SendSmsCallbackTemplate.platformService = platformService;
+        SendSmsCallbackTemplate.smsSendRecordService = smsSendRecordService;
     }
 
     private HttpClientUtil httpClientUtil = HttpClientUtil.getInstance();
@@ -43,11 +47,23 @@ public abstract class SendSmsCallbackTemplate<T> {
         String key = getKey(response);
         //获取到缓存中的数据
         CommonCacheDTO cacheDTO = getCache(key);
+        //保存异步回调对象信息到数据库
+        saveResponse(cacheDTO.getRecordId(), response);
+
         //根据数据拼接出 返回对象
         ResultDTO<ErrorData> resultDTO = getResultDTO(cacheDTO, response);
         //发送返回对象给调用者
         sendCallback(resultDTO,cacheDTO.getPlatformId(),0);
         return true;
+    }
+
+    /**
+     * 保存异步回调对象到数据库
+     * @param recordId 数据库记录id
+     * @param response 异步响应对象
+     */
+    void saveResponse(Long recordId,T response) {
+        smsSendRecordService.updateStatusOfAsync(recordId, BooleanStatusEnum.TRUE,response.toString());
     }
 
 

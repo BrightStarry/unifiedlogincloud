@@ -40,4 +40,12 @@ public class SmsSendRecordServiceImpl implements SmsSendRecordService {
                 .setResultBody(resultBody);
         save(record);
     }
+
+    @Override
+    public void updateStatusOfAsync(Long id, BooleanStatusEnum flag, String asyncResultBody) {
+        SmsSendRecord record = findOne(id);
+        record.setIsSuccess(flag.getCode())
+                .setAsyncResultBody(asyncResultBody);
+        save(record);
+    }
 }
