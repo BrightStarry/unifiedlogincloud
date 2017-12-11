@@ -9,6 +9,12 @@ public class Config {
     //单次最多发送手机号数
     public static final Integer MAX_PHONE_NUM = 30;
 
+
+    //畅想
+    //畅想流水号处理前缀
+    public static final String CHANGXIANG_PRE = "changxiang";
+
+
     //筑望
     //前缀
     public static final String ZHUWANG_PRE = "zhuwang";
@@ -75,6 +81,8 @@ public class Config {
     public static final String KUANXIN_SEND_SMS_URL = KUANXIN_URL_PRE + "/sms/send";
     //群正发送短信接口url
     public static final String QUNZHENG_SEND_SMS_URL = QUNZHENG_URL_PRE + "";
+    //畅想发送短信接口url
+    public static final String CHANGXIANG_SEND_SMS_URL = "http://api.cxton.com:8080/eums/utf8/send_strong.do";
 
     //分隔符
     //手机号数组分隔符

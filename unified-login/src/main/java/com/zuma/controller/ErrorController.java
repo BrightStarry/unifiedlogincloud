@@ -24,9 +24,6 @@ public class ErrorController {
 
     /**
      * ajax请求异常返回
-     *
-     * @param request
-     * @return
      */
     @ResponseBody
     @RequestMapping(value = "/")

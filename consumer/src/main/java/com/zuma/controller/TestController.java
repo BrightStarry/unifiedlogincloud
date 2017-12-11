@@ -1,7 +1,5 @@
 package com.zuma.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zuma.dto.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -10,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * author:ZhengXing

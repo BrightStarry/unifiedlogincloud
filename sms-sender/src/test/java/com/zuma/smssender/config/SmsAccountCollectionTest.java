@@ -21,17 +21,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @Slf4j
 public class SmsAccountCollectionTest {
-    @Autowired
-    private SmsAccountCollection smsAccountCollection;
-    @Autowired
-    private CommonSmsAccount commonSmsAccount;
-    @Test
-    public void test1() {
-        log.info("aaaa,{}",commonSmsAccount);
-//        Assert.assertNotEquals(0,smsAccountCollection.getAccountList().size());
-//        for (Map<String,String> map :smsAccountCollection.getAccountList()){
-//            for(Map.Entry<String,String> entry : map.entrySet())
-//            log.info("temp,key:{},value:{}",entry.getKey(),entry.getValue());
-//        }
-    }
+
+
+
 }

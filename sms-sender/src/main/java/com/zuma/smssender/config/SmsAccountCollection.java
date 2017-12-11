@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 public class SmsAccountCollection {
     //帐号数组， 根据[通道code][运营商code]
-    private CommonSmsAccount[][] accounts = new CommonSmsAccount[4][5];
+    private CommonSmsAccount[][] accounts = new CommonSmsAccount[5][5];
 
     private SmsAccountCollection() {
         accounts
@@ -87,6 +87,16 @@ public class SmsAccountCollection {
 //                .bKey("387843")//企业帐号
 //                .cKey("zuma#387843")//企业密码
 //                .build();
+
+        //畅想
+        accounts
+                [ChannelEnum.CHANG_XIANG.getCode()]
+                [PhoneOperatorEnum.YIDONG.getCode()] = CommonSmsAccount.builder()
+                .channel(String.valueOf(ChannelEnum.CHANG_XIANG.getCode()))
+                .type(PhoneOperatorEnum.YIDONG.getCode())
+                .aKey("zmkj")//帐号
+                .bKey("zmkj")//密码
+                .build();
 
     }
 

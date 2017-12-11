@@ -14,6 +14,8 @@ public enum ChannelEnum implements CodeEnum<Integer> {
     KUAN_XIN(1,"宽信",1,"kuanXin",new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG,PhoneOperatorEnum.LIANTONG,PhoneOperatorEnum.DIANXIN}),
     QUN_ZHENG(2,"群正",3,"qunZheng",new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG}),
     ZHU_WANG(3,"筑望",4,"zhuWang",new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG}),
+    CHANG_XIANG(4, "畅想", 5, "changXiang", new PhoneOperatorEnum[]{PhoneOperatorEnum.YIDONG}),
+
     ;
     private Integer code;
     private String message;
