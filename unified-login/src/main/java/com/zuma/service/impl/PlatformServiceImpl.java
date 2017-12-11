@@ -21,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -124,6 +125,8 @@ public class PlatformServiceImpl implements PlatformService {
         BeanUtils.copyProperties(platformForm, platform);
         //设置令牌
         platform.setToken(TokenUtil.generate());
+        //设置创建时间
+        platform.setCreateTime(new Date());
         //保存
         platformRepository.save(platform);
         return true;

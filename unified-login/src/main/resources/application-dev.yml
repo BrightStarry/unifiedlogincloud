@@ -23,14 +23,14 @@ spring:
     expose-session-attributes: true
     suffix: .html #指定文件后缀
     template-loader-path: classpath:/templates/ #默认
-eureka:
-  client:
-    service-url:
-      defaultZone: http://server1:1111/eureka/,http://server2:1112/eureka/,http://server3:1113/eureka/
-  instance:
-    hostname: localhost
-    lease-expiration-duration-in-seconds: 90
-    lease-renewal-interval-in-seconds: 30
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://server1:1111/eureka/,http://server2:1112/eureka/,http://server3:1113/eureka/
+#  instance:
+#    hostname: localhost
+#    lease-expiration-duration-in-seconds: 90
+#    lease-renewal-interval-in-seconds: 30
 #自定义配置
 account:
   username: zuma

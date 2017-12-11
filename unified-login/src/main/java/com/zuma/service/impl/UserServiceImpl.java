@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -270,6 +271,8 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         //复制属性
         BeanUtils.copyProperties(userForm, user);
+        //设置创建时间
+        user.setCreateTime(new Date());
         //增加
         user = userRepository.save(user);
 

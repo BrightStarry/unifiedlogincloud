@@ -2,11 +2,12 @@
 <Configuration>
 
     <!--将日志输出到滚动台配置-->
-    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender" >
+        <layout class="ch.qos.logback.classic.PatternLayout" >
             <pattern>
                 %d - %-5level - %msg%n
             </pattern>
+
         </layout>
 
     </appender>
@@ -52,7 +53,7 @@
     </appender>
 
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="consoleLog"/>
         <appender-ref ref="fileInfoLog"/>
         <appender-ref ref="fileErrorLog"/>

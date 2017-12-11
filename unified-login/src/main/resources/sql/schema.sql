@@ -4,7 +4,7 @@ CREATE TABLE platform(
   name VARCHAR(16) NOT NULL COMMENT '平台名字',
   token VARCHAR(128) DEFAULT '' COMMENT '令牌',
   status TINYINT DEFAULT 1 COMMENT '状态： 0：停止授权；1：启用授权',
-  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  create_time TIMESTAMP NOT NULL DEFAULT 0 COMMENT '创建时间',
   update_time TIMESTAMP NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
 
   PRIMARY KEY(id),
@@ -18,7 +18,7 @@ CREATE TABLE user(
   username VARCHAR(32) NOT NULL COMMENT '用户名',
   password VARCHAR(32) NOT NULL COMMENT '用户密码',
   status TINYINT DEFAULT 1 COMMENT '状态： 0：停用；1：启用',
-  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  create_time TIMESTAMP NOT NULL DEFAULT 0 COMMENT '创建时间',
   update_time TIMESTAMP NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
 
   PRIMARY KEY(id),
@@ -32,7 +32,7 @@ CREATE TABLE user_platform_relation(
   username VARCHAR(16) NOT NULL COMMENT '用户名',
   platform_id BIGINT NOT NULL COMMENT '平台id',
   platform_name VARCHAR(16) NOT NULL COMMENT '平台名',
-  create_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  create_time TIMESTAMP NOT NULL DEFAULT 0 COMMENT '创建时间',
   update_time TIMESTAMP NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT '修改时间',
 
   PRIMARY KEY(id),
