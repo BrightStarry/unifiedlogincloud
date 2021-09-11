@@ -37,7 +37,7 @@ public class SmsSenderApplicationTests {
 		String url = "http://127.0.0.1:8080/sendsms";
 
 		Integer channel = null;
-		String phone = "17826824998,17826824998,17826824998";
+		String phone = "xxxxxx,xxxxxx,xxxxxx";
 		String smsMessage = "测试1!&测试2!&测试3";
 		Long platformId = 1000L;
 		long timestamp = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class SmsSenderApplicationTests {
 	}
 
 	public static void main(String[] args) {
-		String s = CodeUtil.stringToMd5("a" + "17681958416,17681958416,17681958416" + "111111");
+		String s = CodeUtil.stringToMd5("a" + "xxxxxx,xxxxxx,xxxxxx" + "111111");
 		System.out.println(s);
 
 //		byte[] bytes = CodeUtil.intToByte4(-2147483648);
